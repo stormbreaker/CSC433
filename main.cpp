@@ -1,7 +1,8 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath>
-#include <GLUT/glut.h>
+//#include <GLUT/glut.h> //MacOS include?
+#include <GL/glut.h> //LinuxOS include
 
 using namespace std;
 
