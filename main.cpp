@@ -1,10 +1,10 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath>
-#ifdef __GNUC__
-	#define LINUX
-#else
+#ifdef __APPLE__
 	#define MACOS
+#elif __linux__
+	#define LINUX
 #endif
 
 #ifdef MACOS
