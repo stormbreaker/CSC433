@@ -1,16 +1,12 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath>
-#ifdef __APPLE__
-	#define MACOS
-#elif __linux__
-	#define LINUX
-#endif
+#include "Tank.h"
 
-#ifdef MACOS
-	#include <GLUT/glut.h> //MacOS include?
-#else
-	#include <GL/glut.h> //LinuxOS include
+#ifdef __APPLE__
+	#include <GLUT/glut.h> // MacOS include
+#elif __linux__
+	#include <GL/glut.h> // LinuxOS include
 #endif
 
 using namespace std;
@@ -23,6 +19,9 @@ void display( void );
 
 int main(int argc, char *argv[])
 {
+    Tank leftTank;
+    Tank rightTank;
+
     glutInit(&argc, argv);                // initialize GLUT
     glutCreateWindow("Tank Wars");		  // open window and specify title
     glutDisplayFunc(display);			  // display callback: how to redisplay window
