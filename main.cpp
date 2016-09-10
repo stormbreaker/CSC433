@@ -24,7 +24,7 @@ void display( void );
 int main(int argc, char *argv[])
 {
     glutInit(&argc, argv);                // initialize GLUT
-    glutCreateWindow("Tank Wards");		  // open window and specify title
+    glutCreateWindow("Tank Wars");		  // open window and specify title
     glutDisplayFunc(display);			  // display callback: how to redisplay window
     glutReshapeWindow(ScreenWidth, ScreenHeight);
 

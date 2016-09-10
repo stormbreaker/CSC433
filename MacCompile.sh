@@ -1,1 +1,1 @@
-g++ -std=c++14 -o main main.cpp -framework OpenGL -framework GLUT
+g++ -std=c++14 main.cpp -o TankWars -framework OpenGL -framework GLUT
