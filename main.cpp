@@ -113,11 +113,9 @@ void MoveTank(int direction, Tank tank)
     if (direction == GLUT_KEY_RIGHT)
     {
         tank.coords[X_COORD] += 1;
-        tank.coords[Y_COORD] += 1;
     }
     else if (direction == GLUT_KEY_LEFT)
     {
         tank.coords[X_COORD] -= 1;
-        tank.coords[Y_COORD] -= 1;
     }
 }
