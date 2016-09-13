@@ -7,7 +7,7 @@ Tank::Tank()
 
 void Tank::SetTankCoords(int xValue, int yValue, bool rightTurtle)
 {
-    coordinate coord;
+    Coordinate coord;
 
     CenterCoords[0] = xValue;
     CenterCoords[1] = yValue;

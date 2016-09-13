@@ -15,7 +15,7 @@ class Tank
         void SetTankCoords(int xOffset, int yOffset, bool rightTurtle);
 
         double CenterCoords[2];
-        vector<coordinate> DrawCoords;
+        vector<Coordinate> DrawCoords;
 };
 
 #endif

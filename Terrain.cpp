@@ -38,7 +38,7 @@ void Terrain::generateTerrain(int midPointSplitCount)
         double temporaryPoint[2];
         temporaryPoint[X_COORD] = xMidPoint;
         temporaryPoint[Y_COORD] = yMidPoint;
-        terrainData.insert(it, temporaryPoint);
+        // terrainData.insert(it, temporaryPoint);
     }
     generateTerrain(midPointSplitCount - 1);
     cout << "recursed" << endl;
