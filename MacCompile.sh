@@ -5,6 +5,6 @@ g++ -std=c++14 -c Tank.cpp -w
 g++ -std=c++14 -c Terrain.cpp -w
 g++ -std=c++14 TankWars.o Tank.o Terrain.o -o TankWars -framework OpenGL -framework GLUT
 
-rm *.0
+rm *.o
 
 ./TankWars
