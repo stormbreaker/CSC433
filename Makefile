@@ -53,4 +53,4 @@ myprog:	file1.o file2.o file3.o
 
 # utility targets
 clean:
-	rm -f *.o *~ core
+	rm -f *.o *~ *.gch core
