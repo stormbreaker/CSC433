@@ -9,6 +9,8 @@ class Tank
 {
     public:
         Tank();
+
+        float coords[2];
 };
 
 #endif
