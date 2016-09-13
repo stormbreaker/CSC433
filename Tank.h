@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include "Common.cpp"
 
 using namespace std;
 
@@ -10,7 +12,10 @@ class Tank
     public:
         Tank();
 
-        float coords[2];
+        void SetTankCoords(int xOffset, int yOffset, bool rightTurtle);
+
+        double CenterCoords[2];
+        vector<coordinate> DrawCoords;
 };
 
 #endif
