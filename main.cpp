@@ -14,20 +14,19 @@ using namespace std;
 
 int ScreenWidth  = 500;
 int ScreenHeight = 500;
-Tank _CurrentTank;
+Tank CurrentTank;
+Tank RightTank;
+Tank LeftTank;
 
 void display( void );
 void keyboard(unsigned char key, int x, int y);
 void specialKeyboard(int key, int x, int y);
 
-void MoveTank(int direction, Tank tank);
+void MoveTank(int direction);
 
 int main(int argc, char *argv[])
 {
-    Tank leftTank;
-    Tank rightTank;
-
-    _CurrentTank = leftTank;
+    CurrentTank = LeftTank;
 
     glutInit(&argc, argv);                // initialize GLUT
     glutCreateWindow("Tank Wars");		  // open window and specify title
@@ -43,10 +42,6 @@ int main(int argc, char *argv[])
 
 void display( void )
 {
-    int x = 0;
-    int y = 0;
-    int points[100][2];
-
     glClear(GL_COLOR_BUFFER_BIT);
     gluOrtho2D( 0, 100, 0, 100 );
 
@@ -85,12 +80,12 @@ void specialKeyboard(int key, int x, int y)
         case GLUT_KEY_RIGHT:
             // Move tank right
             cout << "Right" << endl;
-            MoveTank(GLUT_KEY_RIGHT, _CurrentTank);
+            MoveTank(GLUT_KEY_RIGHT);
             break;
         case GLUT_KEY_LEFT:
             // Move tank right
             cout << "Left" << endl;
-            MoveTank(GLUT_KEY_LEFT, _CurrentTank);
+            MoveTank(GLUT_KEY_LEFT);
             break;
         case GLUT_KEY_UP:
             // Move tank right
@@ -108,14 +103,14 @@ void specialKeyboard(int key, int x, int y)
     }
 }
 
-void MoveTank(int direction, Tank tank)
+void MoveTank(int direction)
 {
     if (direction == GLUT_KEY_RIGHT)
     {
-        tank.coords[X_COORD] += 1;
+        CurrentTank.coords[X_COORD] += 1;
     }
     else if (direction == GLUT_KEY_LEFT)
     {
-        tank.coords[X_COORD] -= 1;
+        CurrentTank.coords[X_COORD] -= 1;
     }
 }
