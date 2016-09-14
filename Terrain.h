@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <list>
 #include "Common.cpp"
 
 using namespace std;
@@ -11,11 +12,11 @@ class Terrain
     public:
         Terrain();
         void generateTerrain(int midPointSplitCount);
-        vector<Coordinate> getTerrainData();
+        list<Coordinate> getTerrainData();
         void initializeTerrain();
 
     private:
-        vector<Coordinate> terrainData;
+        list<Coordinate> terrainData;
 };
 
 #endif

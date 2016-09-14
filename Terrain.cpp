@@ -3,22 +3,47 @@
 
 Terrain::Terrain()
 {
+    srand((double) clock());
     initializeTerrain();
-    generateTerrain(5);
+    generateTerrain(4);
 }
 
 void Terrain::initializeTerrain()
 {
-    srand((int)clock());
 
 
-    for (int index = 0; index <= MAX_X; index += 10)
-    {
-        Coordinate initializationCoordinate;
-        initializationCoordinate.coordinates[0] = index;
-        initializationCoordinate.coordinates[1] = rand() % 100; //should be a random height
-        terrainData.push_back(initializationCoordinate);
-    }
+    Coordinate initializationCoordinate;
+    initializationCoordinate.coordinates[X_COORD] = 0;
+    initializationCoordinate.coordinates[Y_COORD] = 10;
+
+    terrainData.push_back(initializationCoordinate);
+
+    initializationCoordinate.coordinates[X_COORD] = 175;
+    initializationCoordinate.coordinates[Y_COORD] = 10;
+    terrainData.push_back(initializationCoordinate);
+
+    initializationCoordinate.coordinates[X_COORD] = 250;
+    initializationCoordinate.coordinates[Y_COORD] = 150;
+
+    terrainData.push_back(initializationCoordinate);
+
+    initializationCoordinate.coordinates[X_COORD] = 325;
+    initializationCoordinate.coordinates[Y_COORD] = 10;
+
+    terrainData.push_back(initializationCoordinate);
+
+    initializationCoordinate.coordinates[X_COORD] = 500;
+    initializationCoordinate.coordinates[Y_COORD] = 10;
+
+    terrainData.push_back(initializationCoordinate);
+
+    // for (int index = 0; index <= MAX_X; index += 10)
+    // {
+    //     Coordinate initializationCoordinate;
+    //     initializationCoordinate.coordinates[X_COORD] = index;
+    //     initializationCoordinate.coordinates[Y_COORD] = (50 + rand() % (75 - 50 + 1)); //should be a random height
+    //     terrainData.push_back(initializationCoordinate);
+    // }
 }
 
 void Terrain::generateTerrain(int midPointSplitCount)
@@ -28,23 +53,33 @@ void Terrain::generateTerrain(int midPointSplitCount)
     {
         return;
     }
-    vector<Coordinate>::iterator it = terrainData.begin();
-    for (int index = 1; index < terrainData.size(); index++)
+
+    for (list<Coordinate>::iterator it = terrainData.begin(); it != terrainData.end(); it++)
     {
-        it++;
-        double yChange = rand() % 21 + (-10);
-        double yMidPoint = terrainData[index].coordinates[Y_COORD] - terrainData[index - 1].coordinates[Y_COORD];
-        double xMidPoint = terrainData[index].coordinates[X_COORD] - terrainData[index - 1].coordinates[X_COORD];
-        double temporaryPoint[2];
-        temporaryPoint[X_COORD] = xMidPoint;
-        temporaryPoint[Y_COORD] = yMidPoint;
-        // terrainData.insert(it, temporaryPoint);
+        cout << it->coordinates[X_COORD] << " " << it->coordinates[Y_COORD] << endl;
     }
+
+    list<Coordinate>::iterator iterator = terrainData.begin();
+    iterator = next(iterator, 1);
+    for (iterator; iterator != terrainData.end(); ++iterator)//terrainData.size(); index++)
+    {
+        // cout << iterator->coordinates[X_COORD] << endl;
+        list<Coordinate>::iterator temporaryIterator = iterator;
+        double yChange = rand() % 21 + (-10);
+        double yMidPoint = ((iterator->coordinates[Y_COORD] + next(iterator, -1)->coordinates[Y_COORD])/2) + (rand() % 41 + (-20));
+        double xMidPoint = (iterator->coordinates[X_COORD] + next(iterator, -1)->coordinates[X_COORD])/2;
+        Coordinate temporaryPoint;
+        temporaryPoint.coordinates[X_COORD] = xMidPoint;
+        temporaryPoint.coordinates[Y_COORD] = yMidPoint;
+        // cout << "IT " << iterator->coordinates[X_COORD] << endl;
+        terrainData.insert(temporaryIterator, temporaryPoint);
+    }
+
     generateTerrain(midPointSplitCount - 1);
     cout << "recursed" << endl;
 }
 
-vector<Coordinate> Terrain::getTerrainData()
+list<Coordinate> Terrain::getTerrainData()
 {
     return terrainData;
 }

@@ -1,8 +1,10 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath>
-#include "Constants.cpp"
+#include <cstdlib>
+#include "Common.cpp"
 #include "Tank.h"
+#include "Terrain.h"
 
 #ifdef __APPLE__
 	#include <GLUT/glut.h> // MacOS include
@@ -12,15 +14,18 @@
 
 using namespace std;
 
-int ScreenWidth  = 500;
-int ScreenHeight = 500;
+
 Tank CurrentTank;
 Tank RightTank;
 Tank LeftTank;
 
+
+Terrain testTerrain;
+
 void display( void );
 void keyboard(unsigned char key, int x, int y);
 void specialKeyboard(int key, int x, int y);
+void reshape(int width, int height);
 
 void MoveTank(int direction);
 
@@ -31,6 +36,7 @@ int main(int argc, char *argv[])
     glutInit(&argc, argv);                // initialize GLUT
     glutCreateWindow("Tank Wars");		  // open window and specify title
     glutDisplayFunc(display);			  // display callback: how to redisplay window
+	glutReshapeFunc( reshape );
     glutKeyboardFunc(keyboard);
     glutSpecialFunc(specialKeyboard);
     glutReshapeWindow(ScreenWidth, ScreenHeight);
@@ -43,12 +49,23 @@ int main(int argc, char *argv[])
 void display( void )
 {
     glClear(GL_COLOR_BUFFER_BIT);
-    gluOrtho2D( 0, 100, 0, 100 );
+    gluOrtho2D( 0, MAX_X, 0, MAX_Y );
 
     // Put drawing window here
     // I have set the 2D coords to 100 by 100 but we can change this and will want to
 
+	glBegin(GL_LINE_STRIP);
+		for (Coordinate point : testTerrain.getTerrainData())
+		{
+			glVertex2dv(point.coordinates);
+			// cout << point.coordinates[0] << " " << point.coordinates[1] << endl;
+		}
+	glEnd();
+
+	cout << "drew" << endl;
+
     glFlush();
+	glLoadIdentity();
 }
 
 void keyboard(unsigned char key, int x, int y)
@@ -80,12 +97,12 @@ void specialKeyboard(int key, int x, int y)
         case GLUT_KEY_RIGHT:
             // Move tank right
             cout << "Right" << endl;
-            MoveTank(GLUT_KEY_RIGHT);
+            // MoveTank(GLUT_KEY_RIGHT);
             break;
         case GLUT_KEY_LEFT:
             // Move tank right
             cout << "Left" << endl;
-            MoveTank(GLUT_KEY_LEFT);
+            // MoveTank(GLUT_KEY_LEFT);
             break;
         case GLUT_KEY_UP:
             // Move tank right
@@ -103,14 +120,20 @@ void specialKeyboard(int key, int x, int y)
     }
 }
 
-void MoveTank(int direction)
+void reshape(int width, int height)
 {
-    if (direction == GLUT_KEY_RIGHT)
-    {
-        CurrentTank.coords[X_COORD] += 1;
-    }
-    else if (direction == GLUT_KEY_LEFT)
-    {
-        CurrentTank.coords[X_COORD] -= 1;
-    }
+	glLoadIdentity();
+	glViewport(0, 0, width, height);
 }
+
+// void MoveTank(int direction)
+// {
+//     if (direction == GLUT_KEY_RIGHT)
+//     {
+//         CurrentTank.coords[X_COORD] += 1;
+//     }
+//     else if (direction == GLUT_KEY_LEFT)
+//     {
+//         CurrentTank.coords[X_COORD] -= 1;
+//     }
+// }

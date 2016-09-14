@@ -12,10 +12,10 @@ const int SPACE_KEY = 32;
 const int X_COORD = 0;
 const int Y_COORD = 1;
 
-const int ScreenWidth  = 500;
-const int ScreenHeight = 500;
+static int ScreenWidth  = 500;
+static int ScreenHeight = 500;
 
-const int MAX_X = 100;
-const int MAX_Y = 100;
+static int MAX_X = 500;
+static int MAX_Y = 500;
 
 #endif
