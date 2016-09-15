@@ -36,7 +36,7 @@ GL_LIBS = -lglut -lGLU -lGL -lm
 all:    TankWars
 
 # specific targets
-TankWars:	main.o 
+TankWars:	TankWars.o Terrain.o Tank.o Common.o 
 	$(LINK) -o $@ $^ $(GL_LIBS)
 
 # typical target entry, builds "myprog" from file1.cpp, file2.cpp, file3.cpp
