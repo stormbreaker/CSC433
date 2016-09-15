@@ -14,21 +14,21 @@ void Terrain::initializeTerrain()
 
     Coordinate initializationCoordinate;
     initializationCoordinate.coordinates[X_COORD] = 0;
-    initializationCoordinate.coordinates[Y_COORD] = 10;
+    initializationCoordinate.coordinates[Y_COORD] = 25;
 
     terrainData.push_back(initializationCoordinate);
 
     initializationCoordinate.coordinates[X_COORD] = 175;
-    initializationCoordinate.coordinates[Y_COORD] = 10;
+    initializationCoordinate.coordinates[Y_COORD] = 25;
     terrainData.push_back(initializationCoordinate);
 
     initializationCoordinate.coordinates[X_COORD] = 250;
-    initializationCoordinate.coordinates[Y_COORD] = 150;
+    initializationCoordinate.coordinates[Y_COORD] = 175;
 
     terrainData.push_back(initializationCoordinate);
 
     initializationCoordinate.coordinates[X_COORD] = 325;
-    initializationCoordinate.coordinates[Y_COORD] = 10;
+    initializationCoordinate.coordinates[Y_COORD] = 25;
 
     terrainData.push_back(initializationCoordinate);
 
