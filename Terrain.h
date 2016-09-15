@@ -10,10 +10,10 @@ using namespace std;
 class Terrain
 {
     public:
-        Terrain();
+        Terrain(double width);
         void generateTerrain(int midPointSplitCount);
         list<Coordinate> getTerrainData();
-        void initializeTerrain();
+        void initializeTerrain(double width);
 
     private:
         list<Coordinate> terrainData;

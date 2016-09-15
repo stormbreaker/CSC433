@@ -1,38 +1,45 @@
 #include "Terrain.h"
 #include <ctime>
 
-Terrain::Terrain()
+Terrain::Terrain(double width)
 {
     srand((double) clock());
-    initializeTerrain();
+    initializeTerrain(width);
     generateTerrain(4);
 }
 
-void Terrain::initializeTerrain()
+void Terrain::initializeTerrain(double width)
 {
 
+    double currentPoint = 0;
+
+    double segmentLength = width/4;
 
     Coordinate initializationCoordinate;
-    initializationCoordinate.coordinates[X_COORD] = 0;
+    initializationCoordinate.coordinates[X_COORD] = currentPoint;
+    currentPoint += segmentLength;
     initializationCoordinate.coordinates[Y_COORD] = 25;
 
     terrainData.push_back(initializationCoordinate);
 
-    initializationCoordinate.coordinates[X_COORD] = 175;
+    initializationCoordinate.coordinates[X_COORD] = currentPoint;
+    currentPoint += segmentLength;
     initializationCoordinate.coordinates[Y_COORD] = 25;
     terrainData.push_back(initializationCoordinate);
 
-    initializationCoordinate.coordinates[X_COORD] = 250;
+    initializationCoordinate.coordinates[X_COORD] = currentPoint;
+    currentPoint +=segmentLength;
     initializationCoordinate.coordinates[Y_COORD] = 175;
 
     terrainData.push_back(initializationCoordinate);
 
-    initializationCoordinate.coordinates[X_COORD] = 325;
+    initializationCoordinate.coordinates[X_COORD] = currentPoint;
+    currentPoint += segmentLength;
     initializationCoordinate.coordinates[Y_COORD] = 25;
 
     terrainData.push_back(initializationCoordinate);
 
-    initializationCoordinate.coordinates[X_COORD] = 500;
+    initializationCoordinate.coordinates[X_COORD] = MAX_X;
     initializationCoordinate.coordinates[Y_COORD] = 10;
 
     terrainData.push_back(initializationCoordinate);
