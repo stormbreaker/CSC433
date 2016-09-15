@@ -12,7 +12,7 @@ class Tank
     public:
         Tank();
 
-        void SetTankCoords(int xOffset, int yOffset, bool rightTurtle);
+        void SetTankCoords(int xOffset, int yOffset, bool rightTank);
 
         double CenterCoords[2];
         vector<Coordinate> DrawCoords;

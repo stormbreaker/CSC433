@@ -19,7 +19,6 @@ void Terrain::initializeTerrain(double width)
     initializationCoordinate.coordinates[X_COORD] = currentPoint;
     currentPoint += segmentLength;
     initializationCoordinate.coordinates[Y_COORD] = 25;
-    cout << currentPoint << endl;
 
     terrainData.push_back(initializationCoordinate);
 
@@ -27,29 +26,22 @@ void Terrain::initializeTerrain(double width)
     currentPoint += segmentLength;
     initializationCoordinate.coordinates[Y_COORD] = 25;
     terrainData.push_back(initializationCoordinate);
-    cout << currentPoint << endl;
 
 
     initializationCoordinate.coordinates[X_COORD] = currentPoint;
     currentPoint +=segmentLength;
-    initializationCoordinate.coordinates[Y_COORD] = 175;
-    cout << currentPoint << endl;
-
+    initializationCoordinate.coordinates[Y_COORD] = 400;
 
     terrainData.push_back(initializationCoordinate);
 
     initializationCoordinate.coordinates[X_COORD] = currentPoint;
     currentPoint += segmentLength;
     initializationCoordinate.coordinates[Y_COORD] = 25;
-    cout << currentPoint << endl;
-
 
     terrainData.push_back(initializationCoordinate);
 
     initializationCoordinate.coordinates[X_COORD] = currentPoint;
     initializationCoordinate.coordinates[Y_COORD] = 25;
-    // cout << currentPoint << endl;
-
 
     terrainData.push_back(initializationCoordinate);
 
@@ -92,7 +84,7 @@ void Terrain::generateTerrain(int midPointSplitCount)
     }
 
     generateTerrain(midPointSplitCount - 1);
-    cout << "recursed" << endl;
+    // cout << "recursed" << endl;
 }
 
 list<Coordinate> Terrain::getTerrainData()
