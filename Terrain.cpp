@@ -19,6 +19,7 @@ void Terrain::initializeTerrain(double width)
     initializationCoordinate.coordinates[X_COORD] = currentPoint;
     currentPoint += segmentLength;
     initializationCoordinate.coordinates[Y_COORD] = 25;
+    cout << currentPoint << endl;
 
     terrainData.push_back(initializationCoordinate);
 
@@ -26,21 +27,29 @@ void Terrain::initializeTerrain(double width)
     currentPoint += segmentLength;
     initializationCoordinate.coordinates[Y_COORD] = 25;
     terrainData.push_back(initializationCoordinate);
+    cout << currentPoint << endl;
+
 
     initializationCoordinate.coordinates[X_COORD] = currentPoint;
     currentPoint +=segmentLength;
     initializationCoordinate.coordinates[Y_COORD] = 175;
+    cout << currentPoint << endl;
+
 
     terrainData.push_back(initializationCoordinate);
 
     initializationCoordinate.coordinates[X_COORD] = currentPoint;
     currentPoint += segmentLength;
     initializationCoordinate.coordinates[Y_COORD] = 25;
+    cout << currentPoint << endl;
+
 
     terrainData.push_back(initializationCoordinate);
 
-    initializationCoordinate.coordinates[X_COORD] = MAX_X;
-    initializationCoordinate.coordinates[Y_COORD] = 10;
+    initializationCoordinate.coordinates[X_COORD] = currentPoint;
+    initializationCoordinate.coordinates[Y_COORD] = 25;
+    // cout << currentPoint << endl;
+
 
     terrainData.push_back(initializationCoordinate);
 
@@ -61,10 +70,10 @@ void Terrain::generateTerrain(int midPointSplitCount)
         return;
     }
 
-    for (list<Coordinate>::iterator it = terrainData.begin(); it != terrainData.end(); it++)
-    {
-        cout << it->coordinates[X_COORD] << " " << it->coordinates[Y_COORD] << endl;
-    }
+    // for (list<Coordinate>::iterator it = terrainData.begin(); it != terrainData.end(); it++)
+    // {
+    //     cout << it->coordinates[X_COORD] << " " << it->coordinates[Y_COORD] << endl;
+    // }
 
     list<Coordinate>::iterator iterator = terrainData.begin();
     iterator = next(iterator, 1);
