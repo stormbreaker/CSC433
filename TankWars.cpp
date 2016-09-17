@@ -5,6 +5,7 @@
 #include "Common.cpp"
 #include "Tank.h"
 #include "Terrain.h"
+#include <cmath>
 
 #ifdef __APPLE__
 	#include <GLUT/glut.h> // MacOS include
@@ -26,7 +27,10 @@ void specialKeyboard(int key, int x, int y);
 void reshape(int width, int height);
 
 void MoveTank(int direction);
-void SetTankPosition(Tank &tank, int xCoord);
+void MoveFiringAngle(int direction);
+void FireTank();
+void SetTankPosition(Tank &tank, double xCoord);
+void SetFireAngle(Tank &tank, double angle);
 void SetMaxXY(int width, int height);
 double GetYValueAtX(double xCoord);
 
@@ -61,12 +65,13 @@ void display( void )
 	glBegin(GL_LINE_STRIP);
 		for (Coordinate point : testTerrain.getTerrainData())
 		{
+			glColor3ub(84, 60, 14);
 			glVertex2dv(point.coordinates);
-			// cout << point.coordinates[0] << " " << point.coordinates[1] << endl;
 		}
 	glEnd();
 
     glBegin(GL_LINE_LOOP);
+		glColor3ub(255, 255, 255);
         for (Coordinate xyPair : LeftTank.DrawCoords)
         {
             glVertex2dv(xyPair.coordinates);
@@ -74,6 +79,7 @@ void display( void )
     glEnd();
 
     glBegin(GL_LINE_LOOP);
+		glColor3ub(255, 255, 255);
         for (Coordinate xyPair : RightTank.DrawCoords)
         {
             glVertex2dv(xyPair.coordinates);
@@ -110,6 +116,14 @@ void keyboard(unsigned char key, int x, int y)
         case ESC_KEY:
             exit(0);
             break;
+		// Plus key increases velocity
+		case PLUS_KEY:
+			cout << "plus hit" << endl;
+			break;
+		// minus key decreses velocity
+		case MINUS_KEY:
+			cout << "minus hit" << endl;
+			break;
 
         // anything else redraws window
         default:
@@ -132,11 +146,13 @@ void specialKeyboard(int key, int x, int y)
             MoveTank(GLUT_KEY_LEFT);
             break;
         case GLUT_KEY_UP:
-            // Move tank right
+            // raise tank barrel
+			MoveFiringAngle(GLUT_KEY_UP);
             cout << "Up" << endl;
             break;
         case GLUT_KEY_DOWN:
-            // Move tank right
+            // lower tank barrel
+			MoveFiringAngle(GLUT_KEY_DOWN);
             cout << "Down" << endl;
             break;
 
@@ -172,7 +188,35 @@ void MoveTank(int direction)
     glutPostRedisplay();
 }
 
-void SetTankPosition(Tank &tank, int xCoord)
+void MoveFiringAngle(int direction)
+{
+	double angle = 0.0;
+
+	if (direction == GLUT_KEY_UP)
+	{
+		angle = FIVE_DEGREES;
+	}
+	else if (direction == GLUT_KEY_DOWN)
+	{
+		angle = 0 - FIVE_DEGREES;
+	}
+
+	if (IsCurrentLeft)
+	{
+		SetFireAngle(LeftTank, angle);
+	}
+	else
+	{
+		SetFireAngle(RightTank, angle);
+	}
+}
+
+void FireTank()
+{
+
+}
+
+void SetTankPosition(Tank &tank, double xCoord)
 {
     xCoord += tank.CenterCoords[X_COORD];
 
@@ -186,6 +230,24 @@ void SetTankPosition(Tank &tank, int xCoord)
     {
         tank.SetTankCoords(MAX_X, GetYValueAtX(MAX_X), IsCurrentLeft);
     }
+}
+
+void SetFireAngle(Tank &tank, double angle)
+{
+	angle += tank.fireAngle;
+
+	tank.fireAngle = angle;
+
+	if (angle > 2 * PI)
+	{
+		tank.fireAngle = 2 * PI;
+	}
+	else if (angle < 0)
+	{
+		tank.fireAngle = 0;
+	}
+
+	cout << fixed << setprecision(9) << tank.fireAngle << endl;
 }
 
 void SetMaxXY(int width, int height)

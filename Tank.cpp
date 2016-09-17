@@ -2,7 +2,7 @@
 
 Tank::Tank()
 {
-
+    fireAngle = 0.0;
 }
 
 void Tank::SetTankCoords(int xValue, int yValue, bool isLeftTank)
