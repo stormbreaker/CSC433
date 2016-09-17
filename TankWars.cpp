@@ -14,7 +14,7 @@
 
 using namespace std;
 
-Tank CurrentTank;
+bool IsCurrentLeft = true;
 Tank RightTank;
 Tank LeftTank;
 
@@ -26,13 +26,12 @@ void specialKeyboard(int key, int x, int y);
 void reshape(int width, int height);
 
 void MoveTank(int direction);
+void SetTankPosition(Tank &tank, int xCoord);
 void SetMaxXY(int width, int height);
 double GetYValueAtX(double xCoord);
 
 int main(int argc, char *argv[])
 {
-    CurrentTank = LeftTank;
-
     glutInit(&argc, argv);                // initialize GLUT
     glutCreateWindow("Tank Wars");		  // open window and specify title
     glutDisplayFunc(display);			  // display callback: how to redisplay window
@@ -45,7 +44,8 @@ int main(int argc, char *argv[])
 
     testTerrain = Terrain(MAX_X);
 
-    CurrentTank.SetTankCoords(100, GetYValueAtX(100), true);
+    LeftTank.SetTankCoords(100, GetYValueAtX(100), true);
+    RightTank.SetTankCoords(1000, GetYValueAtX(1000), false);
 
     glutMainLoop();
 
@@ -57,7 +57,6 @@ void display( void )
     glClear(GL_COLOR_BUFFER_BIT);
 
     // Put drawing window here
-    // I have set the 2D coords to 100 by 100 but we can change this and will want to
 
 	glBegin(GL_LINE_STRIP);
 		for (Coordinate point : testTerrain.getTerrainData())
@@ -68,7 +67,14 @@ void display( void )
 	glEnd();
 
     glBegin(GL_LINE_LOOP);
-        for (Coordinate xyPair : CurrentTank.DrawCoords)
+        for (Coordinate xyPair : LeftTank.DrawCoords)
+        {
+            glVertex2dv(xyPair.coordinates);
+        }
+    glEnd();
+
+    glBegin(GL_LINE_LOOP);
+        for (Coordinate xyPair : RightTank.DrawCoords)
         {
             glVertex2dv(xyPair.coordinates);
         }
@@ -98,7 +104,7 @@ void keyboard(unsigned char key, int x, int y)
     {
         case SPACE_KEY:
             // Fire weapon
-            cout << "Space" << endl;
+            IsCurrentLeft = !IsCurrentLeft;
             break;
         // Escape key quits program
         case ESC_KEY:
@@ -143,31 +149,43 @@ void specialKeyboard(int key, int x, int y)
 
 void MoveTank(int direction)
 {
-    double xCoord = CurrentTank.CenterCoords[X_COORD];
+    double xCoord = 0;
 
     if (direction == GLUT_KEY_RIGHT)
     {
-        xCoord += 10;
-
-        CurrentTank.SetTankCoords(xCoord, GetYValueAtX(xCoord), true);
+        xCoord = 10;
     }
     else if (direction == GLUT_KEY_LEFT)
     {
-        xCoord -= 10;
-
-        CurrentTank.SetTankCoords(xCoord, GetYValueAtX(xCoord), true);
+        xCoord = -10;
     }
 
-    if (xCoord < 0)
+    if (IsCurrentLeft == true)
     {
-        CurrentTank.SetTankCoords(0, CurrentTank.CenterCoords[1], true);
+        SetTankPosition(LeftTank, xCoord);
     }
-    else if (xCoord > MAX_X)
+    else
     {
-        CurrentTank.SetTankCoords(MAX_X, CurrentTank.CenterCoords[1], true);
+        SetTankPosition(RightTank, xCoord);
     }
 
     glutPostRedisplay();
+}
+
+void SetTankPosition(Tank &tank, int xCoord)
+{
+    xCoord += tank.CenterCoords[X_COORD];
+
+    tank.SetTankCoords(xCoord, GetYValueAtX(xCoord), IsCurrentLeft);
+
+    if (xCoord < 0)
+    {
+        tank.SetTankCoords(0, GetYValueAtX(0), IsCurrentLeft);
+    }
+    else if (xCoord > MAX_X)
+    {
+        tank.SetTankCoords(MAX_X, GetYValueAtX(MAX_X), IsCurrentLeft);
+    }
 }
 
 void SetMaxXY(int width, int height)
