@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
     testTerrain = Terrain(MAX_X);
 
     LeftTank.SetTankCoords(100, GetYValueAtX(100), true);
-    RightTank.SetTankCoords(1400, GetYValueAtX(1400), false);
+    RightTank.SetTankCoords(MAX_X - 100, GetYValueAtX(MAX_X - 100), false);
 
     glutMainLoop();
 
