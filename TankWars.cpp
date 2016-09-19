@@ -194,11 +194,25 @@ void MoveFiringAngle(int direction)
 
 	if (direction == GLUT_KEY_UP)
 	{
-		angle = FIVE_DEGREES;
+		if (IsCurrentLeft)
+		{
+			angle = FIVE_DEGREES;
+		}
+		else
+		{
+			angle = 0 - FIVE_DEGREES;
+		}
 	}
 	else if (direction == GLUT_KEY_DOWN)
 	{
-		angle = 0 - FIVE_DEGREES;
+		if (IsCurrentLeft)
+		{
+			angle = 0 - FIVE_DEGREES;
+		}
+		else
+		{
+			angle = FIVE_DEGREES;
+		}
 	}
 
 	if (IsCurrentLeft)
@@ -207,7 +221,7 @@ void MoveFiringAngle(int direction)
 	}
 	else
 	{
-		SetFireAngle(RightTank, angle);
+		SetFireAngle(RightTank, PI - angle);
 	}
 }
 
@@ -238,9 +252,9 @@ void SetFireAngle(Tank &tank, double angle)
 
 	tank.fireAngle = angle;
 
-	if (angle > 2 * PI)
+	if (angle > PI)
 	{
-		tank.fireAngle = 2 * PI;
+		tank.fireAngle = PI;
 	}
 	else if (angle < 0)
 	{
