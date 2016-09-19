@@ -221,7 +221,7 @@ void MoveFiringAngle(int direction)
 	}
 	else
 	{
-		SetFireAngle(RightTank, PI - angle);
+		SetFireAngle(RightTank, angle);
 	}
 }
 
