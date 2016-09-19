@@ -16,8 +16,8 @@
 using namespace std;
 
 bool IsCurrentLeft = true;
-Tank RightTank;
-Tank LeftTank;
+Tank RightTank(false);
+Tank LeftTank(true);
 
 Terrain testTerrain(MAX_X);
 
@@ -190,7 +190,15 @@ void MoveTank(int direction)
 
 void MoveFiringAngle(int direction)
 {
-	double angle = 0.0;
+	double angle;
+	if (IsCurrentLeft)
+	{
+		angle = 0;
+	}
+	else
+	{
+		angle = PI;
+	}
 
 	if (direction == GLUT_KEY_UP)
 	{

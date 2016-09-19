@@ -1,8 +1,15 @@
 #include "Tank.h"
 
-Tank::Tank()
+Tank::Tank(bool isLeft)
 {
-    fireAngle = 0.0;
+	if (isLeft)
+	{
+	    fireAngle = 0.0;
+	}
+	else
+	{
+		fireAngle = PI;
+	}
 }
 
 void Tank::SetTankCoords(int xValue, int yValue, bool isLeftTank)

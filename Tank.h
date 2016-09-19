@@ -10,7 +10,7 @@ using namespace std;
 class Tank
 {
     public:
-        Tank();
+        Tank(bool isLeft);
 
         void SetTankCoords(int xValue, int yValue, bool isLeftTank);
 
