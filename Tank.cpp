@@ -5,6 +5,7 @@ Tank::Tank(bool isLeft)
 	if (isLeft)
 	{
 	    fireAngle = 0.0;
+        velocity = 100;
 	}
 	else
 	{

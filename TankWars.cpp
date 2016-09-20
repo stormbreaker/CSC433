@@ -28,7 +28,7 @@ void reshape(int width, int height);
 
 void MoveTank(int direction);
 void MoveFiringAngle(int direction);
-void FireTank();
+vector<Coordinate> FireTank(Tank &tank);
 void SetTankPosition(Tank &tank, double xCoord);
 void SetFireAngle(Tank &tank, double angle);
 void SetMaxXY(int width, int height);
@@ -110,6 +110,14 @@ void keyboard(unsigned char key, int x, int y)
     {
         case SPACE_KEY:
             // Fire weapon
+			if (IsCurrentLeft)
+			{
+				FireTank(LeftTank);
+			}
+			else if (!IsCurrentLeft)
+			{
+				FireTank(RightTank);
+			}
             IsCurrentLeft = !IsCurrentLeft;
             break;
         // Escape key quits program
@@ -233,9 +241,22 @@ void MoveFiringAngle(int direction)
 	}
 }
 
-void FireTank()
+vector<Coordinate> FireTank(Tank &tank)
 {
+	Coordinate tempCoord;
+	vector<Coordinate> projectilePath;
+	cout << "FIAH!" << endl;
+	double x;
+	double y;
+	for (double timeCount = 0; timeCount < 20; timeCount += .5)
+	{
+		x = tank.velocity * timeCount * cos(tank.fireAngle);
+		y = (tank.velocity * timeCount * sin(tank.fireAngle)) - (GRAVITY * pow(timeCount, 2))/2;// - ((GRAVITY * pow(timeCount, 2))/2);
+		tempCoord.coordinates[X_COORD] = x;
+		tempCoord.coordinates[Y_COORD] = y;
+		projectilePath.push_back(tempCoord);
 
+	}
 }
 
 void SetTankPosition(Tank &tank, double xCoord)

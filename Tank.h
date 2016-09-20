@@ -19,6 +19,8 @@ class Tank
 
         double fireAngle;
 
+        double velocity;
+
     private:
         void DrawBarrel(int xValue, int yValue);
 };

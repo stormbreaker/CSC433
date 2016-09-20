@@ -11,6 +11,7 @@ const double ViewplaneSize = 1000.0;
 const double FIVE_DEGREES = 0.08726646255;
 
 const double PI = 3.14159265359;
+const double GRAVITY = 9.81;
 
 const int ESC_KEY = 27;
 const int SPACE_KEY = 32;
