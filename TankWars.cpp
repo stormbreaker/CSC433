@@ -255,8 +255,8 @@ vector<Coordinate> FireTank(Tank &tank)
 		tempCoord.coordinates[X_COORD] = x;
 		tempCoord.coordinates[Y_COORD] = y;
 		projectilePath.push_back(tempCoord);
-
 	}
+	return projectilePath;
 }
 
 void SetTankPosition(Tank &tank, double xCoord)
