@@ -16,6 +16,7 @@
 using namespace std;
 
 bool IsCurrentLeft = true;
+bool DidFireTank = false;
 Tank RightTank(false);
 Tank LeftTank(true);
 
@@ -28,11 +29,14 @@ void reshape(int width, int height);
 
 void MoveTank(int direction);
 void MoveFiringAngle(int direction);
-vector<Coordinate> FireTank(Tank &tank);
+void ModifyTankVelocity(double velocityChange);
 void SetTankPosition(Tank &tank, double xCoord);
 void SetFireAngle(Tank &tank, double angle);
+void SetFireCoordinates(Tank &tank);
+bool FindTankCollision(double x, double y);
+bool FindMountainCollision(double x, double y);
 void SetMaxXY(int width, int height);
-double GetYValueAtX(double xCoord);
+double TerrainYValueAtX(double xCoord);
 
 int main(int argc, char *argv[])
 {
@@ -48,8 +52,8 @@ int main(int argc, char *argv[])
 
     testTerrain = Terrain(MAX_X);
 
-    LeftTank.SetTankCoords(100, GetYValueAtX(100), true);
-    RightTank.SetTankCoords(MAX_X - 100, GetYValueAtX(MAX_X - 100), false);
+    LeftTank.SetTankCoords(100, TerrainYValueAtX(100), true);
+    RightTank.SetTankCoords(MAX_X - 100, TerrainYValueAtX(MAX_X - 100), false);
 
     glutMainLoop();
 
@@ -58,20 +62,21 @@ int main(int argc, char *argv[])
 
 void display( void )
 {
+    vector<Coordinate> fireCoords;
     glClear(GL_COLOR_BUFFER_BIT);
 
-    // Put drawing window here
-
 	glBegin(GL_LINE_STRIP);
+        glColor3ub(84, 60, 14);
+
 		for (Coordinate point : testTerrain.getTerrainData())
 		{
-			glColor3ub(84, 60, 14);
 			glVertex2dv(point.coordinates);
 		}
 	glEnd();
 
     glBegin(GL_LINE_LOOP);
 		glColor3ub(255, 255, 255);
+
         for (Coordinate xyPair : LeftTank.DrawCoords)
         {
             glVertex2dv(xyPair.coordinates);
@@ -80,11 +85,34 @@ void display( void )
 
     glBegin(GL_LINE_LOOP);
 		glColor3ub(255, 255, 255);
+
         for (Coordinate xyPair : RightTank.DrawCoords)
         {
             glVertex2dv(xyPair.coordinates);
         }
     glEnd();
+
+    if (DidFireTank == true)
+    {
+        if (IsCurrentLeft == true)
+        {
+            fireCoords = LeftTank.GetFireCoords();
+        }
+        else
+        {
+            fireCoords = RightTank.GetFireCoords();
+        }
+
+        glBegin(GL_LINE_STRIP);
+            for (Coordinate xyPair : fireCoords)
+            {
+                glVertex2dv(xyPair.coordinates);
+            }
+        glEnd();
+
+        DidFireTank = false;
+        IsCurrentLeft = !IsCurrentLeft;
+    }
 
     glFlush();
 }
@@ -112,13 +140,16 @@ void keyboard(unsigned char key, int x, int y)
             // Fire weapon
 			if (IsCurrentLeft)
 			{
-				FireTank(LeftTank);
+				SetFireCoordinates(LeftTank);
 			}
 			else if (!IsCurrentLeft)
 			{
-				FireTank(RightTank);
+				SetFireCoordinates(RightTank);
 			}
-            IsCurrentLeft = !IsCurrentLeft;
+
+            DidFireTank = true;
+
+            glutPostRedisplay();
             break;
         // Escape key quits program
         case ESC_KEY:
@@ -126,11 +157,11 @@ void keyboard(unsigned char key, int x, int y)
             break;
 		// Plus key increases velocity
 		case PLUS_KEY:
-			cout << "plus hit" << endl;
+			ModifyTankVelocity(2.5);
 			break;
 		// minus key decreses velocity
 		case MINUS_KEY:
-			cout << "minus hit" << endl;
+			ModifyTankVelocity(-2.5);
 			break;
 
         // anything else redraws window
@@ -156,17 +187,17 @@ void specialKeyboard(int key, int x, int y)
         case GLUT_KEY_UP:
             // raise tank barrel
 			MoveFiringAngle(GLUT_KEY_UP);
-            cout << "Up" << endl;
+            glutPostRedisplay();
             break;
         case GLUT_KEY_DOWN:
             // lower tank barrel
 			MoveFiringAngle(GLUT_KEY_DOWN);
-            cout << "Down" << endl;
+            glutPostRedisplay();
             break;
 
         // anything else redraws window
         default:
-            glutPostRedisplay();
+        glutPostRedisplay();
             break;
     }
 }
@@ -199,6 +230,7 @@ void MoveTank(int direction)
 void MoveFiringAngle(int direction)
 {
 	double angle;
+
 	if (IsCurrentLeft)
 	{
 		angle = 0;
@@ -241,37 +273,110 @@ void MoveFiringAngle(int direction)
 	}
 }
 
-vector<Coordinate> FireTank(Tank &tank)
+void SetFireCoordinates(Tank &tank)
 {
-	Coordinate tempCoord;
-	vector<Coordinate> projectilePath;
-	cout << "FIAH!" << endl;
-	double x;
+    double x;
 	double y;
-	for (double timeCount = 0; timeCount < 20; timeCount += .5)
+    double xOffset = 0;
+    double yOffset = 0;
+    Coordinate tempCoord;
+    vector<Coordinate> projectilePath;
+
+    for (double timeCount = 0; timeCount < 25; timeCount += .05)
 	{
 		x = tank.velocity * timeCount * cos(tank.fireAngle);
-		y = (tank.velocity * timeCount * sin(tank.fireAngle)) - (GRAVITY * pow(timeCount, 2))/2;// - ((GRAVITY * pow(timeCount, 2))/2);
-		tempCoord.coordinates[X_COORD] = x;
+		y = (tank.velocity * timeCount * sin(tank.fireAngle)) - (GRAVITY * pow(timeCount, 2))/2;
+
+        xOffset = 20;
+        yOffset = 10;
+
+        if (IsCurrentLeft == false)
+        {
+            xOffset *= -1;
+        }
+
+        x += tank.CenterCoords[X_COORD] + xOffset;
+        y += tank.CenterCoords[Y_COORD] + yOffset;
+
+        tempCoord.coordinates[X_COORD] = x;
 		tempCoord.coordinates[Y_COORD] = y;
-		projectilePath.push_back(tempCoord);
+
+        if (FindMountainCollision(x, y) == false &&
+            FindTankCollision(x, y) == false)
+        {
+            projectilePath.push_back(tempCoord);
+        }
+        else
+        {
+            break;
+        }
 	}
-	return projectilePath;
+
+    tank.SetFireCoords(projectilePath);
+}
+
+bool FindMountainCollision(double x, double y)
+{
+    double yValueAtX = 0;
+    bool foundCollision = false;
+
+    yValueAtX = TerrainYValueAtX(x);
+
+    if (yValueAtX > y)
+    {
+        foundCollision = true;
+    }
+
+    return foundCollision;
+}
+
+bool FindTankCollision(double x, double y)
+{
+    bool foundCollision = false;
+    double xDiff = 0;
+    double yDiff = 0;
+
+    if (IsCurrentLeft == true)
+    {
+        xDiff = RightTank.CenterCoords[X_COORD] - x;
+        yDiff = RightTank.CenterCoords[Y_COORD] - y;
+
+        if (abs(xDiff) < 20 && abs(yDiff) < 10)
+        {
+            cout << "1 Found Collision" << endl;
+
+            foundCollision = true;
+        }
+    }
+    else
+    {
+        xDiff = LeftTank.CenterCoords[X_COORD] - x;
+        yDiff = LeftTank.CenterCoords[Y_COORD] - y;
+
+        if (abs(xDiff) < 20 && abs(yDiff) < 10)
+        {
+            cout << "2 Found Collision" << endl;
+
+            foundCollision = true;
+        }
+    }
+
+    return foundCollision;
 }
 
 void SetTankPosition(Tank &tank, double xCoord)
 {
     xCoord += tank.CenterCoords[X_COORD];
 
-    tank.SetTankCoords(xCoord, GetYValueAtX(xCoord), IsCurrentLeft);
+    tank.SetTankCoords(xCoord, TerrainYValueAtX(xCoord), IsCurrentLeft);
 
     if (xCoord < 0)
     {
-        tank.SetTankCoords(0, GetYValueAtX(0), IsCurrentLeft);
+        tank.SetTankCoords(0, TerrainYValueAtX(0), IsCurrentLeft);
     }
     else if (xCoord > MAX_X)
     {
-        tank.SetTankCoords(MAX_X, GetYValueAtX(MAX_X), IsCurrentLeft);
+        tank.SetTankCoords(MAX_X, TerrainYValueAtX(MAX_X), IsCurrentLeft);
     }
 }
 
@@ -289,8 +394,6 @@ void SetFireAngle(Tank &tank, double angle)
 	{
 		tank.fireAngle = 0;
 	}
-
-	cout << fixed << setprecision(9) << tank.fireAngle << endl;
 }
 
 void SetMaxXY(int width, int height)
@@ -307,7 +410,19 @@ void SetMaxXY(int width, int height)
     }
 }
 
-double GetYValueAtX(double xValue)
+void ModifyTankVelocity(double velocityChange)
+{
+    if (IsCurrentLeft == true)
+    {
+        LeftTank.velocity += velocityChange;
+    }
+    else
+    {
+        RightTank.velocity += velocityChange;
+    }
+}
+
+double TerrainYValueAtX(double xValue)
 {
     double y = 0;
     double m = 0;
@@ -329,7 +444,6 @@ double GetYValueAtX(double xValue)
             b = y - m * x;
 
             yCoord = m * xValue + b + 10;
-
             break;
         }
 

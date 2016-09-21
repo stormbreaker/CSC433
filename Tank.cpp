@@ -10,7 +10,18 @@ Tank::Tank(bool isLeft)
 	else
 	{
 		fireAngle = PI;
+        velocity = 100;
 	}
+}
+
+void Tank::SetFireCoords(vector<Coordinate> &projectilePath)
+{
+    _ProjectilePath = projectilePath;
+}
+
+vector<Coordinate> Tank::GetFireCoords()
+{
+    return _ProjectilePath;
 }
 
 void Tank::SetTankCoords(int xValue, int yValue, bool isLeftTank)

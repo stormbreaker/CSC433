@@ -13,6 +13,8 @@ class Tank
         Tank(bool isLeft);
 
         void SetTankCoords(int xValue, int yValue, bool isLeftTank);
+        void SetFireCoords(vector<Coordinate> &projectilePath);
+        vector<Coordinate> GetFireCoords();
 
         double CenterCoords[2];
         vector<Coordinate> DrawCoords;
@@ -22,6 +24,8 @@ class Tank
         double velocity;
 
     private:
+        vector<Coordinate> _ProjectilePath;
+
         void DrawBarrel(int xValue, int yValue);
 };
 
