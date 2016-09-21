@@ -1,11 +1,4 @@
-#include <iostream>
-#include <iomanip>
-#include <cmath>
-#include <cstdlib>
-#include "Common.cpp"
-#include "Tank.h"
-#include "Terrain.h"
-#include <cmath>
+#include "TankWars.h"
 
 #ifdef __APPLE__
 	#include <GLUT/glut.h> // MacOS include
@@ -15,28 +8,11 @@
 
 using namespace std;
 
+Terrain testTerrain(MAX_X);
 bool IsCurrentLeft = true;
 bool DidFireTank = false;
 Tank RightTank(false);
 Tank LeftTank(true);
-
-Terrain testTerrain(MAX_X);
-
-void display( void );
-void keyboard(unsigned char key, int x, int y);
-void specialKeyboard(int key, int x, int y);
-void reshape(int width, int height);
-
-void MoveTank(int direction);
-void MoveFiringAngle(int direction);
-void ModifyTankVelocity(double velocityChange);
-void SetTankPosition(Tank &tank, double xCoord);
-void SetFireAngle(Tank &tank, double angle);
-void SetFireCoordinates(Tank &tank);
-bool FindTankCollision(double x, double y);
-bool FindMountainCollision(double x, double y);
-void SetMaxXY(int width, int height);
-double TerrainYValueAtX(double xCoord);
 
 int main(int argc, char *argv[])
 {
