@@ -14,7 +14,7 @@ void display( void );
 void keyboard(unsigned char key, int x, int y);
 void specialKeyboard(int key, int x, int y);
 void reshape(int width, int height);
-void DrawStrokeString(string textToPrint, float x, float y);
+void DrawStrokeString(string textToPrint, float x, float y, int fontSize);
 
 void MoveTank(int direction);
 void MoveFiringAngle(int direction);

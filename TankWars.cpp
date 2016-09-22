@@ -11,6 +11,7 @@ using namespace std;
 Terrain testTerrain(MAX_X);
 bool IsCurrentLeft = true;
 bool DidFireTank = false;
+bool GameOver = false;
 Tank RightTank(false);
 Tank LeftTank(true);
 
@@ -101,10 +102,29 @@ void display( void )
         glEnd();
 
         DidFireTank = false;
-        IsCurrentLeft = !IsCurrentLeft;
+
+        if (GameOver == true)
+        {
+            if (IsCurrentLeft == true)
+            {
+                // Display win above the tank
+                DrawStrokeString("WIN!", LeftTank.CenterCoords[X_COORD] - 40,
+                                         LeftTank.CenterCoords[Y_COORD] + 50, 40);
+            }
+            else
+            {
+                // Display win above the tank
+                DrawStrokeString("WIN!", RightTank.CenterCoords[X_COORD] - 40,
+                                         RightTank.CenterCoords[Y_COORD] + 50, 40);
+            }
+        }
+        else
+        {
+            IsCurrentLeft = !IsCurrentLeft;
+        }
     }
 
-    DrawStrokeString(FormatTankInfoString(LeftTank, RightTank), 500, 100);
+    DrawStrokeString(FormatTankInfoString(LeftTank, RightTank), 500, 100, 15);
 
     glEnable(GL_RESCALE_NORMAL);
 
@@ -128,74 +148,80 @@ void reshape(int width, int height)
 
 void keyboard(unsigned char key, int x, int y)
 {
-    // process keypresses
-    switch(key)
+    if (GameOver == false || key == ESC_KEY)
     {
-        case SPACE_KEY:
-            // Fire weapon
-			if (IsCurrentLeft)
-			{
-				SetFireCoordinates(LeftTank);
-			}
-			else if (!IsCurrentLeft)
-			{
-				SetFireCoordinates(RightTank);
-			}
+        // process keypresses
+        switch(key)
+        {
+            case SPACE_KEY:
+                // Fire weapon
+    			if (IsCurrentLeft)
+    			{
+    				SetFireCoordinates(LeftTank);
+    			}
+    			else if (!IsCurrentLeft)
+    			{
+    				SetFireCoordinates(RightTank);
+    			}
 
-            DidFireTank = true;
+                DidFireTank = true;
 
-            glutPostRedisplay();
-            break;
-        // Escape key quits program
-        case ESC_KEY:
-            exit(0);
-            break;
-		// Plus key increases velocity
-		case PLUS_KEY:
-			ModifyTankVelocity(2.5);
-            glutPostRedisplay();
-			break;
-		// minus key decreses velocity
-		case MINUS_KEY:
-			ModifyTankVelocity(-2.5);
-            glutPostRedisplay();
-			break;
+                glutPostRedisplay();
+                break;
+            // Escape key quits program
+            case ESC_KEY:
+                exit(0);
+                break;
+    		// Plus key increases velocity
+    		case PLUS_KEY:
+    			ModifyTankVelocity(2.5);
+                glutPostRedisplay();
+    			break;
+    		// minus key decreses velocity
+    		case MINUS_KEY:
+    			ModifyTankVelocity(-2.5);
+                glutPostRedisplay();
+    			break;
 
-        // anything else redraws window
-        default:
-            glutPostRedisplay();
-            break;
+            // anything else redraws window
+            default:
+                glutPostRedisplay();
+                break;
+        }
     }
 }
 
 void specialKeyboard(int key, int x, int y)
 {
-    // process keypresses
-    switch(key)
+    if (GameOver == false)
     {
-        case GLUT_KEY_RIGHT:
-            // Move tank right
-            MoveTank(GLUT_KEY_RIGHT);
-            break;
-        case GLUT_KEY_LEFT:
-            // Move tank right
-            MoveTank(GLUT_KEY_LEFT);
-            break;
-        case GLUT_KEY_UP:
-            // raise tank barrel
-			MoveFiringAngle(GLUT_KEY_UP);
-            glutPostRedisplay();
-            break;
-        case GLUT_KEY_DOWN:
-            // lower tank barrel
-			MoveFiringAngle(GLUT_KEY_DOWN);
-            glutPostRedisplay();
-            break;
+        // process keypresses
+        switch(key)
+        {
+            case GLUT_KEY_RIGHT:
+                // Move tank right
+                MoveTank(GLUT_KEY_RIGHT);
+                break;
+            case GLUT_KEY_LEFT:
+                // Move tank right
+                MoveTank(GLUT_KEY_LEFT);
+                break;
+            case GLUT_KEY_UP:
+                // raise tank barrel
+    			MoveFiringAngle(GLUT_KEY_UP);
+                glutPostRedisplay();
+                break;
+            case GLUT_KEY_DOWN:
+                // lower tank barrel
+    			MoveFiringAngle(GLUT_KEY_DOWN);
+                glutPostRedisplay();
+                break;
 
-        // anything else redraws window
-        default:
-        glutPostRedisplay();
-            break;
+            // anything else redraws window
+            default:
+            glutPostRedisplay();
+                break;
+        }
     }
 }
 
@@ -284,8 +310,8 @@ void SetFireCoordinates(Tank &tank)
 		x = tank.velocity * timeCount * cos(tank.fireAngle);
 		y = (tank.velocity * timeCount * sin(tank.fireAngle)) - (GRAVITY * pow(timeCount, 2))/2;
 
-        xOffset = 20;
-        yOffset = 10;
+        xOffset = 21;
+        yOffset = 13;
 
         if (IsCurrentLeft == false)
         {
@@ -295,12 +321,12 @@ void SetFireCoordinates(Tank &tank)
         x += tank.CenterCoords[X_COORD] + xOffset;
         y += tank.CenterCoords[Y_COORD] + yOffset;
 
-        tempCoord.coordinates[X_COORD] = x;
-		tempCoord.coordinates[Y_COORD] = y;
-
         if (FindMountainCollision(x, y) == false &&
             FindTankCollision(x, y) == false)
         {
+            tempCoord.coordinates[X_COORD] = x;
+    		tempCoord.coordinates[Y_COORD] = y;
+
             projectilePath.push_back(tempCoord);
         }
         else
@@ -349,9 +375,41 @@ bool FindTankCollision(double x, double y)
         cout << "Collision" << endl;
 
         foundCollision = true;
+        GameOver = true;
     }
 
     return foundCollision;
+}
+
+double TerrainYValueAtX(double xValue)
+{
+    double y = 0;
+    double m = 0;
+    double x = 0;
+    double b = 0;
+    double yCoord = 0;
+    Coordinate firstPoint;
+
+    for (Coordinate coords : testTerrain.getTerrainData())
+    {
+        if (coords.coordinates[X_COORD] > xValue)
+        {
+            x = coords.coordinates[X_COORD];
+            y = coords.coordinates[Y_COORD];
+
+            m = coords.coordinates[Y_COORD] - firstPoint.coordinates[Y_COORD];
+            m /= coords.coordinates[X_COORD] - firstPoint.coordinates[X_COORD];
+
+            b = y - m * x;
+
+            yCoord = m * xValue + b + 10.0;
+            break;
+        }
+
+        firstPoint = coords;
+    }
+
+    return yCoord;
 }
 
 void SetTankPosition(Tank &tank, double xCoord)
@@ -423,37 +481,6 @@ void ModifyTankVelocity(double velocityChange)
     {
         RightTank.velocity += velocityChange;
     }
-}
-
-double TerrainYValueAtX(double xValue)
-{
-    double y = 0;
-    double m = 0;
-    double x = 0;
-    double b = 0;
-    double yCoord = 0;
-    Coordinate firstPoint;
-
-    for (Coordinate coords : testTerrain.getTerrainData())
-    {
-        if (coords.coordinates[X_COORD] > xValue)
-        {
-            x = coords.coordinates[X_COORD];
-            y = coords.coordinates[Y_COORD];
-
-            m = coords.coordinates[Y_COORD] - firstPoint.coordinates[Y_COORD];
-            m /= coords.coordinates[X_COORD] - firstPoint.coordinates[X_COORD];
-
-            b = y - m * x;
-
-            yCoord = m * xValue + b + 10;
-            break;
-        }
-
-        firstPoint = coords;
-    }
-
-    return yCoord;
 }
 
 string FormatTankInfoString(Tank leftTank, Tank rightTank)
@@ -534,9 +561,9 @@ string FormatTankAngle(Tank tank, bool isLeftTank)
     return coords;
 }
 
-void DrawStrokeString(string textToPrint, float x, float y)
+void DrawStrokeString(string textToPrint, float x, float y, int fontSize)
 {
-    double fontScaling = .15;
+    double fontScaling = fontSize / 100.0;
     glColor3ub(255, 255, 255);
 
     glMatrixMode(GL_MODELVIEW);
