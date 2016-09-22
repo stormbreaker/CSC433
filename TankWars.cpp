@@ -43,16 +43,27 @@ void display( void )
     glClear(GL_COLOR_BUFFER_BIT);
 
 	glBegin(GL_LINE_STRIP);
-        glColor3ub(84, 60, 14);
-
-		for (Coordinate point : testTerrain.getTerrainData())
+        for (Coordinate point : testTerrain.getTerrainData())
 		{
+            if (point.coordinates[Y_COORD] < 350)
+            {
+                glColor3ub(51, 153, 51);
+            }
+            else if (point.coordinates[Y_COORD] < 500)
+            {
+                glColor3ub(84, 60, 14);
+            }
+            else
+            {
+                glColor3ub(140, 140, 140);
+            }
+
 			glVertex2dv(point.coordinates);
 		}
 	glEnd();
 
     glBegin(GL_LINE_LOOP);
-		glColor3ub(255, 255, 255);
+		glColor3ub(0, 102, 255);
 
         for (Coordinate xyPair : LeftTank.DrawCoords)
         {
@@ -61,7 +72,7 @@ void display( void )
     glEnd();
 
     glBegin(GL_LINE_LOOP);
-		glColor3ub(255, 255, 255);
+		glColor3ub(255, 102, 0);
 
         for (Coordinate xyPair : RightTank.DrawCoords)
         {
@@ -73,10 +84,12 @@ void display( void )
     {
         if (IsCurrentLeft == true)
         {
+            glColor3ub(0, 102, 255);
             fireCoords = LeftTank.GetFireCoords();
         }
         else
         {
+            glColor3ub(255, 102, 0);
             fireCoords = RightTank.GetFireCoords();
         }
 
@@ -343,6 +356,7 @@ bool FindTankCollision(double x, double y)
 
 void SetTankPosition(Tank &tank, double xCoord)
 {
+    double cutoff = (MAX_X / 2);
     xCoord += tank.CenterCoords[X_COORD];
 
     tank.SetTankCoords(xCoord, TerrainYValueAtX(xCoord), IsCurrentLeft);
@@ -350,6 +364,18 @@ void SetTankPosition(Tank &tank, double xCoord)
     if (xCoord < 0)
     {
         tank.SetTankCoords(0, TerrainYValueAtX(0), IsCurrentLeft);
+    }
+    else if (IsCurrentLeft == true && xCoord > cutoff - 150)
+    {
+        cutoff -= 150;
+
+        tank.SetTankCoords(cutoff, TerrainYValueAtX(cutoff), IsCurrentLeft);
+    }
+    else if (IsCurrentLeft == false && xCoord < cutoff + 150)
+    {
+        cutoff += 150;
+
+        tank.SetTankCoords(cutoff, TerrainYValueAtX(cutoff), IsCurrentLeft);
     }
     else if (xCoord > MAX_X)
     {
@@ -434,16 +460,24 @@ string FormatTankInfoString(Tank leftTank, Tank rightTank)
 {
     string formattedString;
 
-    formattedString =  "         *Left Tank*        Right Tank";
+    if (IsCurrentLeft == true)
+    {
+        formattedString =  "         *Left Tank*         Right Tank";
+    }
+    else
+    {
+        formattedString =  "          Left Tank         *Right Tank*";
+    }
+
     formattedString += "\nPosition:    ";
     formattedString += FormatTankCoords(LeftTank);
-    formattedString += "       ";
+    formattedString += "      ";
     formattedString += FormatTankCoords(RightTank);
-    formattedString += "\nVelocity:    ";
+    formattedString += "\nVelocity:     ";
     formattedString += FormatTankVelocity(LeftTank);
-    formattedString += "       ";
+    formattedString += "        ";
     formattedString += FormatTankVelocity(RightTank);
-    formattedString += "\nAngle:     ";
+    formattedString += "\nAngle:      ";
     formattedString += FormatTankAngle(LeftTank, true);
     formattedString += "         ";
     formattedString += FormatTankAngle(RightTank, false);
@@ -473,7 +507,7 @@ string FormatTankVelocity(Tank tank)
     string coords;
     char coord[10];
 
-    sprintf(coord, "%.2f", tank.velocity);
+    sprintf(coord, "%.1f", tank.velocity);
     coords += coord;
     coords += "m/sec";
 
@@ -486,7 +520,7 @@ string FormatTankAngle(Tank tank, bool isLeftTank)
     double angleDegrees;
     char coord[10];
 
-    angleDegrees = (180.0 / PI) * tank.fireAngle;
+    angleDegrees = RadiansToDegrees(tank.fireAngle);
 
     if (isLeftTank == false)
     {

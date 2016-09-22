@@ -5,11 +5,11 @@ Tank::Tank(bool isLeft)
     // Check which tank to set correct starting firing angles
 	if (isLeft)
 	{
-	    fireAngle = 0.0;
+	    fireAngle = DegreesToRadians(45);
 	}
 	else
 	{
-		fireAngle = PI;
+		fireAngle = DegreesToRadians(135);
 	}
 
     // Set initial velocity to 100 for the tanks

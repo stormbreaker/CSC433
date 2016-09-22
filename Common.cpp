@@ -26,4 +26,22 @@ static int ScreenHeight = 720;
 static int MAX_X = 500;
 static int MAX_Y = 500;
 
+static double DegreesToRadians(double degrees)
+{
+    double radians = 0;
+
+    radians = degrees * PI / 180.0;
+
+    return radians;
+}
+
+static double RadiansToDegrees(double radians)
+{
+    double degrees = 0;
+
+    degrees = (180.0 / PI) * radians;
+
+    return degrees;
+}
+
 #endif

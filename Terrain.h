@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <list>
+#include <cmath>
 #include "Common.cpp"
 
 using namespace std;
@@ -17,6 +18,9 @@ class Terrain
 
     private:
         list<Coordinate> terrainData;
+        void SplitTerrainIntoConvexPolygons();
+        double GetAngleBetweenSegments(Coordinate firstPoint, Coordinate secondPoint, Coordinate thirdPoint);
+        double GetLengthOfLineSegment(Coordinate firstPoint, Coordinate secondPoint);
 };
 
 #endif

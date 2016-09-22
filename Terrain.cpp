@@ -19,30 +19,30 @@ void Terrain::initializeTerrain(double width)
 
     initializationCoordinate.coordinates[X_COORD] = currentPoint;
     currentPoint += segmentLength;
-    initializationCoordinate.coordinates[Y_COORD] = 400;
+    initializationCoordinate.coordinates[Y_COORD] = 200;
 
     terrainData.push_back(initializationCoordinate);
 
     initializationCoordinate.coordinates[X_COORD] = currentPoint;
     currentPoint += segmentLength;
-    initializationCoordinate.coordinates[Y_COORD] = 400;
+    initializationCoordinate.coordinates[Y_COORD] = 200;
     terrainData.push_back(initializationCoordinate);
 
 
     initializationCoordinate.coordinates[X_COORD] = currentPoint;
     currentPoint +=segmentLength;
-    initializationCoordinate.coordinates[Y_COORD] = 775;
+    initializationCoordinate.coordinates[Y_COORD] = 600;
 
     terrainData.push_back(initializationCoordinate);
 
     initializationCoordinate.coordinates[X_COORD] = currentPoint;
     currentPoint += segmentLength;
-    initializationCoordinate.coordinates[Y_COORD] = 400;
+    initializationCoordinate.coordinates[Y_COORD] = 200;
 
     terrainData.push_back(initializationCoordinate);
 
     initializationCoordinate.coordinates[X_COORD] = currentPoint;
-    initializationCoordinate.coordinates[Y_COORD] = 400;
+    initializationCoordinate.coordinates[Y_COORD] = 200;
 
     terrainData.push_back(initializationCoordinate);
 
