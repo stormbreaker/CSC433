@@ -3,7 +3,12 @@
 /*
 	Name: Terrain
 	Author: Benjamin Kaiser
-	Description:  This function is the constructor for the class which contains all of the terrain data and associated functionality.  It takes a width which is the width of the screen at the time the terrain was generated.  It then seeds the random number generator with the current system time.  It then calls the initializeTerrain function which lays out the base shape of the terrain.  Then it calls the generateTerrain function with 4 levels of recursion.  
+	Description:  This function is the constructor for the class which contains
+    all of the terrain data and associated functionality.  It takes a width which
+    is the width of the screen at the time the terrain was generated.  It then seeds
+    the random number generator with the current system time.  It then calls the
+    initializeTerrain function which lays out the base shape of the terrain.
+    Then it calls the generateTerrain function with 4 levels of recursion.
 */
 Terrain::Terrain(double width)
 {
@@ -15,7 +20,15 @@ Terrain::Terrain(double width)
 /*
 	Name: initializeTerrain
 	Author: Benjamin Kaiser
-	Description:  This function initializes the terrain with the basic shape of the terrain as prescribed by Dr. Weiss.  This is two flat sides with a mountain in the middle.  Overall, there are 5 initial points created.  These are stored in the class' terrainData member function and the y coordinate of these points are hardcoded in.  The function takes a width which is the width of the screen at the time this function is called, and can dynamically calculate the x coordinate of each initial point by taking that width and dividing it by the number of initial line segments there are (4).  Each of these are then pushed into a linked list provided by the C++ STL library.  
+	Description:  This function initializes the terrain with the basic shape of
+    the terrain as prescribed by Dr. Weiss.  This is two flat sides with a mountain
+    in the middle.  Overall, there are 5 initial points created.  These are stored
+    in the class' terrainData member function and the y coordinate of these points
+    are hardcoded in.  The function takes a width which is the width of the screen
+    at the time this function is called, and can dynamically calculate the x coordinate
+    of each initial point by taking that width and dividing it by the number of initial
+    line segments there are (4).  Each of these are then pushed into a linked list
+    provided by the C++ STL library.
 */
 void Terrain::initializeTerrain(double width)
 {
@@ -60,7 +73,14 @@ void Terrain::initializeTerrain(double width)
 /*
 	Name: generateTerrain
 	Author: Benjamin Kaiser
-	Description:  This function is the recursive midpoint displacement function described by Dr. Weiss in class to generate the terrain for the TankWars Program.  The function takes an integer value which acts as the number of levels of recursion to go through (in other words, how many times to split each initial line segment).  The base case is when this value reaches 0.  Otherwise, the midpoint of each line segment is found using the midpoint formula and the y value is randomly generated between -20 to 20.  This value is then added to the current value to determine the new y value of the line segment.    
+	Description:  This function is the recursive midpoint displacement function
+    described by Dr. Weiss in class to generate the terrain for the TankWars Program.
+    The function takes an integer value which acts as the number of levels of recursion
+    to go through (in other words, how many times to split each initial line segment).
+    The base case is when this value reaches 0.  Otherwise, the midpoint of each line
+    segment is found using the midpoint formula and the y value is randomly generated
+    between -20 to 20.  This value is then added to the current value to determine the
+    new y value of the line segment.
 */
 void Terrain::generateTerrain(int midPointSplitCount)
 {
@@ -94,6 +114,12 @@ void Terrain::generateTerrain(int midPointSplitCount)
     generateTerrain(midPointSplitCount - 1);
 }
 
+/*
+    Name: getTerrainData
+    Author: Benjamin Kaiser
+    Description: This function is literally just a getter function for the private
+    terrainData linked list in the Terrain class.  
+*/
 list<Coordinate> Terrain::getTerrainData()
 {
     return terrainData;
