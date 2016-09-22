@@ -258,7 +258,7 @@ void SetFireCoordinates(Tank &tank)
     Coordinate tempCoord;
     vector<Coordinate> projectilePath;
 
-    for (double timeCount = 0; timeCount < 25; timeCount += .05)
+    for (double timeCount = 0; timeCount < 40; timeCount += .05)
 	{
 		x = tank.velocity * timeCount * cos(tank.fireAngle);
 		y = (tank.velocity * timeCount * sin(tank.fireAngle)) - (GRAVITY * pow(timeCount, 2))/2;
@@ -286,6 +286,7 @@ void SetFireCoordinates(Tank &tank)
         {
             break;
         }
+		cout << tempCoord.coordinates[X_COORD] << " " << tempCoord.coordinates[Y_COORD] << endl;
 	}
 
     tank.SetFireCoords(projectilePath);
