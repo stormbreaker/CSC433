@@ -14,6 +14,7 @@ void display( void );
 void keyboard(unsigned char key, int x, int y);
 void specialKeyboard(int key, int x, int y);
 void reshape(int width, int height);
+void DrawStrokeString(string textToPrint, float x, float y);
 
 void MoveTank(int direction);
 void MoveFiringAngle(int direction);
@@ -25,5 +26,10 @@ bool FindTankCollision(double x, double y);
 bool FindMountainCollision(double x, double y);
 void SetMaxXY(int width, int height);
 double TerrainYValueAtX(double xCoord);
+
+string FormatTankCoords(Tank tank);
+string FormatTankVelocity(Tank tank);
+string FormatTankAngle(Tank tank, bool isLeftTank);
+string FormatTankInfoString(Tank leftTank, Tank rightTank);
 
 #endif

@@ -19,10 +19,11 @@ int main(int argc, char *argv[])
     glutInit(&argc, argv);                // initialize GLUT
     glutCreateWindow("Tank Wars");		  // open window and specify title
     glutDisplayFunc(display);			  // display callback: how to redisplay window
-	glutReshapeFunc( reshape );
+	glutReshapeFunc(reshape);
     glutKeyboardFunc(keyboard);
     glutSpecialFunc(specialKeyboard);
     glutReshapeWindow(ScreenWidth, ScreenHeight);
+    glEnable(GL_RESCALE_NORMAL);
 
     SetMaxXY(ScreenWidth, ScreenHeight);
 
@@ -90,6 +91,10 @@ void display( void )
         IsCurrentLeft = !IsCurrentLeft;
     }
 
+    DrawStrokeString(FormatTankInfoString(LeftTank, RightTank), 500, 100);
+
+    glEnable(GL_RESCALE_NORMAL);
+
     glFlush();
 }
 
@@ -98,6 +103,7 @@ void reshape(int width, int height)
     ScreenWidth = width;
     ScreenHeight = height;
 
+    glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
     SetMaxXY(width, height);
@@ -134,10 +140,12 @@ void keyboard(unsigned char key, int x, int y)
 		// Plus key increases velocity
 		case PLUS_KEY:
 			ModifyTankVelocity(2.5);
+            glutPostRedisplay();
 			break;
 		// minus key decreses velocity
 		case MINUS_KEY:
 			ModifyTankVelocity(-2.5);
+            glutPostRedisplay();
 			break;
 
         // anything else redraws window
@@ -420,4 +428,104 @@ double TerrainYValueAtX(double xValue)
     }
 
     return yCoord;
+}
+
+string FormatTankInfoString(Tank leftTank, Tank rightTank)
+{
+    string formattedString;
+
+    formattedString =  "         *Left Tank*        Right Tank";
+    formattedString += "\nPosition:    ";
+    formattedString += FormatTankCoords(LeftTank);
+    formattedString += "       ";
+    formattedString += FormatTankCoords(RightTank);
+    formattedString += "\nVelocity:    ";
+    formattedString += FormatTankVelocity(LeftTank);
+    formattedString += "       ";
+    formattedString += FormatTankVelocity(RightTank);
+    formattedString += "\nAngle:     ";
+    formattedString += FormatTankAngle(LeftTank, true);
+    formattedString += "         ";
+    formattedString += FormatTankAngle(RightTank, false);
+
+    return formattedString;
+}
+
+string FormatTankCoords(Tank tank)
+{
+    string coords;
+    char coord[20];
+
+    coords = "( ";
+    sprintf(coord, "%d", (int)tank.CenterCoords[X_COORD]);
+    coords += coord;
+    coords += ", ";
+
+    sprintf(coord, "%d", (int)tank.CenterCoords[Y_COORD]);
+    coords += coord;
+    coords += " )";
+
+    return coords;
+}
+
+string FormatTankVelocity(Tank tank)
+{
+    string coords;
+    char coord[10];
+
+    sprintf(coord, "%.2f", tank.velocity);
+    coords += coord;
+    coords += "m/sec";
+
+    return coords;
+}
+
+string FormatTankAngle(Tank tank, bool isLeftTank)
+{
+    string coords;
+    double angleDegrees;
+    char coord[10];
+
+    angleDegrees = (180.0 / PI) * tank.fireAngle;
+
+    if (isLeftTank == false)
+    {
+        angleDegrees = 180.0 - angleDegrees;
+    }
+
+    sprintf(coord, "%d", (int)angleDegrees);
+    coords += coord;
+    coords += " degrees";
+
+    return coords;
+}
+
+void DrawStrokeString(string textToPrint, float x, float y)
+{
+    double fontScaling = .15;
+    glColor3ub(255, 255, 255);
+
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glTranslatef( x, y, 0 );
+    glScalef(fontScaling, fontScaling, fontScaling);
+
+    for (char character : textToPrint)
+    {
+        if (character == '\n')
+        {
+            y -= 25;
+
+            glPopMatrix();
+            glPushMatrix();
+            glTranslatef( x, y, 0 );
+            glScalef(fontScaling, fontScaling, fontScaling);
+        }
+        else
+        {
+            glutStrokeCharacter(GLUT_STROKE_ROMAN, character);
+        }
+    }
+
+    glPopMatrix();
 }
