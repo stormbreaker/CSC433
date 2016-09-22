@@ -16,7 +16,6 @@ class Display
     public:
         Display();
 
-
     private:
         Information rightTankInformation;
         Information LeftTankInformation;

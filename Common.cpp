@@ -8,7 +8,7 @@ struct Coordinate
 
 const double ViewplaneSize = 1000.0;
 
-const double FIVE_DEGREES = 0.08726646255;
+const double ANGLE_OFFSET = 0.01745329251;
 
 const double PI = 3.14159265359;
 const double GRAVITY = 9.81;

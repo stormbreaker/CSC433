@@ -220,22 +220,22 @@ void MoveFiringAngle(int direction)
 	{
 		if (IsCurrentLeft)
 		{
-			angle = FIVE_DEGREES;
+			angle = ANGLE_OFFSET;
 		}
 		else
 		{
-			angle = 0 - FIVE_DEGREES;
+			angle = 0 - ANGLE_OFFSET;
 		}
 	}
 	else if (direction == GLUT_KEY_DOWN)
 	{
 		if (IsCurrentLeft)
 		{
-			angle = 0 - FIVE_DEGREES;
+			angle = 0 - ANGLE_OFFSET;
 		}
 		else
 		{
-			angle = FIVE_DEGREES;
+			angle = ANGLE_OFFSET;
 		}
 	}
 
