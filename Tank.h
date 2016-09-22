@@ -27,6 +27,8 @@ class Tank
         vector<Coordinate> _ProjectilePath;
 
         void DrawBarrel(int xValue, int yValue);
+        void DrawWheels(int xValue, int yValue);
+        void DrawDome(int xValue, int yValue);
 };
 
 #endif
