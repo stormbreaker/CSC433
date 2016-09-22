@@ -286,7 +286,6 @@ void SetFireCoordinates(Tank &tank)
         {
             break;
         }
-		cout << tempCoord.coordinates[X_COORD] << " " << tempCoord.coordinates[Y_COORD] << endl;
 	}
 
     tank.SetFireCoords(projectilePath);
@@ -317,25 +316,18 @@ bool FindTankCollision(double x, double y)
     {
         xDiff = RightTank.CenterCoords[X_COORD] - x;
         yDiff = RightTank.CenterCoords[Y_COORD] - y;
-
-        if (abs(xDiff) < 20 && abs(yDiff) < 10)
-        {
-            cout << "1 Found Collision" << endl;
-
-            foundCollision = true;
-        }
     }
     else
     {
         xDiff = LeftTank.CenterCoords[X_COORD] - x;
         yDiff = LeftTank.CenterCoords[Y_COORD] - y;
+    }
 
-        if (abs(xDiff) < 20 && abs(yDiff) < 10)
-        {
-            cout << "2 Found Collision" << endl;
+    if (abs(xDiff) < 20 && abs(yDiff) < 10)
+    {
+        cout << "Collision" << endl;
 
-            foundCollision = true;
-        }
+        foundCollision = true;
     }
 
     return foundCollision;
