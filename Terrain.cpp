@@ -12,8 +12,11 @@
 */
 Terrain::Terrain(double width)
 {
+    // seed random number generator with current time.
     srand((double) clock());
+    // set up the terrain
     initializeTerrain(width);
+    // randomize terrain
     generateTerrain(4);
 }
 
@@ -118,7 +121,7 @@ void Terrain::generateTerrain(int midPointSplitCount)
     Name: getTerrainData
     Author: Benjamin Kaiser
     Description: This function is literally just a getter function for the private
-    terrainData linked list in the Terrain class.  
+    terrainData linked list in the Terrain class.
 */
 list<Coordinate> Terrain::getTerrainData()
 {
