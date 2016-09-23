@@ -187,7 +187,13 @@ void display( void )
     // Flush all graphics to the screen
     glFlush();
 }
-
+/*
+	Name: reshape
+	Author: Taylor Doell
+	Description: This function is the callback function for the OpenGL when the
+	window is resized.  It clears the screen around and then sets up the remapping
+	of the viewport and coordinates.  
+*/
 void reshape(int width, int height)
 {
     // Call methods to refresh the screen
