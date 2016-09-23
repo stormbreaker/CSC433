@@ -6,6 +6,25 @@
 	#include <GL/glut.h> // LinuxOS include
 #endif
 
+/*
+	CSC 433 - Computer Graphics
+	Dr. John Weiss
+	Programming Assignment #1 - Tank Wars
+	Benjamin Kaiser and Taylor Doell
+	Due 9-22-16
+
+	Description:
+	This program is a simple introduction into computer graphics and OpenGL.  The
+	purpose of the program is to build a simple arcade game between two tanks which
+	will fire at each other over the top of a mountain. The first player to hit
+	the other tank wins the game.  When this happens, the screen displays the word
+	"Win!" above the tank which one and allows the option to hit R to replay the
+	game with a new terrain.  The tank's movement across the screen is controlled
+	by the left/right arrow keys.  The tank's firing angle is controlled by the up/down
+	arrow keys.  The tank's firing velocity is controlled by the +/- keys.  The
+	tank fires by pressing the space key.  The tank turns switch automatically.  
+*/
+
 using namespace std;
 
 // Global variables for Game
