@@ -210,7 +210,15 @@ void reshape(int width, int height)
     glutReshapeWindow(ScreenWidth, ScreenHeight);
     glViewport(0, 0, ScreenWidth, ScreenHeight);
 }
-
+/*
+	Name: keyboard
+	Author: Taylor Doell
+	Description:  This function is the OpenGL callback function for when keyboard
+	events are fired.  It has the selection controls for the ESC key, the R/r key,
+	the +/- keys as well as the space bar.  If R is hit, the program restarts.
+	+/- changes the velocity of the current tank's firing velocity.  The space
+	bar fires the tank, and the ESC key exits the game.
+*/
 void keyboard(unsigned char key, int x, int y)
 {
     // Only allow escape key and r key if the game is over
@@ -261,7 +269,16 @@ void keyboard(unsigned char key, int x, int y)
         }
     }
 }
-
+/*
+	Name: specialKeyboard
+	Author: Taylor Doell
+	Description:  This function is the keyboard listener for the special keyboard
+	buttons.  These special keys are the up/down/left/right arrow keys.
+	The switch statement checks to see which button was pressed and calls the
+	correct function respectively.  The UP/DOWN arrow keys, change the firing angle
+	for the current tank.  The LEFT/RIGHT keys change the position of the current
+	tank.  
+*/
 void specialKeyboard(int key, int x, int y)
 {
     if (GameOver == false)
