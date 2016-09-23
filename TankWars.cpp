@@ -222,7 +222,7 @@ void reshape(int width, int height)
 void keyboard(unsigned char key, int x, int y)
 {
     // Only allow escape key and r key if the game is over
-    if (GameOver == false || key == ESC_KEY || key == R_KEY)
+    if (GameOver == false || key == ESC_KEY || key == R_KEY || key == LOWER_R_KEY)
     {
         // process keypresses
         switch(key)
@@ -346,7 +346,7 @@ void ResetGame()
 	Description:  This function takes the key that was pushed and as a result which
 	direction the current tank should be moving.  It sets up the offset from the
 	tank's current position.  It then takes that position and passes it to the
-	SetTankPosition which then computes the new x position.  
+	SetTankPosition which then computes the new x position.
 */
 void MoveTank(int direction)
 {
