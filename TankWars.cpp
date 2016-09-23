@@ -500,6 +500,14 @@ bool FindTankCollision(double x, double y)
     return foundCollision;
 }
 
+/*
+	Name: SetTankPosition
+	Author: Taylor Doell
+	Description:  This function takes in a xValue in order to find the y value
+    on the terrain that corresponds to that xValue. Due to the points being
+    sporatic for the terrain, we must calculate the equation for the line to
+    get the correct y position.
+*/
 double TerrainYValueAtX(double xValue)
 {
     double y = 0;
@@ -538,6 +546,15 @@ double TerrainYValueAtX(double xValue)
     return yCoord;
 }
 
+/*
+	Name: SetTankPosition
+	Author: Taylor Doell
+	Description:  This function increments the xCoord passed with the tanks
+    center x coordinate to get the correct position. Depending on that position,
+    the function checks that coordinate to make sure it is inside the window and
+    that the tank hasn't gone too far towards the middle of the mountain. This
+    prevents the tank from going over the mountain to the other side.
+*/
 void SetTankPosition(Tank &tank, double xCoord)
 {
     // Get initial middle of the screen to prevent going over mountain
