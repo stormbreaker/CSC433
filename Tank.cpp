@@ -16,15 +16,15 @@ Tank::Tank(bool isLeft)
     // Check which tank to set correct starting firing angles
 	if (isLeft)
 	{
-	    fireAngle = DegreesToRadians(45);
+	    FireAngle = DegreesToRadians(45);
 	}
 	else
 	{
-		fireAngle = DegreesToRadians(135);
+		FireAngle = DegreesToRadians(135);
 	}
 
     // Set initial velocity to 100 for the tanks
-    velocity = 100;
+    Velocity = 100;
 }
 
 /*
@@ -58,6 +58,10 @@ vector<Coordinate> Tank::GetFireCoords()
     Author: Taylor Doell
     Description:  This function sets up the body of the tank to be drawn.  It also
     calls the other functions to draw the other parts of the tank.
+
+	This function takes two integers, an x and a y value which are
+	used to set the center coordinates of the tank.  It also takes a boolean
+	flag which tells whether or not this tank is a left or a right tank.  
 */
 void Tank::SetTankCoords(int xValue, int yValue, bool isLeftTank)
 {
@@ -215,7 +219,7 @@ void Tank::DrawBarrel(int xValue, int yValue)
     Author: Taylor Doell
     Description:  This function sets up all of the points which describe a tank's
     dome.  All of the points are pushed into the tank's DrawCoords vector to be
-    called later to draw it.  
+    called later to draw it.
 */
 void Tank::DrawDome(int xValue, int yValue)
 {
