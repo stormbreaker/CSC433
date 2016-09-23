@@ -14,6 +14,7 @@ const double PI = 3.14159265359;
 const double GRAVITY = 9.81;
 
 const int ESC_KEY = 27;
+const int R_KEY = 114;
 const int SPACE_KEY = 32;
 const int PLUS_KEY = 43;
 const int MINUS_KEY = 45;
