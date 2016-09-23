@@ -269,7 +269,16 @@ void keyboard(unsigned char key, int x, int y)
         }
     }
 }
-
+/*
+	Name: specialKeyboard
+	Author: Taylor Doell
+	Description:  This function is the keyboard listener for the special keyboard
+	buttons.  These special keys are the up/down/left/right arrow keys.
+	The switch statement checks to see which button was pressed and calls the
+	correct function respectively.  The UP/DOWN arrow keys, change the firing angle
+	for the current tank.  The LEFT/RIGHT keys change the position of the current
+	tank.  
+*/
 void specialKeyboard(int key, int x, int y)
 {
     if (GameOver == false)
