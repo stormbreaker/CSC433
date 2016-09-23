@@ -277,7 +277,7 @@ void keyboard(unsigned char key, int x, int y)
 	The switch statement checks to see which button was pressed and calls the
 	correct function respectively.  The UP/DOWN arrow keys, change the firing angle
 	for the current tank.  The LEFT/RIGHT keys change the position of the current
-	tank.  
+	tank.
 */
 void specialKeyboard(int key, int x, int y)
 {
@@ -363,6 +363,14 @@ void MoveTank(int direction)
     glutPostRedisplay();
 }
 
+/*
+	Name: MoveFiringAngle
+	Author: Ben Kaiser
+	Description:  This function moves the firing angle on the current tank playing.
+    It then uses an offset depending if the tank is the RightTank or the LeftTank.
+    After computing the right angle, it calls a seperate method that sets that
+    firing angle on the current tank after some extra computations.
+*/
 void MoveFiringAngle(int direction)
 {
 	double angle;
@@ -413,6 +421,21 @@ void MoveFiringAngle(int direction)
 	}
 }
 
+/*
+	Name: SetFireCoordinates
+	Author: Ben Kaiser
+	Description:  This function sets the projectile path coordinates. It loops
+    through with a timeCount incrementing at .05 to allow for a smoother curve.
+    It takes into effect gravity when calculating the curve. It uses cos and sin
+    for calculating the x and y respectively while also multiplying the velocity
+    and the time count together. It then computes an offset to line up the curve
+    with the barrel of the tank. Depending on if the current tank is the RightTank,
+    it multiplies that offset by -1. It then add the tanks coordinates and the
+    offset to move the x and y to the correct tank. Mountain and tank collisions
+    are now checked to see if the curve should stop or not and to see if a tank
+    has won the game. If no collision is present, it adds the coordinates to the
+    projectile path. The function then sets those coordinates on the correct tank.
+*/
 void SetFireCoordinates(Tank &tank)
 {
     double x;
