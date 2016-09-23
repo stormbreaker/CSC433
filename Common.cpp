@@ -1,6 +1,11 @@
 #ifndef COMMON_TWBKTD
 #define COMMON_TWBKTD
-
+/*
+    This file just contains all of the globals and constructs that are global to
+    the entire program.  It also contains a couple methods that are used to convert
+    from radians to degree values and degress to radians.  These are used throughout
+    the program.  
+*/
 struct Coordinate
 {
     double coordinates[2];
