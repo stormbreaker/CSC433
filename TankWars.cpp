@@ -544,6 +544,13 @@ void SetTankPosition(Tank &tank, double xCoord)
     }
 }
 
+/*
+	Name: SetFireAngle
+	Author: Taylor Doell
+	Description:  This function modifies the tanks fire angle. It determines
+    if the angle is below 0 or PI radians so the tanks don't fire below 0 degrees
+    and changes the angle appropriately.
+*/
 void SetFireAngle(Tank &tank, double angle)
 {
     // Increment angle according to existing tank angle
@@ -563,6 +570,13 @@ void SetFireAngle(Tank &tank, double angle)
 	}
 }
 
+/*
+	Name: SetMaxXY
+	Author: Taylor Doell
+	Description:  This function calculates the MAX_X and the MAX_Y which allows
+    for keeping the same aspect ratio when changing the size of the window. The
+    program always snaps back to the same size as the original screen though.
+*/
 void SetMaxXY(int width, int height)
 {
     // Set max x and y to keep the aspect ratio
@@ -579,6 +593,12 @@ void SetMaxXY(int width, int height)
     }
 }
 
+/*
+	Name: ModifyTankVelocity
+	Author: Taylor Doell
+	Description:  This modifies the velocity on the tank that is currently
+    playing the game.
+*/
 void ModifyTankVelocity(double velocityChange)
 {
     // Increase tank velocity depending on current tank
@@ -593,7 +613,7 @@ void ModifyTankVelocity(double velocityChange)
 }
 
 /*
-	Name: FormatTankCoords
+	Name: FormatTankInfoString
 	Author: Taylor Doell
 	Description:  This is the main function for formatting the string correctly
     to show all the information regarding current tank playing, coordinates of
