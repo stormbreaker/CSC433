@@ -16,6 +16,7 @@ void specialKeyboard(int key, int x, int y);
 void reshape(int width, int height);
 void DrawStrokeString(string textToPrint, float x, float y, int fontSize);
 
+void ResetGame();
 void MoveTank(int direction);
 void MoveFiringAngle(int direction);
 void ModifyTankVelocity(double velocityChange);
@@ -27,6 +28,7 @@ bool FindMountainCollision(double x, double y);
 void SetMaxXY(int width, int height);
 double TerrainYValueAtX(double xCoord);
 
+void DisplayMenu();
 string FormatTankCoords(Tank tank);
 string FormatTankVelocity(Tank tank);
 string FormatTankAngle(Tank tank, bool isLeftTank);
