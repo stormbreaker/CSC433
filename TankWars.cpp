@@ -313,6 +313,13 @@ void specialKeyboard(int key, int x, int y)
     }
 }
 
+/*
+	Name: ResetGame
+	Author: Taylor Doell
+	Description:  This function is called when the game starts up and also
+	when the R or r buttons are pressed.  It creates entirely new tanks and
+	resets all global variables to what they need to be at the beginnng of a game.
+*/
 void ResetGame()
 {
     // Create new tanks
@@ -333,7 +340,14 @@ void ResetGame()
     LeftTank.SetTankCoords(100, TerrainYValueAtX(100), true);
     RightTank.SetTankCoords(MAX_X - 100, TerrainYValueAtX(MAX_X - 100), false);
 }
-
+/*
+	Name: MoveTank
+	Author: Taylor Doell
+	Description:  This function takes the key that was pushed and as a result which
+	direction the current tank should be moving.  It sets up the offset from the
+	tank's current position.  It then takes that position and passes it to the
+	SetTankPosition which then computes the new x position.  
+*/
 void MoveTank(int direction)
 {
     // Variable declaration
