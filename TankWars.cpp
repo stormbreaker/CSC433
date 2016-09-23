@@ -18,7 +18,7 @@
 	purpose of the program is to build a simple arcade game between two tanks which
 	will fire at each other over the top of a mountain. The first player to hit
 	the other tank wins the game.  When this happens, the screen displays the word
-	"Win!" above the tank which one and allows the option to hit R to replay the
+	"Win!" above the tank which won and allows the option to hit R to replay the
 	game with a new terrain.  The tank's movement across the screen is controlled
 	by the left/right arrow keys.  The tank's firing angle is controlled by the up/down
 	arrow keys.  The tank's firing velocity is controlled by the +/- keys.  The
@@ -232,8 +232,11 @@ void keyboard(unsigned char key, int x, int y)
     			ModifyTankVelocity(-2.5);
                 glutPostRedisplay();
     			break;
+            case LOWER_R_KEY:
             case R_KEY:
                 ResetGame();
+                glutPostRedisplay();
+                break;
 
             // anything else redraws window
             default:
