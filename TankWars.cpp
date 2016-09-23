@@ -192,7 +192,7 @@ void display( void )
 	Author: Taylor Doell
 	Description: This function is the callback function for the OpenGL when the
 	window is resized.  It clears the screen around and then sets up the remapping
-	of the viewport and coordinates.  
+	of the viewport and coordinates.
 */
 void reshape(int width, int height)
 {
@@ -210,7 +210,15 @@ void reshape(int width, int height)
     glutReshapeWindow(ScreenWidth, ScreenHeight);
     glViewport(0, 0, ScreenWidth, ScreenHeight);
 }
-
+/*
+	Name: keyboard
+	Author: Taylor Doell
+	Description:  This function is the OpenGL callback function for when keyboard
+	events are fired.  It has the selection controls for the ESC key, the R/r key,
+	the +/- keys as well as the space bar.  If R is hit, the program restarts.
+	+/- changes the velocity of the current tank's firing velocity.  The space
+	bar fires the tank, and the ESC key exits the game.
+*/
 void keyboard(unsigned char key, int x, int y)
 {
     // Only allow escape key and r key if the game is over
