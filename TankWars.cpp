@@ -22,7 +22,7 @@
 	game with a new terrain.  The tank's movement across the screen is controlled
 	by the left/right arrow keys.  The tank's firing angle is controlled by the up/down
 	arrow keys.  The tank's firing velocity is controlled by the +/- keys.  The
-	tank fires by pressing the space key.  The tank turns switch automatically.  
+	tank fires by pressing the space key.  The tank turns switch automatically.
 */
 
 using namespace std;
@@ -34,7 +34,13 @@ bool GameOver = false;
 Terrain testTerrain(MAX_X); // Terrain class to generate the terrain
 Tank LeftTank(true);        // Initialize left tank
 Tank RightTank(false);      // Initialize right tank
-
+/*
+	Name: main
+	Author: Benjamin Kaiser and Taylor Doell
+	Description:  This function is just the main function that the C++ language
+	requires to compile and run.  It calls glutMainLoop which is really our main
+	function/loop.  
+*/
 int main(int argc, char *argv[])
 {
     // Setup glut window and callback methods
