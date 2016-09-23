@@ -470,6 +470,15 @@ void SetFireCoordinates(Tank &tank)
     tank.SetFireCoords(projectilePath);
 }
 
+/*
+	Name: FindMountainCollision
+	Author: Taylor Doell
+	Description:  This function takes in a x and y coordinate and finds the
+    terrain y value for comparing to the y value passed in. If the terrain y value
+    is greater than the y passed in, the y passed in is below the terrain and
+    therefor shouldn't be used and that means we have found a collision with the
+    terrain.
+*/
 bool FindMountainCollision(double x, double y)
 {
     double yValueAtX = 0;
@@ -487,6 +496,14 @@ bool FindMountainCollision(double x, double y)
     return foundCollision;
 }
 
+/*
+	Name: SetTankPosition
+	Author: Taylor Doell
+	Description:  This function takes in a x and y coordinate to compute the
+    difference between the coordinates passed in and the tank being shot at. It does
+    some math magic to decide if the differences are between the threshold for
+    hitting the other tank.
+*/
 bool FindTankCollision(double x, double y)
 {
     bool foundCollision = false;
@@ -517,7 +534,7 @@ bool FindTankCollision(double x, double y)
 }
 
 /*
-	Name: SetTankPosition
+	Name: TerrainYValueAtX
 	Author: Taylor Doell
 	Description:  This function takes in a xValue in order to find the y value
     on the terrain that corresponds to that xValue. Due to the points being
