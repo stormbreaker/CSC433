@@ -41,7 +41,8 @@ void display( void )
     vector<Coordinate> fireCoords;
     glClear(GL_COLOR_BUFFER_BIT);
 
-    DisplayMenu();
+    // Draw string at coordinate
+    DrawStrokeString(FormatMenu(), 20, MAX_Y - 40, 15);
 
     // Draw the terrain onto the screen
 	glBegin(GL_LINE_STRIP);
@@ -653,7 +654,7 @@ string FormatTankAngle(Tank tank, bool isLeftTank)
     return coords;
 }
 
-void DisplayMenu()
+string FormatMenu()
 {
     string menuString = "";
 
@@ -674,8 +675,7 @@ void DisplayMenu()
         menuString += "\nArrow Left - Move Tank Left";
     }
 
-    // Draw string at coordinate
-    DrawStrokeString(menuString, 20, MAX_Y - 40, 15);
+    return menuString;
 }
 
 void DrawStrokeString(string textToPrint, float x, float y, int fontSize)
