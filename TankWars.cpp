@@ -39,7 +39,7 @@ Tank RightTank(false);      // Initialize right tank
 	Author: Benjamin Kaiser and Taylor Doell
 	Description:  This function is just the main function that the C++ language
 	requires to compile and run.  It calls glutMainLoop which is really our main
-	function/loop.  
+	function/loop.
 */
 int main(int argc, char *argv[])
 {
@@ -60,7 +60,17 @@ int main(int argc, char *argv[])
 
     return 0;
 }
-
+/*
+	Name: display
+	Author: Taylor Doell
+	Description:  This function is the display callback function that does all of
+	the drawing for the entire program.  The firs glBegin draws the terrain
+	onto the screen.  It gets the terrainData from the Terrain class and loops
+	through those points and draws them out.
+	After that, it draws the left tank and then the right tank.  It also draws the
+	text for each of the menu items and the tank information.  It also draws the
+	the text for when a player wins the game.  
+*/
 void display( void )
 {
     vector<Coordinate> fireCoords;
