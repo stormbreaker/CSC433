@@ -42,18 +42,41 @@ using namespace std;
 
     The SetTankPosition function takes a tank and the x-coordinate to move to.
 
+    The SetFireAngle function takes a tank and the angle that needs to be added
+    to the passed tank's current firing angle.
 
+    The SetFireCoordinates function takes a tank, and sets up the projectile path
+    for that specific tank.
+
+    The FindTankCollision function takes an x and a y value.  It then checks to
+    see how close the x and y coordinates are to both of the tanks.  If they're
+    within a certain amount, it returns true.
+
+    The FindMountainCollision function takes an x and a y value.  It then checks
+    to see how close the x and y coordinates are to  coordinates of the terrain.
+    If the y value is within a certain distance, it returns true.
+
+    The SetMaxXY function takes an x and a y value which are the coordinates of the
+    screen width and height so that we can keep the aspect ratio on the program
+    the same.
+
+    The TerrainYValueAtX function takes an x value and finds the y value of the
+    terrain at that given x value.
+
+    The FormatMenu function sets up the text for the controls menu at the top of
+    the game.
+
+    The FormatTankCoords function sets up the text for displaying where each of
+    the tanks are at.
+
+    The FormatTankAngle functions ets up the text for the displaying where each of
+    the tank angles are put.
+
+    The FormatTankInfoString takes both the left and right tank and formats all
+    of the tanks' information.  
 */
 #ifndef TANKWARS_H
 #define TANKWARS_H
-
-// Global variables for Game
-bool IsCurrentLeft = true;
-bool DidFireTank = false;
-bool GameOver = false;
-Terrain testTerrain(MAX_X); // Terrain class to generate the terrain
-Tank LeftTank(true);        // Initialize left tank
-Tank RightTank(false);      // Initialize right tank
 
 void display( void );
 void keyboard(unsigned char key, int x, int y);
