@@ -28,6 +28,11 @@ static int ScreenHeight = 720;
 static int MAX_X = 500;
 static int MAX_Y = 500;
 
+/*
+    Name: DegreesToRadians
+    Author: Taylor Doell
+    Description:  This function converts degrees to radians.
+*/
 static double DegreesToRadians(double degrees)
 {
     double radians = 0;
@@ -37,6 +42,11 @@ static double DegreesToRadians(double degrees)
     return radians;
 }
 
+/*
+    Name: RadiansToDegrees
+    Author: Taylor Doell
+    Description:  This function converts radians to degrees.
+*/
 static double RadiansToDegrees(double radians)
 {
     double degrees = 0;
