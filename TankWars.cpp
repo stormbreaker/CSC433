@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
 	through those points and draws them out.
 	After that, it draws the left tank and then the right tank.  It also draws the
 	text for each of the menu items and the tank information.  It also draws the
-	the text for when a player wins the game.  
+	the text for when a player wins the game.
 */
 void display( void )
 {
@@ -187,7 +187,13 @@ void display( void )
     // Flush all graphics to the screen
     glFlush();
 }
-
+/*
+	Name: reshape
+	Author: Taylor Doell
+	Description: This function is the callback function for the OpenGL when the
+	window is resized.  It clears the screen around and then sets up the remapping
+	of the viewport and coordinates.  
+*/
 void reshape(int width, int height)
 {
     // Call methods to refresh the screen
