@@ -277,7 +277,7 @@ void keyboard(unsigned char key, int x, int y)
 	The switch statement checks to see which button was pressed and calls the
 	correct function respectively.  The UP/DOWN arrow keys, change the firing angle
 	for the current tank.  The LEFT/RIGHT keys change the position of the current
-	tank.  
+	tank.
 */
 void specialKeyboard(int key, int x, int y)
 {
@@ -313,6 +313,13 @@ void specialKeyboard(int key, int x, int y)
     }
 }
 
+/*
+	Name: ResetGame
+	Author: Taylor Doell
+	Description:  This function is called when the game starts up and also
+	when the R or r buttons are pressed.  It creates entirely new tanks and
+	resets all global variables to what they need to be at the beginnng of a game.  
+*/
 void ResetGame()
 {
     // Create new tanks
