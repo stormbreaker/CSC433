@@ -39,7 +39,7 @@ Tank RightTank(false);      // Initialize right tank
 	Author: Benjamin Kaiser and Taylor Doell
 	Description:  This function is just the main function that the C++ language
 	requires to compile and run.  It calls glutMainLoop which is really our main
-	function/loop.  
+	function/loop.
 */
 int main(int argc, char *argv[])
 {
@@ -552,7 +552,7 @@ void SetTankPosition(Tank &tank, double xCoord)
 
 /*
 	Name: SetFireAngle
-	Author: Taylor Doell
+	Author: Ben Kaiser
 	Description:  This function modifies the tanks fire angle. It determines
     if the angle is below 0 or PI radians so the tanks don't fire below 0 degrees
     and changes the angle appropriately.
