@@ -7,6 +7,43 @@
 #include "Terrain.h"
 #include <cmath>
 
+using namespace std;
+/*
+    This file is just the header file to separate out from the TankWars.cpp file.
+    It contains all of the function prototypes that will be needed for the main
+    functioning of the program.  Each function has their header in the TankWars.cpp
+    file.  Brief descriptions are written below.
+
+    The display function is the function used by the OpenGL library and matches
+    the function protopye as required for a display callback function.
+
+    The keyboard function is the function used by the OpenGL library.  It matches the
+    function prototype as required as required for the keyboard listener callback
+    function.
+
+    The specialKeyboard function is teh function used by the OpenGL.  It matches
+    the function prototype as required for the special keyboard input listener callback
+    function that OpenGL requires.
+
+    The DrawStrokeString function takes a given string and prints it to the graphics
+    window starting at the given x and y coordinates with the given fontSize.
+
+    The ResetGame function starts the program over and is used to replay the game
+    when one tank has won.
+
+    The MoveTank function moves the current tank around the screen based on
+    keyboard input.
+
+    The MoveFiringAngle function changes the angle of the current tank based on
+    keyboard input.
+
+    The ModifyTankVelocity function takes a double which tells how much to change
+    the velocity value of the current tank.
+
+    The SetTankPosition function takes a tank and the x-coordinate to move to.
+
+    
+*/
 #ifndef TANKWARS_H
 #define TANKWARS_H
 
