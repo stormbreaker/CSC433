@@ -570,6 +570,15 @@ void ModifyTankVelocity(double velocityChange)
     }
 }
 
+/*
+	Name: FormatTankCoords
+	Author: Taylor Doell
+	Description:  This is the main function for formatting the string correctly
+    to show all the information regarding current tank playing, coordinates of
+    the tanks, the velocity and the angle at which the tanks are pointed. It
+    goes through and formats the property headers, but it calls other functions
+    to format the actual numbers and values.
+*/
 string FormatTankInfoString(Tank leftTank, Tank rightTank)
 {
     string formattedString;
@@ -601,6 +610,12 @@ string FormatTankInfoString(Tank leftTank, Tank rightTank)
     return formattedString;
 }
 
+/*
+	Name: FormatTankCoords
+	Author: Taylor Doell
+	Description:  This function formats the string to print for tank coordinates.
+    It formats the string in the format a number with ( xValue, yValue ).
+*/
 string FormatTankCoords(Tank tank)
 {
     string coords;
@@ -618,6 +633,13 @@ string FormatTankCoords(Tank tank)
     return coords;
 }
 
+/*
+	Name: FormatTankVelocity
+	Author: Taylor Doell
+	Description:  This function formats the string to print for tank velocity.
+    It formats the string in the format a number with 1 number after the decimal
+    point and then m/sec.
+*/
 string FormatTankVelocity(Tank tank)
 {
     string coords;
@@ -631,6 +653,13 @@ string FormatTankVelocity(Tank tank)
     return coords;
 }
 
+/*
+	Name: FormatTankAngle
+	Author: Taylor Doell
+	Description:  This function formats the string to print for the angle of a
+    tank. It converts the radians to degrees to allow the users to easily see the
+    angle. It formats the string with a digit and degrees after the number.
+*/
 string FormatTankAngle(Tank tank, bool isLeftTank)
 {
     string coords;
@@ -654,6 +683,15 @@ string FormatTankAngle(Tank tank, bool isLeftTank)
     return coords;
 }
 
+/*
+	Name: FormatMenu
+	Author: Taylor Doell
+	Description:  This function formats the string to print for the menu. It
+    formats the string different depending on if the game is over or not. If the
+    game is over, it only prints out how to close the game or restart the game.
+    If the game is not over, it formats the string to show all the ways to
+    interact with the game.
+*/
 string FormatMenu()
 {
     string menuString = "";
@@ -678,6 +716,18 @@ string FormatMenu()
     return menuString;
 }
 
+/*
+	Name: DrawStrokeString
+	Author: Taylor Doell
+	Description:  This function takes in the string to print, the x and y coordiante,
+    and the fontsize to display the font in. The fontsize is used to scale the
+    screen to change the size of the characters. It changes the matrix mode to a
+    GL_MODELVIEW for using the push and pop matrix functions. To display new lines
+    you must pop the current matrix, change the x and y coordinates and push a new
+    matrix. Due to using Glut rather than FreeGlut, we must use glutStrokeCharacter
+    and loop through each character in the string. Once done, we must pop the final
+    matrix to the screen.
+*/
 void DrawStrokeString(string textToPrint, float x, float y, int fontSize)
 {
     // Set font size scaling to change the size
