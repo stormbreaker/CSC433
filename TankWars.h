@@ -21,7 +21,7 @@ using namespace std;
     function prototype as required as required for the keyboard listener callback
     function.
 
-    The specialKeyboard function is teh function used by the OpenGL.  It matches
+    The specialKeyboard function is the function used by the OpenGL.  It matches
     the function prototype as required for the special keyboard input listener callback
     function that OpenGL requires.
 
@@ -42,10 +42,18 @@ using namespace std;
 
     The SetTankPosition function takes a tank and the x-coordinate to move to.
 
-    
+
 */
 #ifndef TANKWARS_H
 #define TANKWARS_H
+
+// Global variables for Game
+bool IsCurrentLeft = true;
+bool DidFireTank = false;
+bool GameOver = false;
+Terrain testTerrain(MAX_X); // Terrain class to generate the terrain
+Tank LeftTank(true);        // Initialize left tank
+Tank RightTank(false);      // Initialize right tank
 
 void display( void );
 void keyboard(unsigned char key, int x, int y);
@@ -65,7 +73,7 @@ bool FindMountainCollision(double x, double y);
 void SetMaxXY(int width, int height);
 double TerrainYValueAtX(double xCoord);
 
-void DisplayMenu();
+string FormatMenu();
 string FormatTankCoords(Tank tank);
 string FormatTankVelocity(Tank tank);
 string FormatTankAngle(Tank tank, bool isLeftTank);
