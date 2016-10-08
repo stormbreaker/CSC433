@@ -5,7 +5,7 @@
 #endif
 
 #include "mandelbrot.h"
-// #include "common.cpp"
+#include "common.cpp"
 
 using namespace std;
 
@@ -142,8 +142,6 @@ void winReshapeFcn (GLint newWidth, GLint newHeight)
 
 int main(int argc, char** argv)
 {
-
-
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 	glutInitWindowPosition(50, 50);
