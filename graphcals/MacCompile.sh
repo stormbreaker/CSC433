@@ -11,4 +11,4 @@ g++ -std=c++14 fractalview.o -o fractalviewer  -framework OpenGL -framework GLUT
 
 rm *.o
 
-./main
+./fractalviewer
