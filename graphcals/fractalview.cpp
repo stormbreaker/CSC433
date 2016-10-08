@@ -4,9 +4,7 @@
 	#include <GL/glut.h> // LinuxOS include
 #endif
 
-#include <iomanip>
-#include <iostream>
-#include <complex>
+#include "mandelbrot.h"
 
 using namespace std;
 
@@ -63,15 +61,12 @@ GLint mandelSqTransf(complex<double> z0, GLint maxIter)
 //plots the points out
 void mandelbrot (GLint nx, GLint ny, GLint maxIter)
 {
-	// complexNum z, zIncr;
 	complex<double> z, zIncr;
 	color ptColor;
 
 	GLint iterCount;
 
 	zIncr = complex<double>(complexWidth/GLdouble(nx), complexHeight/GLdouble(ny));
-	// zIncr.x = complexWidth/GLdouble(nx);
-	// zIncr.y = complexHeight/GLdouble(ny);
 
 	double realIterator, imaginaryIterator;
 
