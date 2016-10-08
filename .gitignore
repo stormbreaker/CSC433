@@ -1,4 +1,5 @@
 TankWars
 *.o
 *.gch
+.DS_Store
 main
