@@ -70,46 +70,49 @@ void mandelbrot (GLint nx, GLint ny, GLint maxIter)
 	zIncr.y = complexHeight/GLfloat(ny);
 
 	for (z.x = xComplexMin; z.x < xComplexMax; z.x += zIncr.x)
-	{
-		iterCount = mandelSqTransf(z, maxIter);
-		if (iterCount >= maxIter)
-		{
-			ptColor.r = ptColor.g = ptColor.b = 0.0;
-		}
-		else if (iterCount > (maxIter / 8))
-		{
-			ptColor.r = 1.0;
-			ptColor.g = .5;
-			ptColor.b = 0;
-		}
-		else if (iterCount > (maxIter / 10))
-		{
-			ptColor.r = 1.0;
-			ptColor.g = ptColor.b = 0;
-		}
-		else if (iterCount > (maxIter/20))
-		{
-			ptColor.b = .5;
-			ptColor.r = ptColor.g = 0;
-		}
-		else if (iterCount > (maxIter/40))
-		{
-			ptColor.r = ptColor.g = 1.0;
-			ptColor.b = 0;
-		}
-		else if (iterCount > (maxIter/100))
-		{
-			ptColor.r = ptColor.b = 0;
-			ptColor.g = .3;
-		}
-		else
-		{
-			ptColor.r = 0;
-			ptColor.g = ptColor.b = 1;
-		}
-		glColor3f(ptColor.r, ptColor.g, ptColor.b);
-		plotPoint(z);
-	}
+    {
+        for (z.y = yComplexMin; z.y < yComplexMax; z.y += zIncr.y)
+    	{
+    		iterCount = mandelSqTransf(z, maxIter);
+    		if (iterCount >= maxIter)
+    		{
+    			ptColor.r = ptColor.g = ptColor.b = 0.0;
+    		}
+    		else if (iterCount > (maxIter / 8))
+    		{
+    			ptColor.r = 1.0;
+    			ptColor.g = .5;
+    			ptColor.b = 0;
+    		}
+    		else if (iterCount > (maxIter / 10))
+    		{
+    			ptColor.r = 1.0;
+    			ptColor.g = ptColor.b = 0;
+    		}
+    		else if (iterCount > (maxIter/20))
+    		{
+    			ptColor.b = .5;
+    			ptColor.r = ptColor.g = 0;
+    		}
+    		else if (iterCount > (maxIter/40))
+    		{
+    			ptColor.r = ptColor.g = 1.0;
+    			ptColor.b = 0;
+    		}
+    		else if (iterCount > (maxIter/100))
+    		{
+    			ptColor.r = ptColor.b = 0;
+    			ptColor.g = .3;
+    		}
+    		else
+    		{
+    			ptColor.r = 0;
+    			ptColor.g = ptColor.b = 1;
+    		}
+    		glColor3f(ptColor.r, ptColor.g, ptColor.b);
+    		plotPoint(z);
+    	}
+    }
 }
 
 void displayFcn(void)
