@@ -5,8 +5,9 @@
 #g++ -std=c++14 -c Terrain.cpp -w
 #g++ -std=c++14 TankWars.o Tank.o Terrain.o -o TankWars -framework OpenGL -framework GLUT
 
-g++ -std=c++14 -c main.cpp -w
-g++ -std=c++14 main.o -o main -framework OpenGL -framework GLUT
+g++ -std=c++14 -c fractalview.cpp -w
+#g++ -std=c++14 -c 
+g++ -std=c++14 fractalview.o -o fractalviewer  -framework OpenGL -framework GLUT
 
 rm *.o
 

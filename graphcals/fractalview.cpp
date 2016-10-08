@@ -5,11 +5,9 @@
 #endif
 
 #include "mandelbrot.h"
+// #include "common.cpp"
 
 using namespace std;
-
-GLsizei winWidth = 500;
-GLsizei winHeight = 500;
 
 GLdouble xComplexMin = -2.00, xComplexMax = .50;
 GLdouble yComplexMin = -1.25, yComplexMax = 1.25;
