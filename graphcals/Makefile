@@ -14,8 +14,8 @@ LINK = g++
 
 # Turn on optimization and warnings (add -g for debugging with gdb):
 # CPPFLAGS = 		# preprocessor flags
-CFLAGS = -O -Wall
-CXXFLAGS = -O -Wall
+CFLAGS = -O #-Wall
+CXXFLAGS = -O #-Wall
 
 # OpenGL/Mesa libraries for Linux:
 GL_LIBS = -lglut -lGLU -lGL -lm
@@ -33,10 +33,10 @@ GL_LIBS = -lglut -lGLU -lGL -lm
 # MAKE allows the use of "wildcards", to make writing compilation instructions
 # a bit easier. GNU make uses $@ for the target and $^ for the dependencies.
 
-all:    TankWars
+all:    fractalviewer
 
 # specific targets
-TankWars:	TankWars.o Terrain.o Tank.o Common.o 
+fractalviewer:	fractalview.o mandelbrot.o julia.o common.o 
 	$(LINK) -o $@ $^ $(GL_LIBS)
 
 # typical target entry, builds "myprog" from file1.cpp, file2.cpp, file3.cpp
