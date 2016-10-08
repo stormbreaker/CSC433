@@ -1,26 +1,27 @@
-#include <GLUT/glut.h>
+#ifdef __APPLE__
+	#include <GLUT/glut.h> // MacOS include
+#elif (__linux__)
+	#include <GL/glut.h> // LinuxOS include
+#endif
+
 #include <iomanip>
+#include <iostream>
+#include <complex>
 
 using namespace std;
 
 GLsizei winWidth = 500;
 GLsizei winHeight = 500;
 
-GLfloat xComplexMin = -2.00, xComplexMax = .50;
-GLfloat yComplexMin = -1.25, yComplexMax = 1.25;
+GLdouble xComplexMin = -2.00, xComplexMax = .50;
+GLdouble yComplexMin = -1.25, yComplexMax = 1.25;
 
-GLfloat complexWidth = xComplexMax - xComplexMin;
-GLfloat complexHeight = yComplexMax - yComplexMin;
-
-class complexNum
-{
-	public:
-		GLfloat x, y;
-};
+GLdouble complexWidth = xComplexMax - xComplexMin;
+GLdouble complexHeight = yComplexMax - yComplexMin;
 
 struct color
 {
-	GLfloat r, g, b;
+	GLdouble r, g, b;
 };
 
 void init(void)
@@ -28,51 +29,57 @@ void init(void)
 	glClearColor(1.0, 1.0, 1.0, 0.0);
 }
 
-void plotPoint (complexNum z)
+void plotPoint(complex<double> z)
 {
 	glBegin(GL_POINTS);
-		glVertex2f(z.x, z.y);
+		glVertex2d(z.real(), z.imag());
 	glEnd();
 }
 
-complexNum complexSquare(complexNum z)
+complex<double> complexSquare(complex<double> z)
 {
-	complexNum zSquare;
+	complex<double> zSquare;
 
-	zSquare.x = z.x * z.x - z.y * z.y;
-	zSquare.y = 2 * z.x * z.y;
+	zSquare = z * z;
+
 	return zSquare;
 }
 
-GLint mandelSqTransf(complexNum z0, GLint maxIter)
-{
-	complexNum z = z0;
-	GLint count = 0;
 
-	while ((z.x * z.x + z.y * z.y <= 4.0) && (count < maxIter))
+GLint mandelSqTransf(complex<double> z0, GLint maxIter)
+{
+	complex<double> z = z0;
+	GLint counter = 0;
+
+	while ((z.real() * z.real() + z.imag() * z.imag() <= 4.0) && (counter < maxIter))
 	{
-		z = complexSquare (z);
-		z.x += z0.x;
-		z.y += z0.y;
-		count++;
+		z = complexSquare(z);
+		z += z0;
+		counter++;
 	}
-	return count;
+	return counter;
 }
 
+//plots the points out
 void mandelbrot (GLint nx, GLint ny, GLint maxIter)
 {
-	complexNum z, zIncr;
+	// complexNum z, zIncr;
+	complex<double> z, zIncr;
 	color ptColor;
 
 	GLint iterCount;
 
-	zIncr.x = complexWidth/GLfloat(nx);
-	zIncr.y = complexHeight/GLfloat(ny);
+	zIncr = complex<double>(complexWidth/GLdouble(nx), complexHeight/GLdouble(ny));
+	// zIncr.x = complexWidth/GLdouble(nx);
+	// zIncr.y = complexHeight/GLdouble(ny);
 
-	for (z.x = xComplexMin; z.x < xComplexMax; z.x += zIncr.x)
+	double realIterator, imaginaryIterator;
+
+	for (realIterator = xComplexMin; realIterator < xComplexMax; realIterator += zIncr.real())
     {
-        for (z.y = yComplexMin; z.y < yComplexMax; z.y += zIncr.y)
+        for (imaginaryIterator = yComplexMin; imaginaryIterator < yComplexMax; imaginaryIterator += zIncr.imag())
     	{
+			z = complex<double>(realIterator, imaginaryIterator);
     		iterCount = mandelSqTransf(z, maxIter);
     		if (iterCount >= maxIter)
     		{
@@ -109,12 +116,13 @@ void mandelbrot (GLint nx, GLint ny, GLint maxIter)
     			ptColor.r = 0;
     			ptColor.g = ptColor.b = 1;
     		}
-    		glColor3f(ptColor.r, ptColor.g, ptColor.b);
+    		glColor3d(ptColor.r, ptColor.g, ptColor.b);
     		plotPoint(z);
     	}
     }
 }
 
+// GLdisplay callback
 void displayFcn(void)
 {
 	GLint nx = 1000, ny = 1000, maxIter = 1000;
@@ -125,6 +133,7 @@ void displayFcn(void)
 	glFlush();
 }
 
+// GLwindow reshape callback
 void winReshapeFcn (GLint newWidth, GLint newHeight)
 {
 	glViewport(0, 0, newHeight, newHeight);
@@ -140,6 +149,12 @@ void winReshapeFcn (GLint newWidth, GLint newHeight)
 
 int main(int argc, char** argv)
 {
+
+	complex<double> ours(1,1);
+
+	ours = complexSquare(ours);
+	cout << ours << endl;
+
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 	glutInitWindowPosition(50, 50);
