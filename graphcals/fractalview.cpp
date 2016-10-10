@@ -1,5 +1,6 @@
 #include "mandelbrot.cpp"
 #include "common.cpp"
+#include "julia.cpp"
 
 using namespace std;
 
@@ -15,7 +16,11 @@ void displayFcn(void)
 
 	glClear(GL_COLOR_BUFFER_BIT);
 
+	complex<double> c(.353,.288);
+
 	mandelbrot(nx, ny, maxIter);
+
+	// julia(nx, ny, maxIter, c);
 
 	glFlush();
 }

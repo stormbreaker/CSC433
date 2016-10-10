@@ -7,7 +7,9 @@ using namespace std;
 
 int mandelSqTransf(complex<double> z0, GLint maxIter)
 {
-	complex<double> z = z0;
+
+	//book assigns z0 here but the assignment description says z0 should be 0
+	complex<double> z = 0;
 	int counter = 0;
 
 	while ((z.real() * z.real() + z.imag() * z.imag() <= 4.0) && (counter < maxIter))
@@ -20,7 +22,7 @@ int mandelSqTransf(complex<double> z0, GLint maxIter)
 }
 
 //plots the points out
-void mandelbrot (GLint nx, GLint ny, GLint maxIter)
+void mandelbrot (int nx, int ny, int maxIter)
 {
 	complex<double> z, zIncr;
 	color ptColor;
@@ -36,6 +38,7 @@ void mandelbrot (GLint nx, GLint ny, GLint maxIter)
         for (imaginaryIterator = yComplexMin; imaginaryIterator < yComplexMax; imaginaryIterator += zIncr.imag())
     	{
 			z = complex<double>(realIterator, imaginaryIterator);
+
     		iterCount = mandelSqTransf(z, maxIter);
     		if (iterCount >= maxIter)
     		{

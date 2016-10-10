@@ -37,7 +37,7 @@ complex<double> complexSquare(complex<double> z)
 
 struct color
 {
-	GLdouble r, g, b;
+	double r, g, b;
 };
 
 #endif
