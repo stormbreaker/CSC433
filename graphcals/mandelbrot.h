@@ -3,6 +3,7 @@
 #define TDBK_MANDELBROT_H
 
 #include "common.cpp"
+#include <cmath>
 
 using namespace std;
 
