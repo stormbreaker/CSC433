@@ -3,6 +3,7 @@
 #define TDBK_COMMON
 
 #include "common.h"
+#include <cmath>
 
 unsigned int winWidth = 500;
 unsigned int winHeight = 500;
@@ -21,6 +22,9 @@ const int MINUS_KEY = 45;
 
 int ZoomMagnification = 0;
 const double ZOOM_FACTOR = .1;
+
+double mouseX = 0.0;
+double mouseY = 0.0;
 
 void plotPoint(complex<double> z)
 {
@@ -42,5 +46,4 @@ struct color
 {
 	double r, g, b;
 };
-
 #endif

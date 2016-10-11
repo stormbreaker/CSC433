@@ -12,7 +12,10 @@ int mandelSqTransf(complex<double> z0, GLint maxIter)
 	int counter = 0;
     double zoom = ZoomMagnification * ZOOM_FACTOR;
 
-    z0 = complex<double>(z0.real() - z0.real() * zoom, z0.imag() - z0.imag() * zoom);
+    double x = z0.real() + mouseX;
+    double y = z0.imag() + mouseY;
+
+    z0 = complex<double>(x - x * zoom, y - y * zoom);
 
 	while ((z.real() * z.real() + z.imag() * z.imag() <= 4.0) && (counter < maxIter))
 	{

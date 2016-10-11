@@ -73,6 +73,33 @@ void keyboard(unsigned char key, int x, int y)
     }
 }
 
+void mouse(int button, int state, int x, int y)
+{
+    double xOffset;
+    double yOffset;
+
+    if (state == 0)
+    {
+        double width = abs(xComplexMin) + abs(xComplexMax);
+        double amount = width / winWidth;
+        double yAxis = abs(xComplexMin) / amount;
+
+        double height = abs(yComplexMin) + abs(yComplexMax);
+        double amount2 = height / winHeight;
+        double xAxis = abs(yComplexMin) / amount2;
+
+        xOffset = yAxis - (winWidth / 2);
+        yOffset = xAxis - (winHeight / 2);
+
+        mouseX = (x - xOffset - (winWidth / 2)) * amount;
+        mouseY = ((winHeight / 2) + yOffset - y) * amount2;
+
+        ZoomMagnification += 1;
+
+        glutPostRedisplay();
+    }
+}
+
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
@@ -81,6 +108,7 @@ int main(int argc, char** argv)
 	glutInitWindowSize(winWidth, winHeight);
 	glutCreateWindow("MandelBrot Set");
     glutKeyboardFunc(keyboard);
+    glutMouseFunc(mouse);
 
 	init();
 	glutDisplayFunc(displayFcn);
