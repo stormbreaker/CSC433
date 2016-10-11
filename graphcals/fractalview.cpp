@@ -51,13 +51,7 @@ void keyboard(unsigned char key, int x, int y)
             break;
         // Plus key increases Velocity
         case PLUS_KEY:
-            xComplexMin += .1;
-            xComplexMax -= .1;
-            yComplexMin += .1;
-            yComplexMax -= .1;
-
-            complexWidth = xComplexMax - xComplexMin;
-            complexHeight = yComplexMax - yComplexMin;
+            ZoomMagnification += 1;
 
             cout << "PLUS HIT" << endl;
 
@@ -65,13 +59,7 @@ void keyboard(unsigned char key, int x, int y)
             break;
         // minus key decreses Velocity
         case MINUS_KEY:
-            xComplexMin -= .1;
-            xComplexMax += .1;
-            yComplexMin -= .1;
-            yComplexMax += .1;
-
-            complexWidth = xComplexMax - xComplexMin;
-            complexHeight = yComplexMax - yComplexMin;
+            ZoomMagnification -= 1;
 
             cout << "MINUS HIT" << endl;
 

@@ -19,6 +19,9 @@ const int SPACE_KEY = 32;
 const int PLUS_KEY = 43;
 const int MINUS_KEY = 45;
 
+int ZoomMagnification = 1;
+const double ZOOM_FACTOR = .1;
+
 void plotPoint(complex<double> z)
 {
 	glBegin(GL_POINTS);
