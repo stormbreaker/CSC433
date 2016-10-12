@@ -2,7 +2,11 @@
 
 #define TDBK_MANDELBROT_H
 
-#include "common.cpp"
+//#include "common.h"
+
+#include <complex>
+
+#include "supercommon.h"
 
 using namespace std;
 

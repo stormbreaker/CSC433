@@ -1,6 +1,6 @@
-#include "mandelbrot.cpp"
-#include "common.cpp"
-#include "julia.cpp"
+#include "mandelbrot.h"
+#include "common.h"
+#include "julia.h"
 
 using namespace std;
 

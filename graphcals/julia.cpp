@@ -2,6 +2,7 @@
 #define TDBK_JULIA
 
 #include "julia.h"
+#include "common.h"
 
 
 int juliaSqTransform(complex<double> z0, GLint maxIter, complex<double> c)

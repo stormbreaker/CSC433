@@ -2,6 +2,7 @@
 #define TDBK_MANDELBROT
 
 #include "mandelbrot.h"
+#include "common.h"
 
 using namespace std;
 

@@ -14,12 +14,6 @@ double yComplexMin = -1.25, yComplexMax = 1.25;
 double complexWidth = xComplexMax - xComplexMin;
 double complexHeight = yComplexMax - yComplexMin;
 
-// Helpful constants for key presses
-const int ESC_KEY = 27;
-const int SPACE_KEY = 32;
-const int PLUS_KEY = 43;
-const int MINUS_KEY = 45;
-
 int ZoomMagnification = 0;
 const double ZOOM_FACTOR = .1;
 
@@ -41,9 +35,4 @@ complex<double> complexSquare(complex<double> z)
 
 	return zSquare;
 }
-
-struct color
-{
-	double r, g, b;
-};
 #endif
