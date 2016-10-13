@@ -31,9 +31,11 @@ extern const double ZOOM_FACTOR;
 
 extern double mouseX;
 extern double mouseY;
+extern bool isMouseClicked;
 
 void plotPoint(complex<double> z);
 complex<double> complexSquare(complex<double> z);
+complex<double> getViewCoordinates(int x, int y);
 
 struct color
 {

@@ -80,23 +80,28 @@ void mouse(int button, int state, int x, int y)
 
     if (state == 0)
     {
-        double width = abs(xComplexMin) + abs(xComplexMax);
-        double amount = width / winWidth;
-        double yAxis = abs(xComplexMin) / amount;
+        isMouseClicked = true;
 
-        double height = abs(yComplexMin) + abs(yComplexMax);
-        double amount2 = height / winHeight;
-        double xAxis = abs(yComplexMin) / amount2;
+        complex<double> mouseCoords = getViewCoordinates(x, y);
 
-        xOffset = yAxis - (winWidth / 2);
-        yOffset = xAxis - (winHeight / 2);
-
-        mouseX = (x - xOffset - (winWidth / 2)) * amount;
-        mouseY = ((winHeight / 2) + yOffset - y) * amount2;
+        mouseX = mouseCoords.real();
+        mouseY = mouseCoords.imag();
 
         ZoomMagnification += 1;
 
         glutPostRedisplay();
+    }
+    else
+    {
+        isMouseClicked = false;
+    }
+}
+
+void currentMousePosition(int x, int y)
+{
+    if (isMouseClicked == true)
+    {
+        cout << x << " " << y << endl;
     }
 }
 
@@ -109,6 +114,7 @@ int main(int argc, char** argv)
 	glutCreateWindow("MandelBrot Set");
     glutKeyboardFunc(keyboard);
     glutMouseFunc(mouse);
+    glutMotionFunc(currentMousePosition);
 
 	init();
 	glutDisplayFunc(displayFcn);
