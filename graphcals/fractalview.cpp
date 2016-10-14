@@ -40,7 +40,7 @@ void winReshapeFcn (GLint newWidth, GLint newHeight)
 
 void keyboard(unsigned char key, int x, int y)
 {
-    cout << "KEY HIT" << endl;
+    cout << "KEY HIT " << key << endl;
 
     // process keypresses
     switch(key)
@@ -63,6 +63,11 @@ void keyboard(unsigned char key, int x, int y)
 
             cout << "MINUS HIT" << endl;
 
+            glutPostRedisplay();
+            break;
+        case LOWERCASE_C_KEY:
+        case C_KEY:
+            NextColorSet();
             glutPostRedisplay();
             break;
 
@@ -119,6 +124,8 @@ int main(int argc, char** argv)
 	init();
 	glutDisplayFunc(displayFcn);
 	glutReshapeFunc(winReshapeFcn);
+
+    GenerateColorSets();
 
 	glutMainLoop();
 

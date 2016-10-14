@@ -32,13 +32,16 @@ int mandelSqTransf(complex<double> z0, GLint maxIter)
 void mandelbrot (int nx, int ny, int maxIter)
 {
 	complex<double> z, zIncr;
-	color ptColor;
+    vector<Color> colorSet;
+    Color ptColor(0, 0, 0);
 
 	int iterCount;
 
 	zIncr = complex<double>(complexWidth/GLdouble(nx), complexHeight/GLdouble(ny));
 
 	double realIterator, imaginaryIterator;
+
+    colorSet = GetCurrentColorSet();
 
 	for (realIterator = xComplexMin; realIterator < xComplexMax; realIterator += zIncr.real())
     {
@@ -49,40 +52,34 @@ void mandelbrot (int nx, int ny, int maxIter)
     		iterCount = mandelSqTransf(z, maxIter);
     		if (iterCount >= maxIter)
     		{
-    			ptColor.r = ptColor.g = ptColor.b = 0.0;
+                ptColor = colorSet[0];
     		}
     		else if (iterCount > (maxIter / 8))
     		{
-    			ptColor.r = 1.0;
-    			ptColor.g = .5;
-    			ptColor.b = 0;
+                ptColor = colorSet[1];
     		}
     		else if (iterCount > (maxIter / 10))
     		{
-    			ptColor.r = 1.0;
-    			ptColor.g = ptColor.b = 0;
+                ptColor = colorSet[2];
     		}
     		else if (iterCount > (maxIter/20))
     		{
-    			ptColor.b = .5;
-    			ptColor.r = ptColor.g = 0;
+                ptColor = colorSet[3];
     		}
     		else if (iterCount > (maxIter/40))
     		{
-    			ptColor.r = ptColor.g = 1.0;
-    			ptColor.b = 0;
+                ptColor = colorSet[4];
     		}
     		else if (iterCount > (maxIter/100))
     		{
-    			ptColor.r = ptColor.b = 0;
-    			ptColor.g = .3;
+                ptColor = colorSet[5];
     		}
     		else
     		{
-    			ptColor.r = 0;
-    			ptColor.g = ptColor.b = 1;
+                ptColor = colorSet[6];
     		}
-    		glColor3d(ptColor.r, ptColor.g, ptColor.b);
+
+    		glColor3ub(ptColor.red, ptColor.green, ptColor.blue);
     		plotPoint(z);
     	}
     }

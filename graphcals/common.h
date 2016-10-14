@@ -4,6 +4,7 @@
 #include <complex>
 #include <iomanip>
 #include <iostream>
+#include "colors.h"
 
 #include "supercommon.h"
 
@@ -25,6 +26,8 @@ const int ESC_KEY = 27;
 const int SPACE_KEY = 32;
 const int PLUS_KEY = 43;
 const int MINUS_KEY = 45;
+const int C_KEY = 67;
+const int LOWERCASE_C_KEY = 99;
 
 extern int ZoomMagnification;
 extern const double ZOOM_FACTOR;
