@@ -50,21 +50,31 @@ complex<double> getViewCoordinates(int x, int y)
     double yOffset = 0.0;
     double scale = 0.0;
 
+
     width = abs(xComplexMin) + abs(xComplexMax);
     height = abs(yComplexMin) + abs(yComplexMax);
 
     scale = width / winWidth;
 
-    yAxis = abs(xComplexMin + mouseX) / scale;
-    xAxis = abs(yComplexMin - mouseY) / scale;
+
+	// cout << scale << endl;
+
+
+    yAxis = abs(xComplexMin) / scale;
+    xAxis = abs(yComplexMin) / scale;
+
+	// cout << yAxis << " " << xAxis << endl;
 
     xOffset = yAxis - (winWidth / 2);
     yOffset = xAxis - (winHeight / 2);
 
+
     newX = (x - xOffset - (winWidth / 2)) * scale;
     newY = ((winHeight / 2) + yOffset - y) * scale;
 
-    xyCoords = complex<double>(newX, newY);
+	// cout << newX << " " << newY << endl;
+
+    xyCoords = complex<double>(newX + mouseX, newY + mouseY);
 
     return xyCoords;
 }

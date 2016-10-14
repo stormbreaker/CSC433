@@ -82,12 +82,24 @@ void mouse(int button, int state, int x, int y)
     {
         isMouseClicked = true;
 
+		ZoomMagnification += 1;
+
         complex<double> mouseCoords = getViewCoordinates(x, y);
 
-        mouseX = mouseCoords.real();
-        mouseY = mouseCoords.imag();
+		// it's possible I need to scale/translate here......
+		double zoom = ZoomMagnification * ZOOM_FACTOR;
 
-        ZoomMagnification += 1;
+		if (ZoomMagnification == 0)
+		{
+			zoom = 'inf';
+		}
+
+		mouseX = mouseCoords.real();// - mouseCoords.real() * zoom;
+		mouseY = mouseCoords.imag();// - mouseCoords.imag() * zoom;
+
+		cout << mouseX << " " << mouseY << endl;
+
+
 
         glutPostRedisplay();
     }
