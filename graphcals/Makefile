@@ -36,7 +36,7 @@ GL_LIBS = -lglut -lGLU -lGL -lm
 all:    fractalviewer
 
 # specific targets
-fractalviewer:	fractalview.o mandelbrot.o julia.o common.o 
+fractalviewer:	fractalview.o mandelbrot.o julia.o common.o colors.o
 	$(LINK) -o $@ $^ $(GL_LIBS)
 
 # typical target entry, builds "myprog" from file1.cpp, file2.cpp, file3.cpp
