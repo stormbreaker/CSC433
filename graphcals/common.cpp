@@ -37,6 +37,24 @@ complex<double> complexSquare(complex<double> z)
 	return zSquare;
 }
 
+void zoom(double percentage)
+{
+		xComplexMin = xComplexMin + (complexWidth) * percentage;
+		xComplexMax = xComplexMax - (complexWidth) * percentage;
+
+		complexWidth = xComplexMax - xComplexMin;
+
+		yComplexMin = yComplexMin + (complexHeight) * percentage;
+		yComplexMax = yComplexMax - (complexHeight) * percentage;
+
+		complexHeight = yComplexMax - yComplexMin;
+
+		glMatrixMode(GL_PROJECTION);
+    	glLoadIdentity();
+
+		gluOrtho2D(xComplexMin, xComplexMax, yComplexMin, yComplexMax);	
+}
+
 complex<double> getViewCoordinates(int x, int y)
 {
     complex<double> xyCoords;

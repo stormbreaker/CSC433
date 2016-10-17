@@ -83,27 +83,30 @@ void mouse(int button, int state, int x, int y)
     double xOffset;
     double yOffset;
 
+
+	cout << button << endl;
+
+	if (button == 3)
+	{
+		zoom(ZOOM_FACTOR);
+	}
+	else if (button == 4)
+	{
+		zoom(-ZOOM_FACTOR);
+	}
+
+	glutPostRedisplay();
+	
+	/*
     if (state == 0)
     {
         isMouseClicked = true;
 
-		ZoomMagnification += 1;
-
         complex<double> mouseCoords = getViewCoordinates(x, y);
 
-		// it's possible I need to scale/translate here......
-		double zoom = ZoomMagnification * ZOOM_FACTOR;
 
-		if (ZoomMagnification == 0)
-		{
-			zoom = 'inf';
-		}
-
-		mouseX = mouseCoords.real();// - mouseCoords.real() * zoom;
-		mouseY = mouseCoords.imag();// - mouseCoords.imag() * zoom;
-
-		cout << mouseX << " " << mouseY << endl;
-
+		mouseX = mouseCoords.real();
+		mouseY = mouseCoords.imag();
 
 
         glutPostRedisplay();
@@ -112,13 +115,14 @@ void mouse(int button, int state, int x, int y)
     {
         isMouseClicked = false;
     }
+	*/
 }
 
 void currentMousePosition(int x, int y)
 {
     if (isMouseClicked == true)
     {
-        cout << x << " " << y << endl;
+        //cout << x << " " << y << endl;
     }
 }
 
