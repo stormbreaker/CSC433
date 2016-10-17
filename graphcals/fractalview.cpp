@@ -86,6 +86,12 @@ void mouse(int button, int state, int x, int y)
 
 	cout << button << endl;
 
+
+	complex<double> mouseCoords = getViewCoordinates(x, y);
+
+	mouseX = mouseCoords.real();
+	mouseY = mouseCoords.imag();
+
 	if (button == 3)
 	{
 		zoom(ZOOM_FACTOR);
@@ -95,18 +101,14 @@ void mouse(int button, int state, int x, int y)
 		zoom(-ZOOM_FACTOR);
 	}
 
+
+
 	glutPostRedisplay();
 	
 	/*
     if (state == 0)
     {
         isMouseClicked = true;
-
-        complex<double> mouseCoords = getViewCoordinates(x, y);
-
-
-		mouseX = mouseCoords.real();
-		mouseY = mouseCoords.imag();
 
 
         glutPostRedisplay();
