@@ -83,41 +83,34 @@ void mouse(int button, int state, int x, int y)
     double xOffset;
     double yOffset;
 
-
-	cout << button << endl;
-
-
-	complex<double> mouseCoords = getViewCoordinates(x, y);
-
-	mouseX = mouseCoords.real();
-	mouseY = mouseCoords.imag();
-
-	if (button == 3)
+	if (state == 0)
 	{
-		zoom(ZOOM_FACTOR);
-	}
-	else if (button == 4)
-	{
-		zoom(-ZOOM_FACTOR);
-	}
+
+		cout << button << endl;
 
 
+		complex<double> mouseCoords = getViewCoordinates(x, y);
 
-	glutPostRedisplay();
+		mouseX = mouseCoords.real();
+		mouseY = mouseCoords.imag();
 	
-	/*
-    if (state == 0)
-    {
-        isMouseClicked = true;
+		cout << "x: " << mouseX << " y: " << mouseY << endl;
+	
+		if (button == 3)
+		{
+			zoom(ZOOM_FACTOR, mouseCoords.real(), mouseCoords.imag());
+
+			glutPostRedisplay();
+		}
+		else if (button == 4)
+		{
+			zoom(-ZOOM_FACTOR, mouseCoords.real(), mouseCoords.imag());
+
+			glutPostRedisplay();
+		}
 
 
-        glutPostRedisplay();
-    }
-    else
-    {
-        isMouseClicked = false;
-    }
-	*/
+	}	
 }
 
 void currentMousePosition(int x, int y)

@@ -37,17 +37,35 @@ complex<double> complexSquare(complex<double> z)
 	return zSquare;
 }
 
-void zoom(double percentage)
+void zoom(double percentage, double newXCenter, double newYCenter)
 {
+
+		double xOffset, yOffset;
+	
+		// zoom x
 		xComplexMin = xComplexMin + (complexWidth) * percentage;
 		xComplexMax = xComplexMax - (complexWidth) * percentage;
 
 		complexWidth = xComplexMax - xComplexMin;
 
+
+		xOffset = newXCenter - (xComplexMax - (complexWidth / 2.0));
+
+		//cout << "xOffset: " << xOffset << endl;
+
+		xComplexMin = xComplexMin + xOffset;
+		xComplexMax = xComplexMax + xOffset;
+
+		// zoom y
 		yComplexMin = yComplexMin + (complexHeight) * percentage;
 		yComplexMax = yComplexMax - (complexHeight) * percentage;
 
 		complexHeight = yComplexMax - yComplexMin;
+
+		yOffset = newYCenter - (yComplexMax - (complexHeight / 2.0));
+
+		yComplexMin = yComplexMin + yOffset;
+		yComplexMax = yComplexMax + yOffset;
 
 		glMatrixMode(GL_PROJECTION);
     	glLoadIdentity();
@@ -74,14 +92,12 @@ complex<double> getViewCoordinates(int x, int y)
 
     scale = width / winWidth;
 
+	// these need to be figured out differently.... TODO since this is our major problem atm
+    yAxis = xComplexMax / scale;
+    xAxis = yComplexMax / scale;
 
-	// cout << scale << endl;
+	cout << "xAxis: " << xAxis << " yAxis: " << yAxis << endl;
 
-
-    yAxis = abs(xComplexMin) / scale;
-    xAxis = abs(yComplexMin) / scale;
-
-	// cout << yAxis << " " << xAxis << endl;
 
     xOffset = yAxis - (winWidth / 2);
     yOffset = xAxis - (winHeight / 2);
@@ -90,9 +106,8 @@ complex<double> getViewCoordinates(int x, int y)
     newX = (x - xOffset - (winWidth / 2)) * scale;
     newY = ((winHeight / 2) + yOffset - y) * scale;
 
-	// cout << newX << " " << newY << endl;
 
-    xyCoords = complex<double>(newX + mouseX, newY + mouseY);
+    xyCoords = complex<double>(newX, newY);
 
     return xyCoords;
 }

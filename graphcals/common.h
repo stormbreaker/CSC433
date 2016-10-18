@@ -38,7 +38,7 @@ extern bool isMouseClicked;
 
 void plotPoint(complex<double> z);
 complex<double> complexSquare(complex<double> z);
-void zoom(double percentage);
+void zoom(double percentage, double newXCenter, double newYCenter);
 complex<double> getViewCoordinates(int x, int y);
 
 struct color
