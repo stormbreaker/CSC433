@@ -33,7 +33,6 @@ const int LOWERCASE_J_KEY = 106;
 const int R_KEY = 82;
 const int LOWERCASE_R_KEY = 114;
 
-extern int ZoomMagnification;
 extern const double ZOOM_FACTOR;
 
 extern complex<double> mouseCoords;
@@ -44,6 +43,7 @@ extern bool isMandelbrotSet;
 void plotPoint(complex<double> z);
 complex<double> complexSquare(complex<double> z);
 void zoom(double percentage);
+void pan(int xPixOffset, int yPixOffset);
 complex<double> getViewCoordinates(int x, int y);
 
 struct color
