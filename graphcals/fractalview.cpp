@@ -81,7 +81,7 @@ void keyboard(unsigned char key, int x, int y)
             break;
         case LOWERCASE_R_KEY:
         case R_KEY:
-            UseRandomSet = true;
+            UseRandomColorSet = true;
             NextColorSet();
             glutPostRedisplay();
             break;

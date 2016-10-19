@@ -21,7 +21,7 @@ struct Color
     }
 };
 
-extern bool UseRandomSet;
+extern bool UseRandomColorSet;
 
 void NextColorSet();
 void GenerateColorSets();
