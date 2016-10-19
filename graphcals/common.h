@@ -34,6 +34,7 @@ const int R_KEY = 82;
 const int LOWERCASE_R_KEY = 114;
 
 extern const double ZOOM_FACTOR;
+extern const int PIXEL_PAN;
 
 extern complex<double> mouseCoords;
 extern bool isMouseClicked;

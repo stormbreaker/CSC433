@@ -45,6 +45,32 @@ void winReshapeFcn (GLint newWidth, GLint newHeight)
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
+void specialInput(int key, int x, int y)
+{
+	cout << key << endl;
+	switch(key)
+	{
+		case GLUT_KEY_UP:
+			pan(0, -PIXEL_PAN);
+			glutPostRedisplay();
+			break;
+		case GLUT_KEY_DOWN:
+			pan(0, PIXEL_PAN);
+		    glutPostRedisplay();
+			break;
+		case GLUT_KEY_RIGHT:
+			pan(PIXEL_PAN, 0);
+            glutPostRedisplay();
+			break;
+		case GLUT_KEY_LEFT:
+			pan(-PIXEL_PAN, 0);
+            glutPostRedisplay();
+			break;
+		default:
+			break;
+	}
+}
+
 void keyboard(unsigned char key, int x, int y)
 {
     // process keypresses
@@ -138,6 +164,7 @@ int main(int argc, char** argv)
     glutKeyboardFunc(keyboard);
     glutMouseFunc(mouse);
     glutMotionFunc(currentMousePosition);
+	glutSpecialFunc(specialInput);
 
 	init();
 	glutDisplayFunc(displayFcn);

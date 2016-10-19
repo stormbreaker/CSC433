@@ -15,6 +15,7 @@ double complexWidth = xComplexMax - xComplexMin;
 double complexHeight = yComplexMax - yComplexMin;
 
 const double ZOOM_FACTOR = .1;
+const int PIXEL_PAN  = 10;
 
 complex<double> mouseCoords;
 bool isMouseClicked = false;
@@ -77,8 +78,8 @@ void pan(int xPixOffset, int yPixOffset)
 {
 
 	double xOffset, yOffset;
-	double xCenterPixel = complexWidth / 2.0;
-	double yCenterPixel = complexHeight / 2.0;
+	double xCenterPixel = winWidth / 2.0;
+	double yCenterPixel = winHeight / 2.0;
 
 	mouseCoords = getViewCoordinates(xCenterPixel + xPixOffset, yCenterPixel + yPixOffset);
 
