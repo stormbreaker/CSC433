@@ -119,8 +119,10 @@ complex<double> getViewCoordinates(int x, int y)
     scale = width / winWidth;
 
 	// these need to be figured out differently.... TODO since this is our major problem atm
-    yAxis = winWidth -(xComplexMax / scale);
+    yAxis = winWidth - (xComplexMax / scale);
     xAxis = winHeight + (yComplexMin / scale);
+
+	cout << xComplexMax << " " << yComplexMin << endl;
 
 	cout << "xAxis: " << xAxis << " yAxis: " << yAxis << endl;
 
