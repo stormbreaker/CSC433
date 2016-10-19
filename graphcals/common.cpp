@@ -73,6 +73,32 @@ void zoom(double percentage)
 		gluOrtho2D(xComplexMin, xComplexMax, yComplexMin, yComplexMax);
 }
 
+void pan(int xPixOffset, int yPixOffset)
+{
+
+	double xOffset, yOffset;
+	double xCenterPixel = complexWidth / 2.0;
+	double yCenterPixel = complexHeight / 2.0;
+
+	mouseCoords = getViewCoordinates(xCenterPixel + xPixOffset, yCenterPixel + yPixOffset);
+
+	xOffset = mouseCoords.real() - (xComplexMax - (complexWidth / 2.0));
+
+	yOffset = mouseCoords.imag() - (yComplexMax - (complexHeight / 2.0));
+
+	xComplexMax = xComplexMax + xOffset;
+	xComplexMin = xComplexMin + xOffset;
+
+	yComplexMax = yComplexMax + yOffset;
+	yComplexMin = yComplexMin + yOffset;
+
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	gluOrtho2D(xComplexMin, xComplexMax, yComplexMin, yComplexMax);
+}
+
 complex<double> getViewCoordinates(int x, int y)
 {
     complex<double> xyCoords;
