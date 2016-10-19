@@ -28,17 +28,20 @@ const int PLUS_KEY = 43;
 const int MINUS_KEY = 45;
 const int C_KEY = 67;
 const int LOWERCASE_C_KEY = 99;
+const int J_KEY = 74;
+const int LOWERCASE_J_KEY = 106;
 
 extern int ZoomMagnification;
 extern const double ZOOM_FACTOR;
 
-extern double mouseX;
-extern double mouseY;
+extern complex<double> mouseCoords;
 extern bool isMouseClicked;
+
+extern bool isMandelbrotSet;
 
 void plotPoint(complex<double> z);
 complex<double> complexSquare(complex<double> z);
-void zoom(double percentage, double newXCenter, double newYCenter);
+void zoom(double percentage);
 complex<double> getViewCoordinates(int x, int y);
 
 struct color

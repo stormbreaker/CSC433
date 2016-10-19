@@ -18,9 +18,16 @@ void displayFcn(void)
 
 	complex<double> c(.353,.288);
 
-	mandelbrot(nx, ny, maxIter);
+    if (isMandelbrotSet == true)
+    {
+        mandelbrot(nx, ny, maxIter);
+    }
+    else
+    {
+        cout << mouseCoords.real() << " " << mouseCoords.imag() << endl;
 
-	// julia(nx, ny, maxIter, c);
+        julia(nx, ny, maxIter, mouseCoords);
+    }
 
 	glFlush();
 }
@@ -40,8 +47,6 @@ void winReshapeFcn (GLint newWidth, GLint newHeight)
 
 void keyboard(unsigned char key, int x, int y)
 {
-    complex<double> mouseCoords;
-
     // process keypresses
     switch(key)
     {
@@ -53,10 +58,7 @@ void keyboard(unsigned char key, int x, int y)
         case PLUS_KEY:
             mouseCoords = getViewCoordinates(x, y);
 
-    		mouseX = mouseCoords.real();
-    		mouseY = mouseCoords.imag();
-
-            zoom(ZOOM_FACTOR, mouseCoords.real(), mouseCoords.imag());
+            zoom(ZOOM_FACTOR);
 
             cout << "PLUS HIT" << endl;
 
@@ -66,10 +68,7 @@ void keyboard(unsigned char key, int x, int y)
         case MINUS_KEY:
             mouseCoords = getViewCoordinates(x, y);
 
-            mouseX = mouseCoords.real();
-            mouseY = mouseCoords.imag();
-
-            zoom(-ZOOM_FACTOR, mouseCoords.real(), mouseCoords.imag());
+            zoom(-ZOOM_FACTOR);
 
             cout << "MINUS HIT" << endl;
 
@@ -80,10 +79,16 @@ void keyboard(unsigned char key, int x, int y)
             NextColorSet();
             glutPostRedisplay();
             break;
+        case LOWERCASE_J_KEY:
+        case J_KEY:
+            isMandelbrotSet = !isMandelbrotSet;
 
+            mouseCoords = getViewCoordinates(x, y);
+
+            glutPostRedisplay();
+            break;
         // anything else redraws window
         default:
-            glutPostRedisplay();
             break;
     }
 }
@@ -92,22 +97,17 @@ void mouse(int button, int state, int x, int y)
 {
     if (state == 0)
 	{
-        complex<double> mouseCoords = getViewCoordinates(x, y);
-
-		mouseX = mouseCoords.real();
-		mouseY = mouseCoords.imag();
-
-		cout << "x: " << mouseX << " y: " << mouseY << endl;
+        mouseCoords = getViewCoordinates(x, y);
 
 		if (button == 3)
 		{
-			zoom(ZOOM_FACTOR, mouseCoords.real(), mouseCoords.imag());
+			zoom(ZOOM_FACTOR);
 
 			glutPostRedisplay();
 		}
 		else if (button == 4)
 		{
-			zoom(-ZOOM_FACTOR, mouseCoords.real(), mouseCoords.imag());
+			zoom(-ZOOM_FACTOR);
 
 			glutPostRedisplay();
 		}

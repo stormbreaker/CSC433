@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void julia(GLint nx, GLint ny, GLint maxIter);
+void julia(GLint nx, GLint ny, GLint maxIter, complex<double> c);
 int juliaSqTransform(complex<double> z0, GLint maxIter);
 
 

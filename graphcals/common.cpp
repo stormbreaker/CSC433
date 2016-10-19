@@ -17,9 +17,10 @@ double complexHeight = yComplexMax - yComplexMin;
 int ZoomMagnification = 0;
 const double ZOOM_FACTOR = .1;
 
-double mouseX = 0.0;
-double mouseY = 0.0;
+complex<double> mouseCoords;
 bool isMouseClicked = false;
+
+bool isMandelbrotSet = true;
 
 void plotPoint(complex<double> z)
 {
@@ -37,19 +38,19 @@ complex<double> complexSquare(complex<double> z)
 	return zSquare;
 }
 
-void zoom(double percentage, double newXCenter, double newYCenter)
+void zoom(double percentage)
 {
-
 		double xOffset, yOffset;
-	
+
+        cout << mouseCoords.real() << " " << mouseCoords.imag() << endl;
+
 		// zoom x
 		xComplexMin = xComplexMin + (complexWidth) * percentage;
 		xComplexMax = xComplexMax - (complexWidth) * percentage;
 
 		complexWidth = xComplexMax - xComplexMin;
 
-
-		xOffset = newXCenter - (xComplexMax - (complexWidth / 2.0));
+		xOffset = mouseCoords.real() - (xComplexMax - (complexWidth / 2.0));
 
 		//cout << "xOffset: " << xOffset << endl;
 
@@ -62,7 +63,7 @@ void zoom(double percentage, double newXCenter, double newYCenter)
 
 		complexHeight = yComplexMax - yComplexMin;
 
-		yOffset = newYCenter - (yComplexMax - (complexHeight / 2.0));
+		yOffset = mouseCoords.imag() - (yComplexMax - (complexHeight / 2.0));
 
 		yComplexMin = yComplexMin + yOffset;
 		yComplexMax = yComplexMax + yOffset;
@@ -70,7 +71,7 @@ void zoom(double percentage, double newXCenter, double newYCenter)
 		glMatrixMode(GL_PROJECTION);
     	glLoadIdentity();
 
-		gluOrtho2D(xComplexMin, xComplexMax, yComplexMin, yComplexMax);	
+		gluOrtho2D(xComplexMin, xComplexMax, yComplexMin, yComplexMax);
 }
 
 complex<double> getViewCoordinates(int x, int y)
@@ -86,7 +87,6 @@ complex<double> getViewCoordinates(int x, int y)
     double yOffset = 0.0;
     double scale = 0.0;
 
-
     width = abs(xComplexMin) + abs(xComplexMax);
     height = abs(yComplexMin) + abs(yComplexMax);
 
@@ -98,14 +98,11 @@ complex<double> getViewCoordinates(int x, int y)
 
 	cout << "xAxis: " << xAxis << " yAxis: " << yAxis << endl;
 
-
     xOffset = yAxis - (winWidth / 2);
     yOffset = xAxis - (winHeight / 2);
 
-
     newX = (x - xOffset - (winWidth / 2)) * scale;
     newY = ((winHeight / 2) + yOffset - y) * scale;
-
 
     xyCoords = complex<double>(newX, newY);
 
