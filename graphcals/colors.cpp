@@ -78,8 +78,6 @@ vector<Color> GetCurrentColorSet()
     else
     {
         colorSet = RandomColorSet();
-
-        UseRandomColorSet = false;
     }
 
     return colorSet;
@@ -93,6 +91,8 @@ void NextColorSet()
     {
         CurrentColorSetIndex = 0;
     }
+
+    UseRandomColorSet = false;
 }
 
 vector<Color> RandomColorSet()
