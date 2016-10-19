@@ -40,7 +40,7 @@ void winReshapeFcn (GLint newWidth, GLint newHeight)
 
 void keyboard(unsigned char key, int x, int y)
 {
-    cout << "KEY HIT " << key << endl;
+    complex<double> mouseCoords;
 
     // process keypresses
     switch(key)
@@ -49,17 +49,27 @@ void keyboard(unsigned char key, int x, int y)
         case ESC_KEY:
             exit(0);
             break;
-        // Plus key increases Velocity
+        // Plus key zooms in
         case PLUS_KEY:
-            ZoomMagnification += 1;
+            mouseCoords = getViewCoordinates(x, y);
+
+    		mouseX = mouseCoords.real();
+    		mouseY = mouseCoords.imag();
+
+            zoom(ZOOM_FACTOR, mouseCoords.real(), mouseCoords.imag());
 
             cout << "PLUS HIT" << endl;
 
             glutPostRedisplay();
             break;
-        // minus key decreses Velocity
+        // minus key zooms out
         case MINUS_KEY:
-            ZoomMagnification -= 1;
+            mouseCoords = getViewCoordinates(x, y);
+
+            mouseX = mouseCoords.real();
+            mouseY = mouseCoords.imag();
+
+            zoom(-ZOOM_FACTOR, mouseCoords.real(), mouseCoords.imag());
 
             cout << "MINUS HIT" << endl;
 
@@ -80,22 +90,15 @@ void keyboard(unsigned char key, int x, int y)
 
 void mouse(int button, int state, int x, int y)
 {
-    double xOffset;
-    double yOffset;
-
-	if (state == 0)
+    if (state == 0)
 	{
-
-		cout << button << endl;
-
-
-		complex<double> mouseCoords = getViewCoordinates(x, y);
+        complex<double> mouseCoords = getViewCoordinates(x, y);
 
 		mouseX = mouseCoords.real();
 		mouseY = mouseCoords.imag();
-	
+
 		cout << "x: " << mouseX << " y: " << mouseY << endl;
-	
+
 		if (button == 3)
 		{
 			zoom(ZOOM_FACTOR, mouseCoords.real(), mouseCoords.imag());
@@ -108,9 +111,7 @@ void mouse(int button, int state, int x, int y)
 
 			glutPostRedisplay();
 		}
-
-
-	}	
+	}
 }
 
 void currentMousePosition(int x, int y)
