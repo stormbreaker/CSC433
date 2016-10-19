@@ -14,7 +14,6 @@ double yComplexMin = -1.25, yComplexMax = 1.25;
 double complexWidth = xComplexMax - xComplexMin;
 double complexHeight = yComplexMax - yComplexMin;
 
-int ZoomMagnification = 0;
 const double ZOOM_FACTOR = .1;
 
 complex<double> mouseCoords;
