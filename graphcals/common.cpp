@@ -113,8 +113,8 @@ complex<double> getViewCoordinates(int x, int y)
     double yOffset = 0.0;
     double scale = 0.0;
 
-    width = abs(xComplexMin) + abs(xComplexMax);
-    height = abs(yComplexMin) + abs(yComplexMax);
+    width = abs(xComplexMax - xComplexMin);
+    height = abs(yComplexMax - yComplexMin);
 
     scale = width / winWidth;
 
