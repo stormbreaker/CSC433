@@ -2,6 +2,8 @@
 #define TDBK_COLORS_H
 
 #include <vector>
+#include <cstdlib>
+#include <iostream>
 
 using namespace std;
 
@@ -19,8 +21,12 @@ struct Color
     }
 };
 
+extern bool UseRandomSet;
+
 void NextColorSet();
 void GenerateColorSets();
+Color GetRandomColor();
 vector<Color> GetCurrentColorSet();
+vector<Color> RandomColorSet();
 
 #endif

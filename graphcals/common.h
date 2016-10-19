@@ -30,6 +30,8 @@ const int C_KEY = 67;
 const int LOWERCASE_C_KEY = 99;
 const int J_KEY = 74;
 const int LOWERCASE_J_KEY = 106;
+const int R_KEY = 82;
+const int LOWERCASE_R_KEY = 114;
 
 extern int ZoomMagnification;
 extern const double ZOOM_FACTOR;

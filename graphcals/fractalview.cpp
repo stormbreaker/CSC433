@@ -79,6 +79,12 @@ void keyboard(unsigned char key, int x, int y)
             NextColorSet();
             glutPostRedisplay();
             break;
+        case LOWERCASE_R_KEY:
+        case R_KEY:
+            UseRandomSet = true;
+            NextColorSet();
+            glutPostRedisplay();
+            break;
         case LOWERCASE_J_KEY:
         case J_KEY:
             isMandelbrotSet = !isMandelbrotSet;

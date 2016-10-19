@@ -6,6 +6,7 @@
 vector< vector<Color> > AllColorSets;
 int CurrentColorSetIndex = 0;
 int NumberOfColorSets = 5;
+bool UseRandomSet = false;
 
 void GenerateColorSets()
 {
@@ -68,7 +69,20 @@ void GenerateColorSets()
 
 vector<Color> GetCurrentColorSet()
 {
-    return AllColorSets[CurrentColorSetIndex];
+    vector<Color> colorSet;
+
+    if (UseRandomSet == false)
+    {
+        colorSet = AllColorSets[CurrentColorSetIndex];
+    }
+    else
+    {
+        colorSet = RandomColorSet();
+
+        UseRandomSet = false;
+    }
+
+    return colorSet;
 }
 
 void NextColorSet()
@@ -81,4 +95,29 @@ void NextColorSet()
     }
 }
 
+vector<Color> RandomColorSet()
+{
+    vector<Color> colorSet;
+    
+    srand(time(0));
+
+    colorSet.push_back(Color(0, 0, 0));
+    colorSet.push_back(GetRandomColor());
+    colorSet.push_back(GetRandomColor());
+    colorSet.push_back(GetRandomColor());
+    colorSet.push_back(GetRandomColor());
+    colorSet.push_back(GetRandomColor());
+    colorSet.push_back(GetRandomColor());
+
+    return colorSet;
+}
+
+Color GetRandomColor()
+{
+    int red = rand() % 255;
+    int green = rand() % 255;
+    int blue = rand() % 255;
+
+    return Color(red, green, blue);
+}
 #endif
