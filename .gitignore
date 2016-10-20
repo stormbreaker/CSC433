@@ -4,3 +4,5 @@ TankWars
 .DS_Store
 main
 fractalviewer
+fractalviewerparallel
+fractalviewerserial
