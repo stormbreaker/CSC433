@@ -42,8 +42,11 @@ all:    fractalviewerserial fractalviewerparallel
 fractalviewerserial:	fractalview.o mandelbrot.o julia.o common.o colors.o
 	$(LINK) -o $@ $^ $(GL_LIBS)
 
-fractalviewerparallel:	fractalview.o mandelbrot.o julia.o common.o colors.o
-	$(NVLINK) -o $@ $^ $(GL_LIBS)
+fractalviewerparallel:	mandelbrotcuda.o julia.o common.o colors.o
+	$(NVLINK) -o $@ $^ $(GL_LIBS) -lcuda -lcudart
+
+mandelbrotcuda.o:
+	nvcc -c -arch=sm_20 mandelbrotcuda.cu
 
 # generic C and C++ targets for OpenGL programs consisting of only one file
 # type "make filename" (no extension) to build
