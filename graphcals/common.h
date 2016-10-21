@@ -79,16 +79,4 @@ void pan(int xPixOffset, int yPixOffset);
 Complex getViewCoordinates(int x, int y);
 void SetColorAndPlot(int maxIter, int interations, Complex zPoint, vector<Color> colorSet);
 
-/*
-Name: color structure
-Author: Benjamin Kaiser and Taylor Doell
-Description:  This structure provides a nice compact way of holding the color
-values for a specific point.  It uses the 0-255 version of storing colors which
-is why they only need to be a single byte in size.
-*/
-struct color
-{
-	unsigned char r, g, b;
-};
-
 #endif
