@@ -3,11 +3,6 @@
 
 using namespace std;
 
-void init(void)
-{
-	glClearColor(1.0, 1.0, 1.0, 0.0);
-}
-
 // GLdisplay callback
 void displayFcn(void)
 {
@@ -78,24 +73,18 @@ void keyboard(unsigned char key, int x, int y)
         // Plus key zooms in
         case PLUS_KEY:
             mouseCoords = getViewCoordinates(x, y);
-
             zoom(ZOOM_FACTOR);
-            
-            IsZooming = true;
 
-            cout << "PLUS HIT" << endl;
+            IsZooming = true;
 
             glutPostRedisplay();
             break;
         // minus key zooms out
         case MINUS_KEY:
             mouseCoords = getViewCoordinates(x, y);
-
             zoom(-ZOOM_FACTOR);
-            
-            IsZooming = true;
 
-            cout << "MINUS HIT" << endl;
+            IsZooming = true;
 
             glutPostRedisplay();
             break;
@@ -103,6 +92,7 @@ void keyboard(unsigned char key, int x, int y)
         case C_KEY:
             UseRandomColorSet = false;
             IsZooming = false;
+
             NextColorSet();
             glutPostRedisplay();
             break;
@@ -110,6 +100,7 @@ void keyboard(unsigned char key, int x, int y)
         case R_KEY:
             UseRandomColorSet = true;
             IsZooming = false;
+
             glutPostRedisplay();
             break;
         case LOWERCASE_J_KEY:
@@ -135,7 +126,7 @@ void mouse(int button, int state, int x, int y)
 		if (button == 3)
 		{
 			zoom(ZOOM_FACTOR);
-			
+
 			IsZooming = true;
 
 			glutPostRedisplay();
@@ -143,7 +134,7 @@ void mouse(int button, int state, int x, int y)
 		else if (button == 4)
 		{
 			zoom(-ZOOM_FACTOR);
-			
+
 			IsZooming = true;
 
 			glutPostRedisplay();
@@ -171,7 +162,7 @@ int main(int argc, char** argv)
     glutMotionFunc(currentMousePosition);
 	glutSpecialFunc(specialInput);
 
-	init();
+	glClearColor(1.0, 1.0, 1.0, 0.0);
 	glutDisplayFunc(displayFcn);
 	glutReshapeFunc(winReshapeFcn);
 

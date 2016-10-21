@@ -19,7 +19,6 @@ int juliaSqTransform(Complex z0, int maxIter, Complex c)
 	return counter;
 }
 
-
 void julia(int nx, int ny, int maxIter, Complex c)
 {
     Complex z, zIncr;
@@ -32,7 +31,7 @@ void julia(int nx, int ny, int maxIter, Complex c)
 	zIncr.y = complexHeight/double(ny);
 
     double realIterator, imaginaryIterator;
-	
+
 	glBegin(GL_POINTS);
     for (realIterator = xComplexMin; realIterator < xComplexMax; realIterator += zIncr.x)
     {

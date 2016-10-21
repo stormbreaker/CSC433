@@ -1,4 +1,3 @@
-
 #ifndef TDBK_COMMON
 #define TDBK_COMMON
 
