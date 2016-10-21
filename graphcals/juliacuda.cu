@@ -1,13 +1,9 @@
-#ifndef TDBK_MANDELBROT
-#define TDBK_MANDELBROT
+#ifndef TDBK_JULIA
+#define TDBK_JULIA
 
-#include "mandelbrot.h"
-#include "common.h"
-#include <stdio.h>
+#include "julia.h"
 
-using namespace std;
-
-__device__ Complex complexSquare(Complex z)
+__device__ Complex complexSquareJ(Complex z)
 {
 	Complex zSquare;
 
@@ -17,37 +13,32 @@ __device__ Complex complexSquare(Complex z)
 	return zSquare;
 }
 
-__global__ void mandelSqTransf(int maxIter, WindowInfo windowInfo,  Complex *points, int *iterations)
+__global__ void juliaSqTransform(int maxIter, WindowInfo windowInfo, Complex c, Complex *points, int *iterations)
 {
     int index = threadIdx.x + blockIdx.x * blockDim.x;
     
     if (index < windowInfo.arrayLength)
     {
-	    int counter = 0;
-        Complex z0;
+        int counter = 0;
 	    Complex z;
 	    
-	    z.x = 0;
-	    z.y = 0;
-    
-        z0 = points[index];
+	    z = points[index];
 
 	    while ((z.x * z.x + z.y * z.y <= 4.0) && (counter < maxIter))
 	    {
-		    z = complexSquare(z);
-		    z.x += z0.x;
-		    z.y += z0.y;
+		    z = complexSquareJ(z);
+		    z.x += c.x;
+		    z.y += c.y;
 		    counter++;
 	    }
-	
+	    
 	    iterations[index] = counter;
     }
 }
 
-//plots the points out
-void mandelbrot (int nx, int ny, int maxIter)
+void julia(int nx, int ny, int maxIter, Complex c)
 {
-	Complex z, zIncr;
+    Complex z, zIncr;
     int counter = 0;
     int arraySize = nx * ny;
     double realIterator = 0.0;
@@ -88,15 +79,15 @@ void mandelbrot (int nx, int ny, int maxIter)
     	    counter++;
     	}
     }
-    
+
     cudaMemcpy(dev_points, points, size, cudaMemcpyHostToDevice);
     cudaMemcpy(dev_iterations, iterations, it_size, cudaMemcpyHostToDevice);
     
-    mandelSqTransf<<< nBlocks, nThreads >>>(maxIter, winInfo, dev_points, dev_iterations);
+    juliaSqTransform<<< nBlocks, nThreads >>>(maxIter, winInfo, c, dev_points, dev_iterations);
     
     cudaMemcpy(points, dev_points, size, cudaMemcpyDeviceToHost);
     cudaMemcpy(iterations, dev_iterations, it_size, cudaMemcpyDeviceToHost);
-    
+
     vector<Color> colorSet = GetCurrentColorSet();
     
     glBegin(GL_POINTS);

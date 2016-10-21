@@ -37,6 +37,43 @@ Complex complexSquareSerial(Complex z)
 	return zSquare;
 }
 
+void SetColorAndPlot(int maxIter, int interations, Complex zPoint, vector<Color> colorSet)
+{
+    Color ptColor(0, 0, 0);
+
+	if (interations >= maxIter)
+	{
+        ptColor = colorSet[0];
+	}
+	else if (interations > (maxIter / 8))
+	{
+        ptColor = colorSet[1];
+	}
+	else if (interations > (maxIter / 10))
+	{
+        ptColor = colorSet[2];
+	}
+	else if (interations > (maxIter/20))
+	{
+        ptColor = colorSet[3];
+	}
+	else if (interations > (maxIter/40))
+	{
+        ptColor = colorSet[4];
+	}
+	else if (interations > (maxIter/100))
+	{
+        ptColor = colorSet[5];
+	}
+	else
+	{
+        ptColor = colorSet[6];
+	}
+
+	glColor3ub(ptColor.red, ptColor.green, ptColor.blue);
+	plotPoint(zPoint);
+}
+
 void zoom(double percentage)
 {
 		double xOffset, yOffset;

@@ -15,6 +15,15 @@ struct Complex
     double y;
 };
 
+struct WindowInfo
+{
+    int arrayLength;
+    double xComplexMin;
+    double xComplexMax;
+    double yComplexMin;
+    double yComplexMax;
+};
+
 extern unsigned int winWidth;
 extern unsigned int winHeight;
 extern double xComplexMin;
@@ -51,6 +60,7 @@ void plotPoint(Complex z);
 void zoom(double percentage);
 void pan(int xPixOffset, int yPixOffset);
 Complex getViewCoordinates(int x, int y);
+void SetColorAndPlot(int maxIter, int interations, Complex zPoint, vector<Color> colorSet);
 
 struct color
 {
