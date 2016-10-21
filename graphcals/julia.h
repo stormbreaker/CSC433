@@ -9,6 +9,4 @@ using namespace std;
 void julia(int nx, int ny, int maxIter, Complex c);
 int juliaSqTransform(Complex z0, int maxIter);
 
-
-
 #endif
