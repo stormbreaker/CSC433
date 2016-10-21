@@ -36,6 +36,16 @@ void displayFcn(void)
 	glFlush();
 }
 
+void animation(int value)
+{
+    if (isAnimating == true)
+    {
+        NextColorSet();
+	    glutPostRedisplay();
+	    glutTimerFunc(250, animation, 1);
+	}
+}
+
 // GLwindow reshape callback
 void winReshapeFcn (GLint newWidth, GLint newHeight)
 {
@@ -101,6 +111,16 @@ void keyboard(unsigned char key, int x, int y)
             IsZooming = true;
 
             glutPostRedisplay();
+            break;
+        case LOWERCASE_A_KEY:
+        case A_KEY:
+            isAnimating = !isAnimating;
+            IsZooming = false;
+            
+            if (isAnimating == true)
+            {
+                glutTimerFunc(100, animation, 1);
+            }
             break;
         case LOWERCASE_C_KEY:
         case C_KEY:

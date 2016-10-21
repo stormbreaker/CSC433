@@ -21,6 +21,7 @@ bool isMouseClicked = false;
 
 bool isMandelbrotSet = true;
 bool isParallel = true;
+bool isAnimating = false;
 
 void plotPoint(Complex z)
 {

@@ -40,6 +40,8 @@ const int ESC_KEY = 27;
 const int SPACE_KEY = 32;
 const int PLUS_KEY = 43;
 const int MINUS_KEY = 45;
+const int A_KEY = 65;
+const int LOWERCASE_A_KEY = 97;
 const int C_KEY = 67;
 const int LOWERCASE_C_KEY = 99;
 const int J_KEY = 74;
@@ -57,6 +59,7 @@ extern bool isMouseClicked;
 
 extern bool isMandelbrotSet;
 extern bool isParallel;
+extern bool isAnimating;
 
 Complex complexSquareSerial(Complex z);
 void plotPoint(Complex z);
