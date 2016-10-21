@@ -1,6 +1,6 @@
 #include "mandelbrot.h"
 #include "common.h"
-//#include "julia.h"
+#include "julia.h"
 
 using namespace std;
 
@@ -22,7 +22,7 @@ void displayFcn(void)
     }
     else
     {
-        //julia(nx, ny, maxIter, mouseCoords);
+        julia(nx, ny, maxIter, mouseCoords);
     }
 
 	glFlush();

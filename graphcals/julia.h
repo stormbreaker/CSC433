@@ -2,12 +2,12 @@
 #define TDBK_JULIA_H
 
 #include "glutdefine.h"
-#include <complex>
+#include "common.h"
 
 using namespace std;
 
-void julia(GLint nx, GLint ny, GLint maxIter, complex<double> c);
-int juliaSqTransform(complex<double> z0, GLint maxIter);
+void julia(int nx, int ny, int maxIter, Complex c);
+int juliaSqTransform(Complex z0, int maxIter);
 
 
 

@@ -2,40 +2,44 @@
 #define TDBK_JULIA
 
 #include "julia.h"
-#include "common.h"
 
 
-int juliaSqTransform(complex<double> z0, GLint maxIter, complex<double> c)
+int juliaSqTransform(Complex z0, int maxIter, Complex c)
 {
-    complex<double> z = z0;
+    Complex z = z0;
 	int counter = 0;
 
-	while ((z.real() * z.real() + z.imag() * z.imag() <= 4.0) && (counter < maxIter))
+	while ((z.x * z.x + z.y * z.y <= 4.0) && (counter < maxIter))
 	{
-		z = complexSquare(z);
-		z += c;
+		z = complexSquareSerial(z);
+		z.x += c.x;
+		z.y += c.y;
 		counter++;
 	}
 	return counter;
 }
 
 
-void julia(GLint nx, GLint ny, GLint maxIter, complex<double> c)
+void julia(int nx, int ny, int maxIter, Complex c)
 {
-    complex<double> z, zIncr;
+    Complex z, zIncr;
     color ptColor;
 
     int iterCount;
 
-    zIncr = complex<double>(complexWidth/GLdouble(nx), complexHeight/GLdouble(ny));
+
+	zIncr.x = complexWidth/double(nx);
+	zIncr.y = complexHeight/double(ny);
 
     double realIterator, imaginaryIterator;
-
-    for (realIterator = xComplexMin; realIterator < xComplexMax; realIterator += zIncr.real())
+	
+	glBegin(GL_POINTS);
+    for (realIterator = xComplexMin; realIterator < xComplexMax; realIterator += zIncr.x)
     {
-        for (imaginaryIterator = yComplexMin; imaginaryIterator < yComplexMax; imaginaryIterator += zIncr.imag())
+        for (imaginaryIterator = yComplexMin; imaginaryIterator < yComplexMax; imaginaryIterator += zIncr.y)
         {
-            z = complex<double>(realIterator, imaginaryIterator);
+			z.x = realIterator;
+			z.y = imaginaryIterator;
 
             iterCount = juliaSqTransform(z, maxIter, c);
             if (iterCount >= maxIter)
@@ -77,6 +81,7 @@ void julia(GLint nx, GLint ny, GLint maxIter, complex<double> c)
             plotPoint(z);
         }
     }
+	glEnd();
 }
 
 #endif
