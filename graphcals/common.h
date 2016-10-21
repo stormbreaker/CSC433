@@ -5,7 +5,7 @@
 #include <iostream>
 #include "colors.h"
 
-#include "gultdefine.h"
+#include "glutdefine.h"
 
 using namespace std;
 
