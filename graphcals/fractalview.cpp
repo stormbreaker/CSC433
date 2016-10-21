@@ -12,11 +12,25 @@ void displayFcn(void)
 
     if (isMandelbrotSet == true)
     {
-        calculateSet(nx, ny, maxIter, true);
+        if (isParallel == true)
+        {
+            calculateSetParallel(nx, ny, maxIter, true);
+        }
+        else
+        {
+            calculateSetSerial(nx, ny, maxIter, true);
+        }
     }
     else
     {
-        calculateSet(nx, ny, maxIter, false, mouseCoords);
+        if (isParallel == true)
+        {
+            calculateSetParallel(nx, ny, maxIter, false, mouseCoords);
+        }
+        else
+        {
+            calculateSetSerial(nx, ny, maxIter, false, mouseCoords);
+        }
     }
 
 	glFlush();
@@ -109,6 +123,12 @@ void keyboard(unsigned char key, int x, int y)
 
             mouseCoords = getViewCoordinates(x, y);
 
+            glutPostRedisplay();
+            break;
+        case LOWERCASE_V_KEY:
+        case V_KEY:
+            isParallel = !isParallel;
+            
             glutPostRedisplay();
             break;
         // anything else redraws window

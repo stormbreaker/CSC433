@@ -46,6 +46,8 @@ const int J_KEY = 74;
 const int LOWERCASE_J_KEY = 106;
 const int R_KEY = 82;
 const int LOWERCASE_R_KEY = 114;
+const int V_KEY = 86;
+const int LOWERCASE_V_KEY = 118;
 
 extern const double ZOOM_FACTOR;
 extern const int PIXEL_PAN;
@@ -54,6 +56,7 @@ extern Complex mouseCoords;
 extern bool isMouseClicked;
 
 extern bool isMandelbrotSet;
+extern bool isParallel;
 
 Complex complexSquareSerial(Complex z);
 void plotPoint(Complex z);

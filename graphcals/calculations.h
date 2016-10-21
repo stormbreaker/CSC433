@@ -12,6 +12,7 @@
 using namespace std;
 
 int mandelSqTransf(Complex z0, GLint maxIter);
-void calculateSet(int nx, int ny, int maxIter, bool isMandelBrot, Complex c = Complex());
+void calculateSetSerial(int nx, int ny, int maxIter, bool isMandelbrot, Complex c = Complex());
+void calculateSetParallel(int nx, int ny, int maxIter, bool isMandelBrot, Complex c = Complex());
 
 #endif

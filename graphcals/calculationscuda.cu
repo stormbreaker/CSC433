@@ -67,7 +67,7 @@ __global__ void juliaSqTransform(int maxIter, WindowInfo windowInfo, Complex c, 
 }
 
 //plots the points out
-void calculateSet(int nx, int ny, int maxIter, bool isMandelBrot, Complex c)
+void calculateSetParallel(int nx, int ny, int maxIter, bool isMandelBrot, Complex c)
 {
 	Complex z, zIncr;
     int counter = 0;

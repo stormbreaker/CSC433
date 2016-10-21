@@ -41,7 +41,7 @@ int juliaSqTransform(Complex z0, int maxIter, Complex c)
 }
 
 //plots the points out
-void calculateSet(int nx, int ny, int maxIter, bool isMandelbrot, Complex c)
+void calculateSetSerial(int nx, int ny, int maxIter, bool isMandelbrot, Complex c)
 {
 	Complex z, zIncr;
     vector<Color> colorSet;

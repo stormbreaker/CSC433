@@ -36,13 +36,10 @@ GL_LIBS = -lglut -lGLU -lGL -lm
 # MAKE allows the use of "wildcards", to make writing compilation instructions
 # a bit easier. GNU make uses $@ for the target and $^ for the dependencies.
 
-all:    fractalviewerserial fractalviewerparallel
+all:    mandelbrot
 
 # specific targets
-fractalviewerserial:	fractalview.o mandelbrot.o julia.o common.o colors.o
-	$(LINK) -o $@ $^ $(GL_LIBS)
-
-fractalviewerparallel: fractalview.o calculationscuda.o common.o colors.o
+mandelbrot:	fractalview.o calculations.o calculationscuda.o common.o colors.o
 	$(NVLINK) -o $@ $^ $(GL_LIBS) -lcuda -lcudart
 
 calculationscuda.o:

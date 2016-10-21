@@ -20,6 +20,7 @@ Complex mouseCoords;
 bool isMouseClicked = false;
 
 bool isMandelbrotSet = true;
+bool isParallel = true;
 
 void plotPoint(Complex z)
 {
@@ -84,8 +85,6 @@ void zoom(double percentage)
 		complexWidth = xComplexMax - xComplexMin;
 
 		xOffset = mouseCoords.x - (xComplexMax - (complexWidth / 2.0));
-
-		//cout << "xOffset: " << xOffset << endl;
 
 		xComplexMin = xComplexMin + xOffset;
 		xComplexMax = xComplexMax + xOffset;
