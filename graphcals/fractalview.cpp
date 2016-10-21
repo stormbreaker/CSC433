@@ -17,7 +17,10 @@ using namespace std;
 /*
 	Name: displayFcn
 	Author: Benjamin Kaiser and Taylor Doell
-	Description:
+	Description: This function is the main display function for GLUT. It defines
+    nx, ny and maxIter to help in calculations in each set. After the type of
+    set is chosen, parallel or serial is chosen for the way the set is
+    calculated.
 */
 void displayFcn(void)
 {
@@ -54,7 +57,9 @@ void displayFcn(void)
 /*
 	Name: animation
 	Author: Benjamin Kaiser and Taylor Doell
-	Description:
+	Description: This function animates the colors by choosing the next color
+    set and then displaying and calling this function again. If the isAnimating
+    becomes false, the function stops and stops the color animation.
 */
 void animation(int value)
 {
@@ -69,7 +74,9 @@ void animation(int value)
 /*
 	Name: winReshapeFcn
 	Author: Benjamin Kaiser and Taylor Doell
-	Description:
+	Description: This is the reshape function for GLUT. It handles the change in
+    size of the window. Nothing special is taken into account when the size changes
+    so the window just shows a square for the view.
 */
 void winReshapeFcn(GLint newWidth, GLint newHeight)
 {
@@ -86,11 +93,11 @@ void winReshapeFcn(GLint newWidth, GLint newHeight)
 /*
 	Name: specialInput
 	Author: Benjamin Kaiser and Taylor Doell
-	Description:
+	Description: This function handles the special keys for the keyboard. It is
+    used for catching the arrow keys for panning the set.
 */
 void specialInput(int key, int x, int y)
 {
-	cout << key << endl;
 	switch(key)
 	{
 		case GLUT_KEY_UP:
@@ -117,7 +124,11 @@ void specialInput(int key, int x, int y)
 /*
 	Name: keyboard
 	Author: Benjamin Kaiser and Taylor Doell
-	Description:
+	Description: This function handles the regular keys from the keyboard. The
+    + and - key zoom in and out respectively. A animates the color, C changes the
+    color set used for displaying the sets, R chooses and random color set, J
+    toggles between the mandlebrot and julia set and V is used for toggling
+    between serial and parallel calculations.
 */
 void keyboard(unsigned char key, int x, int y)
 {
@@ -194,7 +205,9 @@ void keyboard(unsigned char key, int x, int y)
 /*
 	Name: mouse
 	Author: Benjamin Kaiser and Taylor Doell
-	Description:
+	Description: Handling the scroll wheel is done by checking the buttons 3 and
+    4. This functions handles the zooming for the set by using the scroll wheel.
+    This also gets the first coordinate for the panning of the mouse.
 */
 void mouse(int button, int state, int x, int y)
 {
@@ -202,7 +215,11 @@ void mouse(int button, int state, int x, int y)
 	{
         mouseCoords = getViewCoordinates(x, y);
 
-		if (button == 3)
+        if (button == GLUT_LEFT_BUTTON)
+        {
+            
+        }
+		else if (button == 3)
 		{
 			zoom(ZOOM_FACTOR);
 
@@ -224,13 +241,14 @@ void mouse(int button, int state, int x, int y)
 /*
 	Name: currentMousePosition
 	Author: Benjamin Kaiser and Taylor Doell
-	Description:
+	Description: This function gets the second coordinate for the mouse panning.
+    That coordinate is then taken and used for calculating the distance to pan.
 */
 void currentMousePosition(int x, int y)
 {
     if (isMouseClicked == true)
     {
-        //cout << x << " " << y << endl;
+
     }
 }
 

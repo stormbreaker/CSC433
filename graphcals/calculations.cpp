@@ -56,7 +56,7 @@ int juliaSqTransform(Complex z0, int maxIter, Complex c)
 	Name: calculateSetSerial
 	Author: Benjamin Kaiser and Taylor Doell
 	Description: This is the main function that handles both the mandelbrot and
-    the julia set. A bool flag tells the function which set to calculate. There
+    the julia set in serial. A bool flag tells the function which set to calculate. There
     is an optional parameter that can be used if the julia set is the set to
     calculate. Once the number (iterCount) is found, it does some calculations to
     divide the colors that were provided by the color set. It then plots the

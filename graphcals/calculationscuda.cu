@@ -9,7 +9,9 @@ using namespace std;
 /*
 	Name: complexSquare
 	Author: Benjamin Kaiser and Taylor Doell
-	Description:
+	Description: This function squares the complex number. This function is tagged
+    with __device__ to put the function on the card to allow the cuda card to
+    easily call it.
 */
 __device__ Complex complexSquare(Complex z)
 {
@@ -22,9 +24,11 @@ __device__ Complex complexSquare(Complex z)
 }
 
 /*
-	Name: mandelSqTransf
+	Name: mandelSqTransform
 	Author: Benjamin Kaiser and Taylor Doell
-	Description:
+	Description: This function performs the calculations finding how fast the
+    point diverges for the mandelbrot set. This function has the __global__ tag
+    in order for the cuda card to be able to call this function.
 */
 __global__ void mandelSqTransf(int maxIter, WindowInfo windowInfo,  Complex *points, int *iterations)
 {
@@ -56,7 +60,10 @@ __global__ void mandelSqTransf(int maxIter, WindowInfo windowInfo,  Complex *poi
 /*
 	Name: juliaSqTransform
 	Author: Benjamin Kaiser and Taylor Doell
-	Description:
+	Description: This function uses the point from the mandelbrot set to help
+    calculate the julia set and uses that to see how fast the point diverges.
+    This function has the __global__ tag in order for the cuda card to be able
+    to call this function.
 */
 __global__ void juliaSqTransform(int maxIter, WindowInfo windowInfo, Complex c, Complex *points, int *iterations)
 {
@@ -84,7 +91,12 @@ __global__ void juliaSqTransform(int maxIter, WindowInfo windowInfo, Complex c, 
 /*
 	Name: calculateSetParallel
 	Author: Benjamin Kaiser and Taylor Doell
-	Description:
+	Description: This is the main function that handles both the mandelbrot and
+    the julia set in parallel. A bool flag tells the function which set to
+    calculate. There is an optional parameter that can be used if the julia set
+    is the set to calculate. Once the number (iterCount) is found, it does some
+    calculations to divide the colors that were provided by the color set. It
+    then plots the point.
 */
 void calculateSetParallel(int nx, int ny, int maxIter, bool isMandelBrot, Complex c)
 {
