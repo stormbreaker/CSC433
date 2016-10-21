@@ -2,6 +2,7 @@
 #define TDBK_MANDELBROT
 
 #include "mandelbrot.h"
+#include <chrono>
 
 using namespace std;
 
@@ -40,6 +41,7 @@ void mandelbrot (int nx, int ny, int maxIter)
 
     colorSet = GetCurrentColorSet();
 	glBegin(GL_POINTS);
+	auto start = chrono::system_clock::now();
 	for (realIterator = xComplexMin; realIterator < xComplexMax; realIterator += zIncr.x)
     {
         for (imaginaryIterator = yComplexMin; imaginaryIterator < yComplexMax; imaginaryIterator += zIncr.y)
@@ -81,6 +83,7 @@ void mandelbrot (int nx, int ny, int maxIter)
     		plotPoint(z);
     	}
     }
+	chrono::duration<double> test = chrono::system_clock::now() - start;
 	glEnd();
 }
 
