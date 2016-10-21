@@ -17,8 +17,8 @@ NVCC = nvcc
 # Turn on optimization and warnings (add -g for debugging with gdb):
 # CPPFLAGS = 		# preprocessor flags
 CFLAGS = -O #-Wall -Wextra
-CXXFLAGS = -O #-Wall -Wextra
-NVCCFLAGS = -O #-Wall -Wextra
+CXXFLAGS = -O -std=c++11 #-Wall -Wextra
+NVCCFLAGS = -O -std=c++11 #-Wall -Wextra
 
 # OpenGL/Mesa libraries for Linux:
 GL_LIBS = -lglut -lGLU -lGL -lm
@@ -42,14 +42,11 @@ all:    fractalviewerserial fractalviewerparallel
 fractalviewerserial:	fractalview.o mandelbrot.o julia.o common.o colors.o
 	$(LINK) -o $@ $^ $(GL_LIBS)
 
-fractalviewerparallel: fractalview.o mandelbrotcuda.o juliacuda.cu common.o colors.o
+fractalviewerparallel: fractalview.o calculationscuda.o common.o colors.o
 	$(NVLINK) -o $@ $^ $(GL_LIBS) -lcuda -lcudart
 
-mandelbrotcuda.o:
-	nvcc -c -arch=sm_20 mandelbrotcuda.cu -g
-	
-juliacuda.o:
-	nvcc -c -arch=sm_20 juliacuda.cu -g
+calculationscuda.o:
+	nvcc -c -arch=sm_20 calculationscuda.cu -g
 
 # generic C and C++ targets for OpenGL programs consisting of only one file
 # type "make filename" (no extension) to build

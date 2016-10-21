@@ -1,6 +1,5 @@
-#include "mandelbrot.h"
+#include "calculations.h"
 #include "common.h"
-#include "julia.h"
 
 using namespace std;
 
@@ -18,11 +17,11 @@ void displayFcn(void)
 
     if (isMandelbrotSet == true)
     {
-        mandelbrot(nx, ny, maxIter);
+        calculateSet(nx, ny, maxIter, true);
     }
     else
     {
-        julia(nx, ny, maxIter, mouseCoords);
+        calculateSet(nx, ny, maxIter, false, mouseCoords);
     }
 
 	glFlush();
