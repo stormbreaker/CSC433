@@ -1,9 +1,24 @@
 #include "calculations.h"
 #include "common.h"
 
+/*
+	CSC 433 - Computer Graphics
+	Dr. John Weiss
+	Programming Assignment #2 - Mandelbrot
+	Benjamin Kaiser and Taylor Doell
+	Due 10-21-16
+
+	Description:
+
+*/
+
 using namespace std;
 
-// GLdisplay callback
+/*
+	Name: displayFcn
+	Author: Benjamin Kaiser and Taylor Doell
+	Description:
+*/
 void displayFcn(void)
 {
 	GLint nx = 1024, ny = 1024, maxIter = 1024;
@@ -36,6 +51,11 @@ void displayFcn(void)
 	glFlush();
 }
 
+/*
+	Name: animation
+	Author: Benjamin Kaiser and Taylor Doell
+	Description:
+*/
 void animation(int value)
 {
     if (isAnimating == true)
@@ -46,8 +66,12 @@ void animation(int value)
 	}
 }
 
-// GLwindow reshape callback
-void winReshapeFcn (GLint newWidth, GLint newHeight)
+/*
+	Name: winReshapeFcn
+	Author: Benjamin Kaiser and Taylor Doell
+	Description:
+*/
+void winReshapeFcn(GLint newWidth, GLint newHeight)
 {
 	glViewport(0, 0, newHeight, newHeight);
 
@@ -59,6 +83,11 @@ void winReshapeFcn (GLint newWidth, GLint newHeight)
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
+/*
+	Name: specialInput
+	Author: Benjamin Kaiser and Taylor Doell
+	Description:
+*/
 void specialInput(int key, int x, int y)
 {
 	cout << key << endl;
@@ -85,6 +114,11 @@ void specialInput(int key, int x, int y)
 	}
 }
 
+/*
+	Name: keyboard
+	Author: Benjamin Kaiser and Taylor Doell
+	Description:
+*/
 void keyboard(unsigned char key, int x, int y)
 {
     // process keypresses
@@ -116,7 +150,7 @@ void keyboard(unsigned char key, int x, int y)
         case A_KEY:
             isAnimating = !isAnimating;
             IsZooming = false;
-            
+
             if (isAnimating == true)
             {
                 glutTimerFunc(100, animation, 1);
@@ -148,7 +182,7 @@ void keyboard(unsigned char key, int x, int y)
         case LOWERCASE_V_KEY:
         case V_KEY:
             isParallel = !isParallel;
-            
+
             glutPostRedisplay();
             break;
         // anything else redraws window
@@ -157,6 +191,11 @@ void keyboard(unsigned char key, int x, int y)
     }
 }
 
+/*
+	Name: mouse
+	Author: Benjamin Kaiser and Taylor Doell
+	Description:
+*/
 void mouse(int button, int state, int x, int y)
 {
     if (state == 0)
@@ -182,6 +221,11 @@ void mouse(int button, int state, int x, int y)
 	}
 }
 
+/*
+	Name: currentMousePosition
+	Author: Benjamin Kaiser and Taylor Doell
+	Description:
+*/
 void currentMousePosition(int x, int y)
 {
     if (isMouseClicked == true)
@@ -190,6 +234,13 @@ void currentMousePosition(int x, int y)
     }
 }
 
+/*
+	Name: main
+	Author: Benjamin Kaiser and Taylor Doell
+	Description: This function is just the main function that the C++ language
+	requires to compile and run.  It calls glutMainLoop which is really our main
+	function/loop.
+*/
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);

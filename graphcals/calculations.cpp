@@ -6,6 +6,12 @@
 
 using namespace std;
 
+/*
+	Name: mandelSqTransform
+	Author: Benjamin Kaiser and Taylor Doell
+	Description: This function performs the calculations finding how fast the
+    point diverges for the mandelbrot set.
+*/
 int mandelSqTransform(Complex c, int maxIter)
 {
 	Complex z;
@@ -25,6 +31,12 @@ int mandelSqTransform(Complex c, int maxIter)
 	return counter;
 }
 
+/*
+	Name: juliaSqTransform
+	Author: Benjamin Kaiser and Taylor Doell
+	Description: This function uses the point from the mandelbrot set to help
+    calculate the julia set and uses that to see how fast the point diverges.
+*/
 int juliaSqTransform(Complex z0, int maxIter, Complex c)
 {
     Complex z = z0;
@@ -40,7 +52,16 @@ int juliaSqTransform(Complex z0, int maxIter, Complex c)
 	return counter;
 }
 
-//plots the points out
+/*
+	Name: calculateSetSerial
+	Author: Benjamin Kaiser and Taylor Doell
+	Description: This is the main function that handles both the mandelbrot and
+    the julia set. A bool flag tells the function which set to calculate. There
+    is an optional parameter that can be used if the julia set is the set to
+    calculate. Once the number (iterCount) is found, it does some calculations to
+    divide the colors that were provided by the color set. It then plots the
+    point.
+*/
 void calculateSetSerial(int nx, int ny, int maxIter, bool isMandelbrot, Complex c)
 {
 	Complex z, zIncr;
