@@ -22,6 +22,7 @@ struct Color
 };
 
 extern bool UseRandomColorSet;
+extern bool IsZooming;
 
 void NextColorSet();
 void GenerateColorSets();

@@ -17,23 +17,22 @@ double complexHeight = yComplexMax - yComplexMin;
 const double ZOOM_FACTOR = .1;
 const int PIXEL_PAN  = 10;
 
-complex<double> mouseCoords;
+Complex mouseCoords;
 bool isMouseClicked = false;
 
 bool isMandelbrotSet = true;
 
-void plotPoint(complex<double> z)
+void plotPoint(Complex z)
 {
-	glBegin(GL_POINTS);
-		glVertex2d(z.real(), z.imag());
-	glEnd();
+	glVertex2d(z.x, z.y);
 }
 
-complex<double> complexSquare(complex<double> z)
+Complex complexSquareSerial(Complex z)
 {
-	complex<double> zSquare;
+	Complex zSquare;
 
-	zSquare = z * z;
+	zSquare.x = (z.x * z.x) - (z.y * z.y);
+	zSquare.y = 2 * z.x * z.y;
 
 	return zSquare;
 }
@@ -42,15 +41,13 @@ void zoom(double percentage)
 {
 		double xOffset, yOffset;
 
-        cout << mouseCoords.real() << " " << mouseCoords.imag() << endl;
-
 		// zoom x
 		xComplexMin = xComplexMin + (complexWidth) * percentage;
 		xComplexMax = xComplexMax - (complexWidth) * percentage;
 
 		complexWidth = xComplexMax - xComplexMin;
 
-		xOffset = mouseCoords.real() - (xComplexMax - (complexWidth / 2.0));
+		xOffset = mouseCoords.x - (xComplexMax - (complexWidth / 2.0));
 
 		//cout << "xOffset: " << xOffset << endl;
 
@@ -63,7 +60,7 @@ void zoom(double percentage)
 
 		complexHeight = yComplexMax - yComplexMin;
 
-		yOffset = mouseCoords.imag() - (yComplexMax - (complexHeight / 2.0));
+		yOffset = mouseCoords.y - (yComplexMax - (complexHeight / 2.0));
 
 		yComplexMin = yComplexMin + yOffset;
 		yComplexMax = yComplexMax + yOffset;
@@ -83,9 +80,9 @@ void pan(int xPixOffset, int yPixOffset)
 
 	mouseCoords = getViewCoordinates(xCenterPixel + xPixOffset, yCenterPixel + yPixOffset);
 
-	xOffset = mouseCoords.real() - (xComplexMax - (complexWidth / 2.0));
+	xOffset = mouseCoords.x - (xComplexMax - (complexWidth / 2.0));
 
-	yOffset = mouseCoords.imag() - (yComplexMax - (complexHeight / 2.0));
+	yOffset = mouseCoords.y - (yComplexMax - (complexHeight / 2.0));
 
 	xComplexMax = xComplexMax + xOffset;
 	xComplexMin = xComplexMin + xOffset;
@@ -93,16 +90,15 @@ void pan(int xPixOffset, int yPixOffset)
 	yComplexMax = yComplexMax + yOffset;
 	yComplexMin = yComplexMin + yOffset;
 
-
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
 	gluOrtho2D(xComplexMin, xComplexMax, yComplexMin, yComplexMax);
 }
 
-complex<double> getViewCoordinates(int x, int y)
+Complex getViewCoordinates(int x, int y)
 {
-    complex<double> xyCoords;
+    Complex xyCoords;
     double newX = 0.0;
     double newY = 0.0;
     double width = 0.0;
@@ -122,17 +118,14 @@ complex<double> getViewCoordinates(int x, int y)
     yAxis = winWidth - (xComplexMax / scale);
     xAxis = winHeight + (yComplexMin / scale);
 
-	cout << xComplexMax << " " << yComplexMin << endl;
-
-	cout << "xAxis: " << xAxis << " yAxis: " << yAxis << endl;
-
     xOffset = yAxis - (winWidth / 2);
     yOffset = xAxis - (winHeight / 2);
 
     newX = (x - xOffset - (winWidth / 2)) * scale;
     newY = ((winHeight / 2) + yOffset - y) * scale;
 
-    xyCoords = complex<double>(newX, newY);
+    xyCoords.x = newX;
+    xyCoords.y = newY;
 
     return xyCoords;
 }

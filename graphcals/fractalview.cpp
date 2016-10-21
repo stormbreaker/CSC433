@@ -1,6 +1,6 @@
 #include "mandelbrot.h"
 #include "common.h"
-#include "julia.h"
+//#include "julia.h"
 
 using namespace std;
 
@@ -12,11 +12,9 @@ void init(void)
 // GLdisplay callback
 void displayFcn(void)
 {
-	GLint nx = 1000, ny = 1000, maxIter = 1000;
+	GLint nx = 1024, ny = 1024, maxIter = 1024;
 
 	glClear(GL_COLOR_BUFFER_BIT);
-
-	complex<double> c(.353,.288);
 
     if (isMandelbrotSet == true)
     {
@@ -24,9 +22,7 @@ void displayFcn(void)
     }
     else
     {
-        cout << mouseCoords.real() << " " << mouseCoords.imag() << endl;
-
-        julia(nx, ny, maxIter, mouseCoords);
+        //julia(nx, ny, maxIter, mouseCoords);
     }
 
 	glFlush();
@@ -85,6 +81,8 @@ void keyboard(unsigned char key, int x, int y)
             mouseCoords = getViewCoordinates(x, y);
 
             zoom(ZOOM_FACTOR);
+            
+            IsZooming = true;
 
             cout << "PLUS HIT" << endl;
 
@@ -95,6 +93,8 @@ void keyboard(unsigned char key, int x, int y)
             mouseCoords = getViewCoordinates(x, y);
 
             zoom(-ZOOM_FACTOR);
+            
+            IsZooming = true;
 
             cout << "MINUS HIT" << endl;
 
@@ -102,13 +102,15 @@ void keyboard(unsigned char key, int x, int y)
             break;
         case LOWERCASE_C_KEY:
         case C_KEY:
+            UseRandomColorSet = false;
+            IsZooming = false;
             NextColorSet();
             glutPostRedisplay();
             break;
         case LOWERCASE_R_KEY:
         case R_KEY:
             UseRandomColorSet = true;
-            NextColorSet();
+            IsZooming = false;
             glutPostRedisplay();
             break;
         case LOWERCASE_J_KEY:
@@ -134,12 +136,16 @@ void mouse(int button, int state, int x, int y)
 		if (button == 3)
 		{
 			zoom(ZOOM_FACTOR);
+			
+			IsZooming = true;
 
 			glutPostRedisplay();
 		}
 		else if (button == 4)
 		{
 			zoom(-ZOOM_FACTOR);
+			
+			IsZooming = true;
 
 			glutPostRedisplay();
 		}
