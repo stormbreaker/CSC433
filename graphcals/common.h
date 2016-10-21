@@ -1,7 +1,6 @@
 #ifndef TDBK_COMMON_H
 
 #define TDBK_COMMON_H
-#include <complex>
 #include <iomanip>
 #include <iostream>
 #include "colors.h"
@@ -9,6 +8,12 @@
 #include "gultdefine.h"
 
 using namespace std;
+
+struct Complex
+{
+    double x;
+    double y;
+};
 
 extern unsigned int winWidth;
 extern unsigned int winHeight;
@@ -36,16 +41,16 @@ const int LOWERCASE_R_KEY = 114;
 extern const double ZOOM_FACTOR;
 extern const int PIXEL_PAN;
 
-extern complex<double> mouseCoords;
+extern Complex mouseCoords;
 extern bool isMouseClicked;
 
 extern bool isMandelbrotSet;
 
-void plotPoint(complex<double> z);
-complex<double> complexSquare(complex<double> z);
+Complex complexSquareSerial(Complex z);
+void plotPoint(Complex z);
 void zoom(double percentage);
 void pan(int xPixOffset, int yPixOffset);
-complex<double> getViewCoordinates(int x, int y);
+Complex getViewCoordinates(int x, int y);
 
 struct color
 {

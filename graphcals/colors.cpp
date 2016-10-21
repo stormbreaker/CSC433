@@ -7,6 +7,9 @@ vector< vector<Color> > AllColorSets;
 int CurrentColorSetIndex = 0;
 int NumberOfColorSets = 5;
 bool UseRandomColorSet = false;
+bool IsZooming = false;
+
+vector<Color> RandomSet;
 
 void GenerateColorSets()
 {
@@ -77,7 +80,12 @@ vector<Color> GetCurrentColorSet()
     }
     else
     {
-        colorSet = RandomColorSet();
+        if (!IsZooming)
+        {
+            RandomSet = RandomColorSet();
+        }
+        
+        colorSet = RandomSet;
     }
 
     return colorSet;
@@ -91,8 +99,6 @@ void NextColorSet()
     {
         CurrentColorSetIndex = 0;
     }
-
-    UseRandomColorSet = false;
 }
 
 vector<Color> RandomColorSet()
