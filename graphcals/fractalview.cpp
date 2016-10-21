@@ -8,8 +8,33 @@
 	Benjamin Kaiser and Taylor Doell
 	Due 10-21-16
 
-	Description:
+	Description:  The purpose of this program is to view the Mandelbrot and also
+	the Julia sets of certain points.  In order to do this in an effective and
+	effiient manner, the assignment also required us to utilize the CUDA parellel
+	framework to calculate our points in parallel using an Nvidia graphics card.
+	As part of this, we were assigned the need to time the differences between
+	the serial and parallel implementations of this code.  User Interface is included
+	in this program header but is also included in our README.txt file which
+	also contains our findings on the serial vs parallel execution times.  
 
+	User Interface:
+		Switch Between Julia and Mandelbrot graphs: hover over point that the
+			Julia set needs to be calculated for in the Mandelbrot view and press
+			'J'.  To switch back to Mandelbrot, simply press 'J' again.
+		Zoom on point:  Hover mouse cursor over the point of interest and press
+			'+' to zoom in or '-' to zoom out. Alternatively, hover over the point
+			of interest and scroll the mouse wheel up and down.
+		Pan:  To pan, around on the Mandelbrot set, use the arrow keys.  Think of
+			this as moving the viewport and not the set itself.  So by pressing the
+			down arrow, the set will move upwards in the window since the viewport
+			is moving down in world scene coordinates.
+		Switching Color palettes:  There are 5 static color sets that we have
+			implemented.  To cycle through these, press 'C'.
+			To generate a random color set of random numbers, press 'R'
+		Animate Colors: To set the colors in animation of random colors, press 'A'
+		Switch between parallel and serial mode: To switch between using the CPU
+			and the GPU to compute points, press 'V'
+		Exiting:  Press 'ESC' to exit the program
 */
 
 using namespace std;
