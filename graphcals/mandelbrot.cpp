@@ -2,20 +2,22 @@
 #define TDBK_MANDELBROT
 
 #include "mandelbrot.h"
-#include "common.h"
 
 using namespace std;
 
-int mandelSqTransf(complex<double> z0, GLint maxIter)
+int mandelSqTransf(Complex z0, int maxIter)
 {
 	//book assigns z0 here but the assignment description says z0 should be 0
-	complex<double> z = 0;
+	Complex z;
 	int counter = 0;
+	z.x = 0;
+	z.y = 0;
 
-	while ((z.real() * z.real() + z.imag() * z.imag() <= 4.0) && (counter < maxIter))
+	while ((z.x * z.x + z.y * z.y <= 4.0) && (counter < maxIter))
 	{
-		z = complexSquare(z);
-		z += z0;
+		z = complexSquareSerial(z);
+		z.x += z0.x;
+		z.y += z0.y;
 		counter++;
 	}
 
@@ -25,23 +27,25 @@ int mandelSqTransf(complex<double> z0, GLint maxIter)
 //plots the points out
 void mandelbrot (int nx, int ny, int maxIter)
 {
-	complex<double> z, zIncr;
+	Complex z, zIncr;
     vector<Color> colorSet;
     Color ptColor(0, 0, 0);
 
 	int iterCount;
 
-	zIncr = complex<double>(complexWidth/GLdouble(nx), complexHeight/GLdouble(ny));
+	zIncr.x = complexWidth / double(nx);
+	zIncr.y = complexHeight / double(ny);
 
 	double realIterator, imaginaryIterator;
 
     colorSet = GetCurrentColorSet();
-
-	for (realIterator = xComplexMin; realIterator < xComplexMax; realIterator += zIncr.real())
+	glBegin(GL_POINTS);
+	for (realIterator = xComplexMin; realIterator < xComplexMax; realIterator += zIncr.x)
     {
-        for (imaginaryIterator = yComplexMin; imaginaryIterator < yComplexMax; imaginaryIterator += zIncr.imag())
+        for (imaginaryIterator = yComplexMin; imaginaryIterator < yComplexMax; imaginaryIterator += zIncr.y)
     	{
-			z = complex<double>(realIterator, imaginaryIterator);
+			z.x = realIterator;
+			z.y = imaginaryIterator;
 
     		iterCount = mandelSqTransf(z, maxIter);
     		if (iterCount >= maxIter)
@@ -77,6 +81,7 @@ void mandelbrot (int nx, int ny, int maxIter)
     		plotPoint(z);
     	}
     }
+	glEnd();
 }
 
 #endif

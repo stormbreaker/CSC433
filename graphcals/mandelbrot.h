@@ -7,11 +7,12 @@
 #include <complex>
 
 #include "glutdefine.h"
+#include "common.h"
 
 using namespace std;
 
 
-int mandelSqTransf(complex<double> z0, GLint maxIter);
-void mandelbrot (GLint nx, GLint ny, GLint maxIter);
+int mandelSqTransf(Complex z0, int maxIter);
+void mandelbrot (int nx, int ny, int maxIter);
 
 #endif
