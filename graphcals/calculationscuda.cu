@@ -17,6 +17,7 @@ __device__ Complex complexSquare(Complex z)
 {
 	Complex zSquare;
 
+    // Square the complex number
 	zSquare.x = (z.x * z.x) - (z.y * z.y);
 	zSquare.y = 2 * z.x * z.y;
 
@@ -32,27 +33,34 @@ __device__ Complex complexSquare(Complex z)
 */
 __global__ void mandelSqTransf(int maxIter, WindowInfo windowInfo,  Complex *points, int *iterations)
 {
+    // Get the current index from the thread and block information
     int index = threadIdx.x + blockIdx.x * blockDim.x;
 
+    // Make sure we are in the contents of the array of points so we don't
+    // overstep the bounds
     if (index < windowInfo.arrayLength)
     {
 	    int counter = 0;
         Complex z0;
 	    Complex z;
 
+        // Set initial points for calculations
 	    z.x = 0;
 	    z.y = 0;
 
         z0 = points[index];
 
+        // Loop until point diverges or exceeds 4.0
 	    while ((z.x * z.x + z.y * z.y <= 4.0) && (counter < maxIter))
 	    {
+            // Calculate the complex square and increment each point
 		    z = complexSquare(z);
 		    z.x += z0.x;
 		    z.y += z0.y;
-		    counter++;
+		    counter++; // Increment counter for iterations used
 	    }
 
+        // Store the iteration count
 	    iterations[index] = counter;
     }
 }
@@ -67,15 +75,20 @@ __global__ void mandelSqTransf(int maxIter, WindowInfo windowInfo,  Complex *poi
 */
 __global__ void juliaSqTransform(int maxIter, WindowInfo windowInfo, Complex c, Complex *points, int *iterations)
 {
+    // Get the current index from the thread and block information
     int index = threadIdx.x + blockIdx.x * blockDim.x;
 
+    // Make sure we are in the contents of the array of points so we don't
+    // overstep the bounds
     if (index < windowInfo.arrayLength)
     {
         int counter = 0;
 	    Complex z;
 
+        // Set initial points for calculations
 	    z = points[index];
 
+        // Loop until point diverges or exceeds 4.0
 	    while ((z.x * z.x + z.y * z.y <= 4.0) && (counter < maxIter))
 	    {
 		    z = complexSquare(z);
@@ -84,6 +97,7 @@ __global__ void juliaSqTransform(int maxIter, WindowInfo windowInfo, Complex c, 
 		    counter++;
 	    }
 
+        // Store the iteration count
 	    iterations[index] = counter;
     }
 }
@@ -106,6 +120,7 @@ void calculateSetParallel(int nx, int ny, int maxIter, bool isMandelBrot, Comple
     double realIterator = 0.0;
     double imaginaryIterator = 0.0;
 
+    // Store the winInfo to help with set calculations
     WindowInfo winInfo;
     winInfo.arrayLength = arraySize;
     winInfo.xComplexMin = xComplexMin;
@@ -113,37 +128,50 @@ void calculateSetParallel(int nx, int ny, int maxIter, bool isMandelBrot, Comple
     winInfo.yComplexMin = yComplexMin;
     winInfo.yComplexMax = yComplexMax;
 
+    // Intialize size for the array of points
     int size = arraySize * sizeof(Complex);
     Complex *points = (Complex *)malloc(size);
     Complex *dev_points;
+    // Allocate size on the card for the points
     cudaMalloc((void **) &dev_points, size);
 
+    // Intialize size for the array of iteration counts
     int it_size = arraySize * sizeof(int);
     int *iterations = (int *)malloc(it_size);
     int *dev_iterations;
+    // Allocate size on the card for the values
     cudaMalloc((void **) &dev_iterations, it_size);
 
+    // Initilize thread and block count
     int nThreads = 1024;
     int nBlocks = (arraySize + nThreads - 1) / nThreads;
 
+    // Calculate the increment values for the loop of points
     zIncr.x = complexWidth / double(nx);
     zIncr.y = complexHeight / double(ny);
 
+    // Loop through to create the points for all the calculations
     for (realIterator = xComplexMin; realIterator < xComplexMax - zIncr.x; realIterator += zIncr.x)
     {
         for (imaginaryIterator = yComplexMin; imaginaryIterator < yComplexMax - zIncr.y; imaginaryIterator += zIncr.y)
     	{
+            // Set real and imaginary parts of the point to be calculated
     	    z.x = realIterator;
     	    z.y = imaginaryIterator;
 
+            // Store point
     	    points[counter] = z;
 
+            // Increment counter
     	    counter++;
     	}
     }
+
+    // Copy memory to the device
     cudaMemcpy(dev_points, points, size, cudaMemcpyHostToDevice);
     cudaMemcpy(dev_iterations, iterations, it_size, cudaMemcpyHostToDevice);
 
+    // Calculate currently selected set on the cuda card
     if (isMandelBrot == true)
     {
         mandelSqTransf<<< nBlocks, nThreads >>>(maxIter, winInfo, dev_points, dev_iterations);
@@ -153,11 +181,14 @@ void calculateSetParallel(int nx, int ny, int maxIter, bool isMandelBrot, Comple
         juliaSqTransform<<< nBlocks, nThreads >>>(maxIter, winInfo, c, dev_points, dev_iterations);
     }
 
+    // Copy memory back to get the values
     cudaMemcpy(points, dev_points, size, cudaMemcpyDeviceToHost);
     cudaMemcpy(iterations, dev_iterations, it_size, cudaMemcpyDeviceToHost);
 
+    // Get the current color set to draw the pixels with
     vector<Color> colorSet = GetCurrentColorSet();
 
+    // Loop through all the points and plot them in the window
     glBegin(GL_POINTS);
         for (int i = 0; i < arraySize; i++)
         {
@@ -168,6 +199,7 @@ void calculateSetParallel(int nx, int ny, int maxIter, bool isMandelBrot, Comple
         }
     glEnd();
 
+    // Free up all the memory
     cudaFree(dev_points);
     cudaFree(dev_iterations);
     free(points);
