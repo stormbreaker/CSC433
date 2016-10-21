@@ -17,17 +17,21 @@ int mandelSqTransform(Complex c, int maxIter)
 	Complex z;
 	int counter = 0;
 
+    // Set initial points for calculations
 	z.x = 0;
 	z.y = 0;
 
+    // Loop until point diverges or exceeds 4.0
 	while ((z.x * z.x + z.y * z.y <= 4.0) && (counter < maxIter))
 	{
+        // Calculate the complex square and increment each point
 		z = complexSquareSerial(z);
 		z.x += c.x;
 		z.y += c.y;
-		counter++;
+		counter++; // Increment counter for iterations used
 	}
 
+    // Return increment count
 	return counter;
 }
 
@@ -39,16 +43,21 @@ int mandelSqTransform(Complex c, int maxIter)
 */
 int juliaSqTransform(Complex z0, int maxIter, Complex c)
 {
+    // Setup point for calculation
     Complex z = z0;
 	int counter = 0;
 
+    // Loop until the point diverges or until 4.0
 	while ((z.x * z.x + z.y * z.y <= 4.0) && (counter < maxIter))
 	{
+        // Compute the complex square and increment by the c value
 		z = complexSquareSerial(z);
 		z.x += c.x;
 		z.y += c.y;
-		counter++;
+		counter++; // Increment iteration count
 	}
+
+    // return iteration count
 	return counter;
 }
 
@@ -64,73 +73,78 @@ int juliaSqTransform(Complex z0, int maxIter, Complex c)
 */
 void calculateSetSerial(int nx, int ny, int maxIter, bool isMandelbrot, Complex c)
 {
+    int iterCount;
 	Complex z, zIncr;
     vector<Color> colorSet;
     Color ptColor(0, 0, 0);
+    double realIterator, imaginaryIterator;
 
-	int iterCount;
-
+    // Calculate the increment values
 	zIncr.x = complexWidth / double(nx);
 	zIncr.y = complexHeight / double(ny);
 
-	double realIterator, imaginaryIterator;
-
+    // Get the current color set to draw
     colorSet = GetCurrentColorSet();
 
 	glBegin(GL_POINTS);
-	auto start = chrono::system_clock::now();
+    	auto start = chrono::system_clock::now();
 
-	for (realIterator = xComplexMin; realIterator < xComplexMax; realIterator += zIncr.x)
-    {
-        for (imaginaryIterator = yComplexMin; imaginaryIterator < yComplexMax; imaginaryIterator += zIncr.y)
-    	{
-            z.x = realIterator;
-            z.y = imaginaryIterator;
+        // Loop through all the points and calculate the values for the set
+    	for (realIterator = xComplexMin; realIterator < xComplexMax; realIterator += zIncr.x)
+        {
+            for (imaginaryIterator = yComplexMin; imaginaryIterator < yComplexMax; imaginaryIterator += zIncr.y)
+        	{
+                // Set the next point in the calculation
+                z.x = realIterator;
+                z.y = imaginaryIterator;
 
-            if (isMandelbrot == true)
-            {
-                iterCount = mandelSqTransform(z, maxIter);
-            }
-            else
-            {
-                iterCount = juliaSqTransform(z, maxIter, c);
-            }
+                // Calculate set depending on currently selected set
+                if (isMandelbrot == true)
+                {
+                    iterCount = mandelSqTransform(z, maxIter);
+                }
+                else
+                {
+                    iterCount = juliaSqTransform(z, maxIter, c);
+                }
 
-    		if (iterCount >= maxIter)
-    		{
-                ptColor = colorSet[0];
-    		}
-    		else if (iterCount > (maxIter / 8))
-    		{
-                ptColor = colorSet[1];
-    		}
-    		else if (iterCount > (maxIter / 10))
-    		{
-                ptColor = colorSet[2];
-    		}
-    		else if (iterCount > (maxIter/20))
-    		{
-                ptColor = colorSet[3];
-    		}
-    		else if (iterCount > (maxIter/40))
-    		{
-                ptColor = colorSet[4];
-    		}
-    		else if (iterCount > (maxIter/100))
-    		{
-                ptColor = colorSet[5];
-    		}
-    		else
-    		{
-                ptColor = colorSet[6];
-    		}
+                // Check max iterations and the iteration count to choose color
+        		if (iterCount >= maxIter)
+        		{
+                    ptColor = colorSet[0];
+        		}
+        		else if (iterCount > (maxIter / 8))
+        		{
+                    ptColor = colorSet[1];
+        		}
+        		else if (iterCount > (maxIter / 10))
+        		{
+                    ptColor = colorSet[2];
+        		}
+        		else if (iterCount > (maxIter/20))
+        		{
+                    ptColor = colorSet[3];
+        		}
+        		else if (iterCount > (maxIter/40))
+        		{
+                    ptColor = colorSet[4];
+        		}
+        		else if (iterCount > (maxIter/100))
+        		{
+                    ptColor = colorSet[5];
+        		}
+        		else
+        		{
+                    ptColor = colorSet[6];
+        		}
 
-    		glColor3ub(ptColor.red, ptColor.green, ptColor.blue);
-    		plotPoint(z);
-    	}
-    }
+                // Set current color and plot point
+        		glColor3ub(ptColor.red, ptColor.green, ptColor.blue);
+        		plotPoint(z);
+        	}
+        }
 
-	chrono::duration<double> test = chrono::system_clock::now() - start;
+    	chrono::duration<double> test = chrono::system_clock::now() - start;
 	glEnd();
 }
 
