@@ -8,7 +8,7 @@ using namespace std;
 
 /*
 	Name: mandelSqTransform
-	Author: Benjamin Kaiser and Taylor Doell
+	Author: code from book modified by Benjamin Kaiser and Taylor Doell
 	Description: This function performs the calculations finding how fast the
     point diverges for the mandelbrot set.
 */
@@ -37,7 +37,7 @@ int mandelSqTransform(Complex c, int maxIter)
 
 /*
 	Name: juliaSqTransform
-	Author: Benjamin Kaiser and Taylor Doell
+	Author: code from book modified by Benjamin Kaiser and Taylor Doell
 	Description: This function uses the point from the mandelbrot set to help
     calculate the julia set and uses that to see how fast the point diverges.
 */

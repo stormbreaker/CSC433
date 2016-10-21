@@ -8,7 +8,7 @@ using namespace std;
 
 /*
 	Name: complexSquare
-	Author: Benjamin Kaiser and Taylor Doell
+	Author: code from book modified by Benjamin Kaiser and Taylor Doell
 	Description: This function squares the complex number. This function is tagged
     with __device__ to put the function on the card to allow the cuda card to
     easily call it.
@@ -26,7 +26,7 @@ __device__ Complex complexSquare(Complex z)
 
 /*
 	Name: mandelSqTransform
-	Author: Benjamin Kaiser and Taylor Doell
+	Author: code from book modified by Benjamin Kaiser and Taylor Doell
 	Description: This function performs the calculations finding how fast the
     point diverges for the mandelbrot set. This function has the __global__ tag
     in order for the cuda card to be able to call this function.
@@ -67,7 +67,7 @@ __global__ void mandelSqTransf(int maxIter, WindowInfo windowInfo,  Complex *poi
 
 /*
 	Name: juliaSqTransform
-	Author: Benjamin Kaiser and Taylor Doell
+	Author: code from book modified by Benjamin Kaiser and Taylor Doell
 	Description: This function uses the point from the mandelbrot set to help
     calculate the julia set and uses that to see how fast the point diverges.
     This function has the __global__ tag in order for the cuda card to be able
