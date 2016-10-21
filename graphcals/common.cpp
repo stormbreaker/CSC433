@@ -4,6 +4,7 @@
 #include "common.h"
 #include <cmath>
 
+// Global variables are described in header file
 unsigned int winWidth = 500;
 unsigned int winHeight = 500;
 
@@ -67,6 +68,7 @@ void SetColorAndPlot(int maxIter, int interations, Complex zPoint, vector<Color>
 {
     Color ptColor(0, 0, 0);
 
+    // Choose correct color based off of iterations being compared to maxIter
 	if (interations >= maxIter)
 	{
         ptColor = colorSet[0];
@@ -96,6 +98,7 @@ void SetColorAndPlot(int maxIter, int interations, Complex zPoint, vector<Color>
         ptColor = colorSet[6];
 	}
 
+    // Set current color and plot the point
 	glColor3ub(ptColor.red, ptColor.green, ptColor.blue);
 	plotPoint(zPoint);
 }
