@@ -6,7 +6,7 @@
 #include <iostream>
 #include "colors.h"
 
-#include "supercommon.h"
+#include "gultdefine.h"
 
 using namespace std;
 

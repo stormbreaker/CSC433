@@ -6,7 +6,7 @@
 
 #include <complex>
 
-#include "supercommon.h"
+#include "glutdefine.h"
 
 using namespace std;
 

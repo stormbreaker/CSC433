@@ -1,7 +1,7 @@
 #ifndef TDBK_JULIA_H
 #define TDBK_JULIA_H
 
-#include "supercommon.h"
+#include "glutdefine.h"
 #include <complex>
 
 using namespace std;
