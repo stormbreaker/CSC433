@@ -3,6 +3,7 @@
 
 #include "calculations.h"
 #include <stdio.h>
+#include <chrono>
 
 using namespace std;
 
@@ -181,12 +182,18 @@ void calculateSetParallel(int nx, int ny, int maxIter, bool isMandelBrot, Comple
         juliaSqTransform<<< nBlocks, nThreads >>>(maxIter, winInfo, c, dev_points, dev_iterations);
     }
 
+	auto start = chrono::system_clock::now();
+
     // Copy memory back to get the values
     cudaMemcpy(points, dev_points, size, cudaMemcpyDeviceToHost);
     cudaMemcpy(iterations, dev_iterations, it_size, cudaMemcpyDeviceToHost);
 
     // Get the current color set to draw the pixels with
     vector<Color> colorSet = GetCurrentColorSet();
+
+	chrono::duration<double> test = chrono::system_clock::now() - start;
+
+	cout << "Parallel: " << test.count() << " seconds" << endl;
 
     // Loop through all the points and plot them in the window
     glBegin(GL_POINTS);

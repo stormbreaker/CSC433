@@ -18,3 +18,24 @@ User Interface:
     Exiting:  Press 'ESC' to exit the program
 
 Timings:
+
+	To test our times, we set a chrono time object around the for loop that calculates 	all of these points and then we performed
+		different functionality things.  Note that all times are approximations and these were determined by a trend that occurred
+		in our output statements.  The following is our findings:
+
+		Mandelbrot:
+			Upon initialization and first drawing (found by panning slightly up and down):
+			Serial: ~.888 seconds 		Parallel: ~.066		Percent Speedup:  1345.450%
+			
+			Zooming on (0,0) (screen is black):
+			Serial: ~3.521				Parallel: ~.1998	Percent Speedup:  1769.346%
+	
+			Zooming on point that is clearly not in the set:
+			Serial: ~.0300				Parallel: ~.0037	Percent Speedup:  810.810%
+
+		Julia:
+			Calculating Julia ~(0,0):
+			Serial: ~1.44				Parallel: ~.0869	Percent Speedup:  1657.077%
+
+			Calculating Julia ~(-1.75, 0):
+			Serial: ~.041				Parallel: .0044		Percent Speedup:  1025%
