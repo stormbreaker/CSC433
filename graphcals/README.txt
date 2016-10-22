@@ -9,6 +9,7 @@ User Interface:
         this as moving the viewport and not the set itself.  So by pressing the
         down arrow, the set will move upwards in the window since the viewport
         is moving down in world scene coordinates.
+		You can also pan by clicking and dragging with the mouse.  
     Switching Color palettes:  There are 5 static color sets that we have
         implemented.  To cycle through these, press 'C'.
         To generate a random color set of random numbers, press 'R'
