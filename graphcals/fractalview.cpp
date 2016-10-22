@@ -270,7 +270,10 @@ void mouse(int button, int state, int x, int y)
         // If left button record coordinate
         if (button == GLUT_LEFT_BUTTON)
         {
-
+            isMouseClicked = true;
+            
+            screenMouseX = x;
+            screenMouseY = y;
         }
 		else if (button == 3) // Zoom in if scrolling up
 		{
@@ -289,6 +292,13 @@ void mouse(int button, int state, int x, int y)
 			glutPostRedisplay();
 		}
 	}
+	else
+	{
+	    if (button == GLUT_LEFT_BUTTON)
+	    {
+	        isMouseClicked = false;
+	    }
+	}
 }
 
 /*
@@ -302,7 +312,17 @@ void currentMousePosition(int x, int y)
     // Get mouse coordinate for current position for panning
     if (isMouseClicked == true)
     {
-
+        // Compute x and y screen coordinate offset
+        int horizontalPan = -(x - screenMouseX);
+        int verticalPan = -(y - screenMouseY);
+    
+        // Call pan function and 
+        pan(horizontalPan, verticalPan);
+        glutPostRedisplay();
+        
+        // Reset previous coordinates
+        screenMouseX = x;
+        screenMouseY = y;
     }
 }
 

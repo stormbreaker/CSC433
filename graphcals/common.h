@@ -66,6 +66,8 @@ extern const int PIXEL_PAN;
 // mouse flags and values
 extern Complex mouseCoords;
 extern bool isMouseClicked;
+extern int screenMouseX;
+extern int screenMouseY;
 
 //boolean flags for us to call different functions
 extern bool isMandelbrotSet;

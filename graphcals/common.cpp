@@ -19,6 +19,8 @@ const int PIXEL_PAN  = 10;
 
 Complex mouseCoords;
 bool isMouseClicked = false;
+int screenMouseX = 0;
+int screenMouseY = 0;
 
 bool isMandelbrotSet = true;
 bool isParallel = true;
