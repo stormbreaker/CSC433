@@ -184,22 +184,28 @@ void keyboard(unsigned char key, int x, int y)
             break;
         // Plus key zooms in
         case PLUS_KEY:
-            mouseCoords = getViewCoordinates(x, y);
-            zoom(ZOOM_FACTOR);
+            if (isMandelbrotSet == true)
+            {
+                mouseCoords = getViewCoordinates(x, y);
+                zoom(ZOOM_FACTOR);
 
-            IsZooming = true; // Set zooming so a current color is chosen
+                IsZooming = true; // Set zooming so a current color is chosen
 
-            glutPostRedisplay();
+                glutPostRedisplay();
+            }
             break;
         // minus key zooms out
         case MINUS_KEY:
             // Convert screen coords to cartesian coords and then zoom on that point
-            mouseCoords = getViewCoordinates(x, y);
-            zoom(-ZOOM_FACTOR);
+            if (isMandelbrotSet == true)
+            {
+                mouseCoords = getViewCoordinates(x, y);
+                zoom(-ZOOM_FACTOR);
 
-            IsZooming = true; // Set zooming so a current color is chosen
+                IsZooming = true; // Set zooming so a current color is chosen
 
-            glutPostRedisplay();
+                glutPostRedisplay();
+            }
             break;
         case LOWERCASE_A_KEY:
         case A_KEY:
@@ -235,9 +241,41 @@ void keyboard(unsigned char key, int x, int y)
         case J_KEY:
             // Toggle the set currently being viewed
             isMandelbrotSet = !isMandelbrotSet;
-
-            // Convert screen coords to cartesian coords and then zoom on that point
+            
+            // Convert screen coords to cartesian coords
             mouseCoords = getViewCoordinates(x, y);
+            
+            if (isMandelbrotSet == true)
+            {
+                // Reset the max and min values to the saved mandelbrot set values
+                xComplexMin = mandelXMin;
+                xComplexMax = mandelXMax;
+                yComplexMin = mandelYMin;
+                yComplexMax = mandelYMax;
+            }
+            else
+            {
+                // Save current x and y complex values
+                mandelXMin = xComplexMin;
+                mandelXMax = xComplexMax;
+                mandelYMin = yComplexMin;
+                mandelYMax = yComplexMax;
+                
+                // Set values to complex max and min values for the Julia set
+                xComplexMin = -1.75;
+                xComplexMax = 1.75;
+                yComplexMin = -1.75;
+                yComplexMax = 1.75;
+            }
+            
+            // Compute new complex width and height with new values
+            complexWidth = xComplexMax - xComplexMin;
+            complexHeight = yComplexMax - yComplexMin;
+            
+            // Set coordinate system for the view
+            glMatrixMode(GL_PROJECTION);
+	        glLoadIdentity();
+            gluOrtho2D(xComplexMin, xComplexMax, yComplexMin, yComplexMax);
 
             glutPostRedisplay();
             break;
@@ -263,41 +301,44 @@ void keyboard(unsigned char key, int x, int y)
 */
 void mouse(int button, int state, int x, int y)
 {
-    if (state == 0)
-	{
-        // Convert screen coords to cartesian coords and then zoom on that point
-        mouseCoords = getViewCoordinates(x, y);
-
-        // If left button record coordinate
-        if (button == GLUT_LEFT_BUTTON)
-        {
-            isMouseClicked = true;
-            
-            screenMouseX = x;
-            screenMouseY = y;
-        }
-		else if (button == 3) // Zoom in if scrolling up
-		{
-			zoom(ZOOM_FACTOR);
-
-			IsZooming = true;
-
-			glutPostRedisplay();
-		}
-		else if (button == 4) // Zoom out if scrolling down
-		{
-			zoom(-ZOOM_FACTOR);
-
-			IsZooming = true;
-
-			glutPostRedisplay();
-		}
-	}
-	else
-	{
-	    if (button == GLUT_LEFT_BUTTON)
+    if (isMandelbrotSet == true)
+    {
+        if (state == 0)
 	    {
-	        isMouseClicked = false;
+            // Convert screen coords to cartesian coords and then zoom on that point
+            mouseCoords = getViewCoordinates(x, y);
+
+            // If left button record coordinate
+            if (button == GLUT_LEFT_BUTTON)
+            {
+                isMouseClicked = true;
+                
+                screenMouseX = x;
+                screenMouseY = y;
+            }
+		    else if (button == 3) // Zoom in if scrolling up
+		    {
+			    zoom(ZOOM_FACTOR);
+
+			    IsZooming = true;
+
+			    glutPostRedisplay();
+		    }
+		    else if (button == 4) // Zoom out if scrolling down
+		    {
+			    zoom(-ZOOM_FACTOR);
+
+			    IsZooming = true;
+
+			    glutPostRedisplay();
+		    }
+	    }
+	    else
+	    {
+	        if (button == GLUT_LEFT_BUTTON)
+	        {
+	            isMouseClicked = false;
+	        }
 	    }
 	}
 }
@@ -311,13 +352,13 @@ void mouse(int button, int state, int x, int y)
 void currentMousePosition(int x, int y)
 {
     // Get mouse coordinate for current position for panning
-    if (isMouseClicked == true)
+    if (isMouseClicked == true && isMandelbrotSet == true)
     {
         // Compute x and y screen coordinate offset
         int horizontalPan = -(x - screenMouseX);
         int verticalPan = -(y - screenMouseY);
     
-        // Call pan function and 
+        // Call pan function and redisplay
         pan(horizontalPan, verticalPan);
         glutPostRedisplay();
         

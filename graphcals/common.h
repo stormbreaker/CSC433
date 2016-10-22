@@ -34,11 +34,16 @@ struct WindowInfo
 // globals describing the window and view information
 extern unsigned int winWidth;
 extern unsigned int winHeight;
+
 extern double xComplexMin;
 extern double xComplexMax;
-
 extern double yComplexMin;
 extern double yComplexMax;
+
+extern double mandelXMin;
+extern double mandelXMax;
+extern double mandelYMin;
+extern double mandelYMax;
 
 extern double complexHeight;
 extern double complexWidth;

@@ -11,6 +11,9 @@ unsigned int winHeight = 500;
 double xComplexMin = -2.00, xComplexMax = .50;
 double yComplexMin = -1.25, yComplexMax = 1.25;
 
+double mandelXMin = -2.00, mandelXMax = .5;
+double mandelYMin = -1.25, mandelYMax = 1.25;
+
 double complexWidth = xComplexMax - xComplexMin;
 double complexHeight = yComplexMax - yComplexMin;
 
@@ -123,32 +126,35 @@ void zoom(double percentage)
 {
 		double xOffset, yOffset;
 
-		// zoom x
-		xComplexMin = xComplexMin + (complexWidth) * percentage;
-		xComplexMax = xComplexMax - (complexWidth) * percentage;
+        if (isMandelbrotSet == true)
+        {
+		    // zoom x
+		    xComplexMin = xComplexMin + (complexWidth) * percentage;
+		    xComplexMax = xComplexMax - (complexWidth) * percentage;
 
-		complexWidth = xComplexMax - xComplexMin;
+		    complexWidth = xComplexMax - xComplexMin;
 
-		xOffset = mouseCoords.x - (xComplexMax - (complexWidth / 2.0));
+		    xOffset = mouseCoords.x - (xComplexMax - (complexWidth / 2.0));
 
-		xComplexMin = xComplexMin + xOffset;
-		xComplexMax = xComplexMax + xOffset;
+		    xComplexMin = xComplexMin + xOffset;
+		    xComplexMax = xComplexMax + xOffset;
 
-		// zoom y
-		yComplexMin = yComplexMin + (complexHeight) * percentage;
-		yComplexMax = yComplexMax - (complexHeight) * percentage;
+		    // zoom y
+		    yComplexMin = yComplexMin + (complexHeight) * percentage;
+		    yComplexMax = yComplexMax - (complexHeight) * percentage;
 
-		complexHeight = yComplexMax - yComplexMin;
+		    complexHeight = yComplexMax - yComplexMin;
 
-		yOffset = mouseCoords.y - (yComplexMax - (complexHeight / 2.0));
+		    yOffset = mouseCoords.y - (yComplexMax - (complexHeight / 2.0));
 
-		yComplexMin = yComplexMin + yOffset;
-		yComplexMax = yComplexMax + yOffset;
+		    yComplexMin = yComplexMin + yOffset;
+		    yComplexMax = yComplexMax + yOffset;
 
-		glMatrixMode(GL_PROJECTION);
-    	glLoadIdentity();
+		    glMatrixMode(GL_PROJECTION);
+        	glLoadIdentity();
 
-		gluOrtho2D(xComplexMin, xComplexMax, yComplexMin, yComplexMax);
+		    gluOrtho2D(xComplexMin, xComplexMax, yComplexMin, yComplexMax);
+		}
 }
 
 /*
@@ -163,27 +169,29 @@ the screen in the specific direction.
 */
 void pan(int xPixOffset, int yPixOffset)
 {
+    if (isMandelbrotSet == true)
+    {
+	    double xOffset, yOffset;
+	    double xCenterPixel = winWidth / 2.0;
+	    double yCenterPixel = winHeight / 2.0;
+	
+	    mouseCoords = getViewCoordinates(xCenterPixel + xPixOffset, yCenterPixel + yPixOffset);
 
-	double xOffset, yOffset;
-	double xCenterPixel = winWidth / 2.0;
-	double yCenterPixel = winHeight / 2.0;
+	    xOffset = mouseCoords.x - (xComplexMax - (complexWidth / 2.0));
 
-	mouseCoords = getViewCoordinates(xCenterPixel + xPixOffset, yCenterPixel + yPixOffset);
+	    yOffset = mouseCoords.y - (yComplexMax - (complexHeight / 2.0));
 
-	xOffset = mouseCoords.x - (xComplexMax - (complexWidth / 2.0));
+	    xComplexMax = xComplexMax + xOffset;
+	    xComplexMin = xComplexMin + xOffset;
 
-	yOffset = mouseCoords.y - (yComplexMax - (complexHeight / 2.0));
+	    yComplexMax = yComplexMax + yOffset;
+	    yComplexMin = yComplexMin + yOffset;
 
-	xComplexMax = xComplexMax + xOffset;
-	xComplexMin = xComplexMin + xOffset;
+	    glMatrixMode(GL_PROJECTION);
+	    glLoadIdentity();
 
-	yComplexMax = yComplexMax + yOffset;
-	yComplexMin = yComplexMin + yOffset;
-
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-
-	gluOrtho2D(xComplexMin, xComplexMax, yComplexMin, yComplexMax);
+	    gluOrtho2D(xComplexMin, xComplexMax, yComplexMin, yComplexMax);
+	}
 }
 
 /*
