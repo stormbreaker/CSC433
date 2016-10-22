@@ -193,7 +193,9 @@ void calculateSetParallel(int nx, int ny, int maxIter, bool isMandelBrot, Comple
 
 	chrono::duration<double> test = chrono::system_clock::now() - start;
 
-	cout << "Parallel: " << test.count() << " seconds" << endl;
+
+	//uncomment the following line to see timing output
+	//cout << "Parallel: " << test.count() << " seconds" << endl;
 
     // Loop through all the points and plot them in the window
     glBegin(GL_POINTS);

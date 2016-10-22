@@ -147,7 +147,8 @@ void calculateSetSerial(int nx, int ny, int maxIter, bool isMandelbrot, Complex 
 
     	chrono::duration<double> test = chrono::system_clock::now() - start;
 
-		cout << "Serial: " << test.count() << " seconds" << endl;
+		//uncomment the following line to see timing output
+		//cout << "Serial: " << test.count() << " seconds" << endl;
 
 	glEnd();
 }
