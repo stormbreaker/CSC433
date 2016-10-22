@@ -3,6 +3,7 @@
 
 #include "calculations.h"
 #include <chrono>
+#include <iostream>
 
 using namespace std;
 
@@ -145,6 +146,9 @@ void calculateSetSerial(int nx, int ny, int maxIter, bool isMandelbrot, Complex 
         }
 
     	chrono::duration<double> test = chrono::system_clock::now() - start;
+
+		cout << "Serial: " << test.count() << " seconds" << endl;
+
 	glEnd();
 }
 

@@ -43,7 +43,7 @@ mandelbrot:	fractalview.o calculations.o calculationscuda.o common.o colors.o
 	$(NVLINK) -o $@ $^ $(GL_LIBS) -lcuda -lcudart
 
 calculationscuda.o:
-	nvcc -c -arch=sm_20 calculationscuda.cu -g
+	nvcc -c -std=c++11 -arch=sm_20 calculationscuda.cu -g
 
 # generic C and C++ targets for OpenGL programs consisting of only one file
 # type "make filename" (no extension) to build
