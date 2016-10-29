@@ -20,7 +20,8 @@ Ref: based on code from RgbImage.cc (Buss, 3-D Computer Graphics, 2003).
 #  endif
 #endif
 
-#include <GL/gl.h>
+// #include <GL/gl.h>
+#include <GLUT/glut.h>
 #include <stdio.h>
 
 bool LoadBmpFile( const char* filename, int &NumRows, int &NumCols, unsigned char* &ImagePtr );

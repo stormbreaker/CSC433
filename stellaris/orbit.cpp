@@ -33,7 +33,8 @@
 // JMW: Minor modifications for CSC433/533 Computer Graphics, Fall 2016.
 
 #include <cstdlib>
-#include <GL/freeglut.h>
+// #include <GL/freeglut.h>
+#include <GLUT/glut.h> // MacOS include
 
 // function prototypes
 void OpenGLInit( void );

@@ -18,7 +18,7 @@ Modifications:
 using namespace std;
 
 // the GLUT header automatically includes gl.h and glu.h
-#include <GL/glut.h>
+#include <GLUT/glut.h>
 
 // symbolic constants
 const int EscapeKey = 27;
