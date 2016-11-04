@@ -36,14 +36,11 @@ GL_LIBS = -lglut -lGLU -lGL -lm
 # MAKE allows the use of "wildcards", to make writing compilation instructions
 # a bit easier. GNU make uses $@ for the target and $^ for the dependencies.
 
-all:    mandelbrot
+all:    solar
 
 # specific targets
-mandelbrot:	fractalview.o calculations.o calculationscuda.o common.o colors.o
-	$(NVLINK) -o $@ $^ $(GL_LIBS) -lcuda -lcudart
-
-calculationscuda.o:
-	nvcc -c -std=c++11 -arch=sm_20 calculationscuda.cu -g
+solar:	planet.o solar.o common.o
+	$(LINK) -o $@ $^ $(GL_LIBS)
 
 # generic C and C++ targets for OpenGL programs consisting of only one file
 # type "make filename" (no extension) to build
@@ -53,8 +50,8 @@ calculationscuda.o:
 .cpp:
 	$(CXX) -o $@ $@.cpp $(CXXFLAGS) $(GL_LIBS)
 
-.cu:
-	$(NVCC) -o $@ $@.cu $(NVCCFLAGS) $(GL_LIBS)
+#.cu:
+#	$(NVCC) -o $@ $@.cu $(NVCCFLAGS) $(GL_LIBS)
 
 # utility targets
 clean:
