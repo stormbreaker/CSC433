@@ -236,7 +236,7 @@ int main( int argc, char** argv )
     glutDisplayFunc( Animate );
 
     // Start the main loop.  glutMainLoop never returns.
-    glutMainLoop( );
+    glutMainLoop();
 
     return 0;
 }
