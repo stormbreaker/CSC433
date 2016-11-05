@@ -17,7 +17,8 @@ static GLenum singleStep = GL_FALSE;
 
 static float HourOfDay = 0.0;
 static float DayOfYear = 0.0;
-static float AnimateIncrement = 12.0;
+
+static vector<Planet> AllPlanets;
 
 vector<Planet> CollectPlanetData();
 

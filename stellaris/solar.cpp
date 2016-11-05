@@ -24,6 +24,8 @@ int main(int argc, char **argv)
     glutDisplayFunc(Animate);
     glutReshapeFunc(ResizeWindow);
 
+    AllPlanets = CollectPlanetData();
+
     // Start the main loop.  glutMainLoop never returns.
     glutMainLoop();
 
@@ -50,7 +52,7 @@ void ResizeWindow(int w, int h)
     // Set up the projection view matrix (not very well!)
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
-    gluPerspective( 60.0, aspectRatio, 1.0, 600.0 );
+    gluPerspective( 60.0, aspectRatio, 1.0, 1000.0 );
 
     // Select the Modelview matrix
     glMatrixMode( GL_MODELVIEW );
@@ -59,24 +61,14 @@ void ResizeWindow(int w, int h)
 // Animate() handles the animation and the redrawing of the graphics window contents.
 void Animate()
 {
-    // Clear the redering window
+    // Clear the rendering window
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-
-    if (spinMode)
-    {
-        // Update the animation state
-        HourOfDay += AnimateIncrement;
-        DayOfYear += AnimateIncrement / 24.0;
-
-        HourOfDay = HourOfDay - ( ( int ) ( HourOfDay / 24 ) ) * 24;
-        DayOfYear = DayOfYear - ( ( int ) ( DayOfYear / 365 ) ) * 365;
-    }
 
     // Clear the current matrix (Modelview)
     glLoadIdentity();
 
     // Back off eight units to be able to view from the origin.
-    glTranslatef ( 0.0, 0.0, -50.0 );
+    glTranslatef ( 0.0, 0.0, -100.0 );
 
     // Rotate the plane of the elliptic
     // (rotate the model's plane about the x axis by fifteen degrees)
@@ -117,42 +109,35 @@ void keyboard(unsigned char key, int x, int y)
 
 void DrawPlanets()
 {
-    for (Planet planet : CollectPlanetData())
+    for (Planet &planet : AllPlanets)
     {
-        if (planet.getName() == "Earth")
-        {
-            glPushMatrix();
-            DrawEarth(planet);
-        }
-        else if (planet.getName() == "Moon")
-        {
-            DrawMoon(planet);
-            glPopMatrix();
-        }
-        else if (planet.getName() == "Sun")
+        if (planet.getName() == "Sun")
         {
             DrawSun(planet);
         }
         else
         {
-            DrawPlanet(planet);
+            if (spinMode)
+            {
+                planet.incrememtOrbitValues();
+            }
+
+            if (planet.getName() == "Earth")
+            {
+                glPushMatrix();
+                DrawEarth(planet);
+            }
+            else if (planet.getName() == "Moon")
+            {
+                DrawMoon(planet);
+                glPopMatrix();
+            }
+            else
+            {
+                DrawPlanet(planet);
+            }
         }
     }
-
-    // DrawSun();
-    //
-    // glPushMatrix();
-    // DrawEarth();
-    // DrawMoon();
-    // glPopMatrix();
-    //
-    // DrawMercury();
-    // DrawVenus();
-    // DrawMars();
-    // DrawJupiter();
-    // DrawSaturn();
-    // DrawUranus();
-    // DrawNeptune();
 }
 
 void DrawPlanet(Planet planet)
@@ -160,11 +145,12 @@ void DrawPlanet(Planet planet)
     Color planetColor = planet.getPlanetColor();
 
     glPushMatrix();
-    glRotatef(360.0 * DayOfYear / planet.getYear(), 0.0, 1.0, 0.0);
+
+    glRotatef(360.0 * planet.getDayOfYear() / planet.getYear(), 0.0, 1.0, 0.0);
 
     glTranslatef(planet.getDistance(), 0.0, 0.0);
 
-    glRotatef(360.0 * HourOfDay / planet.getDay(), 0.0, 1.0, 0.0);
+    glRotatef(360.0 * planet.getHourOfDay() / planet.getDay(), 0.0, 1.0, 0.0);
 
     glColor3ub(planetColor.red, planetColor.green, planetColor.blue);
     glutWireSphere(planet.getRadius(), 15, 15);
@@ -184,11 +170,11 @@ void DrawEarth(Planet planet)
 {
     Color earthColor = planet.getPlanetColor();
 
-    glRotatef( 360.0 * DayOfYear / planet.getYear(), 0.0, 1.0, 0.0 );
+    glRotatef( 360.0 * planet.getDayOfYear() / planet.getYear(), 0.0, 1.0, 0.0 );
     glTranslatef( planet.getDistance(), 0.0, 0.0 );
     glPushMatrix();
     // Second, rotate the earth on its axis. Use HourOfDay to determine its rotation.
-    glRotatef( 360.0 * HourOfDay / planet.getDay(), 0.0, 1.0, 0.0 );
+    glRotatef( 360.0 * planet.getHourOfDay() / planet.getDay(), 0.0, 1.0, 0.0 );
     // Third, draw the earth as a wireframe sphere.
     glColor3ub( earthColor.red, earthColor.green, earthColor.blue );
     glutWireSphere( planet.getRadius(), 10, 10 );
@@ -199,7 +185,7 @@ void DrawMoon(Planet planet)
 {
     Color moonColor = planet.getPlanetColor();
 
-    glRotatef( 360.0 * 12.0 * DayOfYear / planet.getYear(), 0.0, 1.0, 0.0 );
+    glRotatef( 360.0 * 12.0 * planet.getDayOfYear() / planet.getYear(), 0.0, 1.0, 0.0 );
     glTranslatef( planet.getDistance(), 0.0, 0.0 );
     glColor3ub( moonColor.red, moonColor.green, moonColor.blue );
     glutWireSphere( planet.getRadius(), 5, 5 );

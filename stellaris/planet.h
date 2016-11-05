@@ -1,6 +1,7 @@
 #include "glutdefine.h"
 #include "common.h"
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -26,6 +27,10 @@ class Planet
         double getYear();
         double getDay();
 
+        void incrememtOrbitValues();
+        double getHourOfDay();
+        double getDayOfYear();
+
     private:
         double _Radius;
         string _Name;
@@ -36,4 +41,6 @@ class Planet
         double _Distance;
         double _Year;
         double _Day;
+        double _HourOfDay;
+        double _DayOfYear;
 };

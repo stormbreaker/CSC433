@@ -11,4 +11,6 @@ struct Color
 // Helpful constants for key presses
 const int ESC_KEY = 27;
 
+static float AnimateIncrement = 100.0;
+
 #endif

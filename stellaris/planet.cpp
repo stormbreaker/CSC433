@@ -14,11 +14,37 @@ Planet::Planet(string name, double radius, string imagePath)
     _Name = name;
     _TextureImagePath = imagePath;
     _PlanetColor = tempColor;
+    _HourOfDay = 0;
+    _DayOfYear = 0;
 }
 
 Planet::Planet()
 {
-    
+
+}
+
+void Planet::incrememtOrbitValues()
+{
+    _HourOfDay += AnimateIncrement;
+    _DayOfYear += AnimateIncrement / _Day;
+
+    _HourOfDay = _HourOfDay - ((int)(_HourOfDay / _Day)) * _Day;
+    _DayOfYear = _DayOfYear - ((int)(_DayOfYear / _Year)) * _Year;
+
+    // if (_Name == "Venus")
+    // {
+    //     cout << _Name << ": " << _Year << " " << _Day << endl;
+    // }
+}
+
+double Planet::getHourOfDay()
+{
+    return _HourOfDay;
+}
+
+double Planet::getDayOfYear()
+{
+    return _DayOfYear;
 }
 
 void Planet::setRadius(double radius)
