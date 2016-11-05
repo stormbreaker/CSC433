@@ -25,18 +25,11 @@ void OpenGLInit();
 void ResizeWindow(int w, int h);
 void Animate();
 void keyboard(unsigned char key, int x, int y);
-void DrawPlanet(double translateAmount);
+void DrawPlanet(Planet planet);
 
 void DrawPlanets();
 void DrawSun();
-void DrawEarth();
-void DrawMoon();
-void DrawMercury();
-void DrawVenus();
-void DrawMars();
-void DrawJupiter();
-void DrawSaturn();
-void DrawUranus();
-void DrawNeptune();
+void DrawEarth(Planet planet);
+void DrawMoon(Planet planet);
 
 #endif
