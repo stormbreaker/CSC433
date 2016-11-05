@@ -26,7 +26,7 @@ Planet::Planet()
 void Planet::incrememtOrbitValues()
 {
     _HourOfDay += AnimateIncrement;
-    _DayOfYear += AnimateIncrement / _Day;
+    _DayOfYear += AnimateIncrement / 24;
 
     _HourOfDay = _HourOfDay - ((int)(_HourOfDay / _Day)) * _Day;
     _DayOfYear = _DayOfYear - ((int)(_DayOfYear / _Year)) * _Year;
