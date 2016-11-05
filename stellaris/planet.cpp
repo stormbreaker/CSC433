@@ -30,11 +30,6 @@ void Planet::incrememtOrbitValues()
 
     _HourOfDay = _HourOfDay - ((int)(_HourOfDay / _Day)) * _Day;
     _DayOfYear = _DayOfYear - ((int)(_DayOfYear / _Year)) * _Year;
-
-    // if (_Name == "Venus")
-    // {
-    //     cout << _Name << ": " << _Year << " " << _Day << endl;
-    // }
 }
 
 double Planet::getHourOfDay()
