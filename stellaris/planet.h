@@ -25,4 +25,9 @@ class Planet
         string _Name;
         string _TextureImagePath;
         Color _PlanetColor;
+        int _longitudeSliceCount;
+        int _latitudeSliceCount;
+        double _distance;
+        double _year;
+        double _day;
 };
