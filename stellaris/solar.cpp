@@ -1,9 +1,11 @@
 #include "solar.h"
 
+
 using namespace std;
 
 int main(int argc, char **argv)
 {
+    CollectPlanetData();
     // Need to double buffer for animation
     glutInit( &argc, argv );
     glutInitDisplayMode( GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH );
@@ -205,4 +207,45 @@ void DrawUranus()
 void DrawNeptune()
 {
     DrawPlanet(18.0);
+}
+
+vector<Planet> CollectPlanetData()
+{
+    string tempLine;
+
+    string name;
+    double radius;
+    double distance;
+    double year;
+    double day;
+    string imageFile;
+    Color planetColor;
+
+    vector<Planet> planets;
+
+    ifstream fin("planetdata.info");
+    if (fin)
+    {
+        while (fin >> name >> radius >> distance >> year >> day >> imageFile >> planetColor.red >> planetColor.green >> planetColor.blue)
+        {
+            Planet temp;
+
+            temp.setName(name);
+            temp.setRadius(radius);
+            temp.setDistance(distance);
+            temp.setYear(year);
+            temp.setDay(day);
+            temp.setTextureImagePath(imageFile);
+            temp.setPlanetColor(planetColor);
+
+            planets.push_back(temp);
+
+        }
+    }
+    else
+    {
+        cout << "Unable to open planetary information.  Exiting." << endl;
+        exit(1);
+    }
+    fin.close();
 }

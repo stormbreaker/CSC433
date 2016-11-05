@@ -5,6 +5,12 @@
 #include "common.h"
 #include <iostream>
 #include <cstdlib>
+#include "planet.h"
+#include <vector>
+#include "FileHandler.cpp"
+#include <string>
+#include <iostream>
+#include <sstream>
 
 static GLenum spinMode = GL_TRUE;
 static GLenum singleStep = GL_FALSE;
@@ -12,6 +18,8 @@ static GLenum singleStep = GL_FALSE;
 static float HourOfDay = 0.0;
 static float DayOfYear = 0.0;
 static float AnimateIncrement = 12.0;
+
+vector<Planet> CollectPlanetData();
 
 void OpenGLInit();
 void ResizeWindow(int w, int h);

@@ -8,16 +8,23 @@ class Planet
 {
     public:
         Planet(string name, double radius, string imagePath = "");
+        Planet();
 
         void setRadius(double radius);
         void setName(string name);
         void setTextureImagePath(string filepath);
         void setPlanetColor(Color planetColor);
+        void setDistance(double distance);
+        void setYear(double year);
+        void setDay(double day);
 
         double getRadius();
         string getName();
         string getTextureImagePath();
         Color getPlanetColor();
+        double getDistance();
+        double getYear();
+        double getDay();
 
     private:
         double _Radius;
@@ -26,7 +33,7 @@ class Planet
         Color _PlanetColor;
         int _longitudeSliceCount;
         int _latitudeSliceCount;
-        double _distance;
-        double _year;
-        double _day;
+        double _Distance;
+        double _Year;
+        double _Day;
 };

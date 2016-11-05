@@ -16,6 +16,11 @@ Planet::Planet(string name, double radius, string imagePath)
     _PlanetColor = tempColor;
 }
 
+Planet::Planet()
+{
+    
+}
+
 void Planet::setRadius(double radius)
 {
     _Radius = radius;
@@ -34,6 +39,18 @@ void Planet::setTextureImagePath(string filepath)
 void Planet::setPlanetColor(Color planetColor)
 {
     _PlanetColor = planetColor;
+}
+void Planet::setDistance(double distance)
+{
+    _Distance = distance;
+}
+void Planet::setYear(double year)
+{
+    _Year = year;
+}
+void Planet::setDay(double day)
+{
+    _Day = day;
 }
 
 double Planet::getRadius()
@@ -54,4 +71,16 @@ string Planet::getTextureImagePath()
 Color Planet::getPlanetColor()
 {
     return _PlanetColor;
+}
+double Planet::getDistance()
+{
+    return _Distance;
+}
+double Planet::getYear()
+{
+    return _Year;
+}
+double Planet::getDay()
+{
+    return _Day;
 }
