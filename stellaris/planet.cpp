@@ -4,15 +4,15 @@
 using namespace std;
 
 
-Planet::Planet()
+Planet::Planet(string name, double radius, string imagePath)
 {
     Color tempColor;
     tempColor.red = 0;
     tempColor.green = 0;
     tempColor.blue = 0;
-    _Radius = 0;
-    _Name = "Planet X";
-    _TextureImagePath = "";
+    _Radius = radius;
+    _Name = name;
+    _TextureImagePath = imagePath;
     _PlanetColor = tempColor;
 }
 

@@ -16,6 +16,8 @@ int main(int argc, char **argv)
     // Initialize OpenGL.
     OpenGLInit();
 
+    glutKeyboardFunc(keyboard);
+
     // Callback for graphics image redrawing
     glutDisplayFunc(Animate);
     glutReshapeFunc(ResizeWindow);
@@ -78,27 +80,7 @@ void Animate()
     // (rotate the model's plane about the x axis by fifteen degrees)
     glRotatef( 15.0, 1.0, 0.0, 0.0 );
 
-    // Draw the sun	-- as a yellow, wireframe sphere
-    glColor3f( 1.0, 1.0, 0.0 );
-    glutWireSphere( 1.0, 15, 15 );
-
-    // Draw the Earth
-    // First position it around the sun. Use DayOfYear to determine its position.
-    glRotatef( 360.0 * DayOfYear / 365.0, 0.0, 1.0, 0.0 );
-    glTranslatef( 4.0, 0.0, 0.0 );
-    glPushMatrix();						// Save matrix state
-    // Second, rotate the earth on its axis. Use HourOfDay to determine its rotation.
-    glRotatef( 360.0 * HourOfDay / 24.0, 0.0, 1.0, 0.0 );
-    // Third, draw the earth as a wireframe sphere.
-    glColor3f( 0.2, 0.2, 1.0 );
-    glutWireSphere( 0.4, 10, 10 );
-    glPopMatrix();						// Restore matrix state
-
-    // Draw the moon. Use DayOfYear to control its rotation around the earth
-    glRotatef( 360.0 * 12.0 * DayOfYear / 365.0, 0.0, 1.0, 0.0 );
-    glTranslatef( 0.7, 0.0, 0.0 );
-    glColor3f( 0.3, 0.7, 0.3 );
-    glutWireSphere( 0.1, 5, 5 );
+    DrawPlanets();
 
     // Flush the pipeline, and swap the buffers
     glFlush();
@@ -110,4 +92,135 @@ void Animate()
     }
 
     glutPostRedisplay();		// Request a re-draw for animation purposes
+}
+
+void keyboard(unsigned char key, int x, int y)
+{
+    // process keypresses
+    switch(key)
+    {
+        // Escape key quits program
+        case ESC_KEY:
+            exit(0);
+            break;
+        // Plus key zooms in
+        case PLUS_KEY:
+            glutPostRedisplay();
+            break;
+        // minus key zooms out
+        case MINUS_KEY:
+            break;
+        case LOWERCASE_A_KEY:
+        case A_KEY:
+            break;
+        case LOWERCASE_C_KEY:
+        case C_KEY:
+            break;
+        case LOWERCASE_R_KEY:
+        case R_KEY:
+            break;
+        case LOWERCASE_J_KEY:
+        case J_KEY:
+            break;
+        case LOWERCASE_V_KEY:
+        case V_KEY:
+            break;
+        // anything else redraws window
+        default:
+            break;
+    }
+}
+
+void DrawPlanets()
+{
+    DrawSun();
+
+    glPushMatrix();
+    DrawEarth();
+    DrawMoon();
+    glPopMatrix();
+
+    // DrawMercury();
+    // DrawVenus();
+    // DrawMars();
+    // DrawJupiter();
+    // DrawSaturn();
+    // DrawUranus();
+    // DrawNeptune();
+}
+
+void DrawPlanet(double translateAmount)
+{
+    glPushMatrix();
+    glRotatef(360.0 * DayOfYear / 365.0, 0.0, 1.0, 0.0);
+    //glTranslatef( 6.0, 0.0, 0.0 );
+    glTranslatef(translateAmount, 0.0, 0.0);
+
+    glRotatef(360.0 * HourOfDay / 24.0, 0.0, 1.0, 0.0);
+
+    glColor3f(0.2, 0.2, 1.0);
+    glutWireSphere(0.4, 15, 15);
+    glPopMatrix();
+}
+
+void DrawSun()
+{
+    glColor3f( 1.0, 1.0, 0.0 );
+    glutWireSphere( 1.0, 15, 15 );
+}
+
+void DrawEarth()
+{
+    glRotatef( 360.0 * DayOfYear / 365.0, 0.0, 1.0, 0.0 );
+    glTranslatef( 4.0, 0.0, 0.0 );
+    glPushMatrix();
+    // Second, rotate the earth on its axis. Use HourOfDay to determine its rotation.
+    glRotatef( 360.0 * HourOfDay / 24.0, 0.0, 1.0, 0.0 );
+    // Third, draw the earth as a wireframe sphere.
+    glColor3f( 0.2, 0.2, 1.0 );
+    glutWireSphere( 0.4, 10, 10 );
+    glPopMatrix();
+}
+
+void DrawMoon()
+{
+    glRotatef( 360.0 * 12.0 * DayOfYear / 365.0, 0.0, 1.0, 0.0 );
+    glTranslatef( 0.7, 0.0, 0.0 );
+    glColor3f( 0.3, 0.7, 0.3 );
+    glutWireSphere( 0.1, 5, 5 );
+}
+
+void DrawMercury()
+{
+    DrawPlanet(6.0);
+}
+
+void DrawVenus()
+{
+    DrawPlanet(6.0);
+}
+
+void DrawMars()
+{
+    DrawPlanet(6.0);
+}
+
+void DrawJupiter()
+{
+    DrawPlanet(6.0);
+}
+
+void DrawSaturn()
+{
+    DrawPlanet(6.0);
+}
+
+void DrawUranus()
+{
+    DrawPlanet(6.0);
+}
+
+void DrawNeptune()
+{
+    DrawPlanet(6.0);
 }
