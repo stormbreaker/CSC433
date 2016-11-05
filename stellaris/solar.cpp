@@ -211,7 +211,7 @@ void DrawNeptune()
 
 vector<Planet> CollectPlanetData()
 {
-    string tempLine;
+    string planetLine;
 
     string name;
     double radius;
@@ -224,22 +224,22 @@ vector<Planet> CollectPlanetData()
     vector<Planet> planets;
 
     ifstream fin("planetdata.info");
+
     if (fin)
     {
         while (fin >> name >> radius >> distance >> year >> day >> imageFile >> planetColor.red >> planetColor.green >> planetColor.blue)
         {
-            Planet temp;
+            Planet planet;
 
-            temp.setName(name);
-            temp.setRadius(radius);
-            temp.setDistance(distance);
-            temp.setYear(year);
-            temp.setDay(day);
-            temp.setTextureImagePath(imageFile);
-            temp.setPlanetColor(planetColor);
+            planet.setName(name);
+            planet.setRadius(radius);
+            planet.setDistance(distance);
+            planet.setYear(year);
+            planet.setDay(day);
+            planet.setTextureImagePath(imageFile);
+            planet.setPlanetColor(planetColor);
 
-            planets.push_back(temp);
-
+            planets.push_back(planet);
         }
     }
     else
@@ -247,5 +247,6 @@ vector<Planet> CollectPlanetData()
         cout << "Unable to open planetary information.  Exiting." << endl;
         exit(1);
     }
+    
     fin.close();
 }
