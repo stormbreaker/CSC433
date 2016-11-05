@@ -11,8 +11,6 @@
 CC = gcc
 CXX = g++
 LINK = g++
-NVLINK = nvcc
-NVCC = nvcc
 
 # Turn on optimization and warnings (add -g for debugging with gdb):
 # CPPFLAGS = 		# preprocessor flags
