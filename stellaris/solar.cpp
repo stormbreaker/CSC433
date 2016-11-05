@@ -247,6 +247,7 @@ vector<Planet> CollectPlanetData()
         cout << "Unable to open planetary information.  Exiting." << endl;
         exit(1);
     }
-    
+
     fin.close();
+    return planets;
 }
