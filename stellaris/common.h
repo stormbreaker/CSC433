@@ -3,9 +3,9 @@
 
 struct Color
 {
-    int red;
-    int green;
-    int blue;
+    char red;
+    char green;
+    char blue;
 };
 
 // Helpful constants for key presses
