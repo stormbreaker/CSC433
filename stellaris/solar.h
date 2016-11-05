@@ -28,7 +28,7 @@ void keyboard(unsigned char key, int x, int y);
 void DrawPlanet(Planet planet);
 
 void DrawPlanets();
-void DrawSun();
+void DrawSun(Planet planet);
 void DrawEarth(Planet planet);
 void DrawMoon(Planet planet);
 

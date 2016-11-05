@@ -131,7 +131,7 @@ void DrawPlanets()
         }
         else if (planet.getName() == "Sun")
         {
-            DrawPlanet(planet);
+            DrawSun(planet);
         }
         else
         {
@@ -171,10 +171,13 @@ void DrawPlanet(Planet planet)
     glPopMatrix();
 }
 
-void DrawSun()
+void DrawSun(Planet planet)
 {
-    glColor3f( 1.0, 1.0, 0.0 );
-    glutWireSphere( 1.0, 15, 15 );
+    Color sunColor = planet.getPlanetColor();
+
+    glColor3ub(sunColor.red, sunColor.green, sunColor.blue);
+
+    glutWireSphere(planet.getRadius(), 15, 15);
 }
 
 void DrawEarth(Planet planet)
