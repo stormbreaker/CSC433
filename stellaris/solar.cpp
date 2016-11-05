@@ -48,7 +48,7 @@ void ResizeWindow(int w, int h)
     // Set up the projection view matrix (not very well!)
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
-    gluPerspective( 60.0, aspectRatio, 1.0, 30.0 );
+    gluPerspective( 60.0, aspectRatio, 1.0, 40.0 );
 
     // Select the Modelview matrix
     glMatrixMode( GL_MODELVIEW );
@@ -74,7 +74,7 @@ void Animate()
     glLoadIdentity();
 
     // Back off eight units to be able to view from the origin.
-    glTranslatef ( 0.0, 0.0, -8.0 );
+    glTranslatef ( 0.0, 0.0, -25.0 );
 
     // Rotate the plane of the elliptic
     // (rotate the model's plane about the x axis by fifteen degrees)
@@ -104,26 +104,8 @@ void keyboard(unsigned char key, int x, int y)
             exit(0);
             break;
         // Plus key zooms in
-        case PLUS_KEY:
+        case '+':
             glutPostRedisplay();
-            break;
-        // minus key zooms out
-        case MINUS_KEY:
-            break;
-        case LOWERCASE_A_KEY:
-        case A_KEY:
-            break;
-        case LOWERCASE_C_KEY:
-        case C_KEY:
-            break;
-        case LOWERCASE_R_KEY:
-        case R_KEY:
-            break;
-        case LOWERCASE_J_KEY:
-        case J_KEY:
-            break;
-        case LOWERCASE_V_KEY:
-        case V_KEY:
             break;
         // anything else redraws window
         default:
@@ -140,13 +122,13 @@ void DrawPlanets()
     DrawMoon();
     glPopMatrix();
 
-    // DrawMercury();
-    // DrawVenus();
-    // DrawMars();
-    // DrawJupiter();
-    // DrawSaturn();
-    // DrawUranus();
-    // DrawNeptune();
+    DrawMercury();
+    DrawVenus();
+    DrawMars();
+    DrawJupiter();
+    DrawSaturn();
+    DrawUranus();
+    DrawNeptune();
 }
 
 void DrawPlanet(double translateAmount)
@@ -197,30 +179,30 @@ void DrawMercury()
 
 void DrawVenus()
 {
-    DrawPlanet(6.0);
+    DrawPlanet(8.0);
 }
 
 void DrawMars()
 {
-    DrawPlanet(6.0);
+    DrawPlanet(10.0);
 }
 
 void DrawJupiter()
 {
-    DrawPlanet(6.0);
+    DrawPlanet(12.0);
 }
 
 void DrawSaturn()
 {
-    DrawPlanet(6.0);
+    DrawPlanet(14.0);
 }
 
 void DrawUranus()
 {
-    DrawPlanet(6.0);
+    DrawPlanet(16.0);
 }
 
 void DrawNeptune()
 {
-    DrawPlanet(6.0);
+    DrawPlanet(18.0);
 }
