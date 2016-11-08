@@ -132,15 +132,21 @@ void DrawPlanets()
                 DrawMoon(planet);
                 glPopMatrix();
             }
+            else if (planet.getName() == "Saturn")
+            {
+                DrawPlanet(planet, true);
+
+
+            }
             else
             {
-                DrawPlanet(planet);
+                DrawPlanet(planet, false);
             }
         }
     }
 }
 
-void DrawPlanet(Planet planet)
+void DrawPlanet(Planet planet, bool drawRings)
 {
     Color planetColor = planet.getPlanetColor();
 
@@ -154,6 +160,16 @@ void DrawPlanet(Planet planet)
 
     glColor3ub(planetColor.red, planetColor.green, planetColor.blue);
     glutWireSphere(planet.getRadius(), 15, 15);
+
+    if (drawRings == true)
+    {
+        GLUquadric* diskObject = gluNewQuadric();
+
+        glRotatef(90.0, 1.0, 0.0, 0.0);
+
+        gluDisk(diskObject, planet.getRadius() + 2, 20, 50, 20);
+    }
+
     glPopMatrix();
 }
 
