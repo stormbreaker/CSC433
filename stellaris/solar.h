@@ -15,9 +15,6 @@
 static GLenum spinMode = GL_TRUE;
 static GLenum singleStep = GL_FALSE;
 
-static float HourOfDay = 0.0;
-static float DayOfYear = 0.0;
-
 static vector<Planet> AllPlanets;
 
 vector<Planet> CollectPlanetData();
@@ -27,6 +24,7 @@ void ResizeWindow(int w, int h);
 void Animate();
 void keyboard(unsigned char key, int x, int y);
 void DrawPlanet(Planet planet, bool drawRings);
+void DrawSphere(Planet planet);
 
 void DrawPlanets();
 void DrawSun(Planet planet);

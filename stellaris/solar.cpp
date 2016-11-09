@@ -1,7 +1,9 @@
 #include "solar.h"
 
-
 using namespace std;
+
+bool isWireFrame = true;
+bool isSmoothShading = false;
 
 int main(int argc, char **argv)
 {
@@ -97,8 +99,41 @@ void keyboard(unsigned char key, int x, int y)
         case ESC_KEY:
             exit(0);
             break;
+        // Change the shading model
+        case 'S':
+        case 's':
+            // Toggle if smooth shading is enabled
+            isSmoothShading = !isSmoothShading;
+
+            // Change shading model
+            if (isSmoothShading == true)
+            {
+                glShadeModel( GL_SMOOTH );
+            }
+            else
+            {
+                glShadeModel( GL_FLAT );
+            }
+
+            glutPostRedisplay();
+            break;
+        // Change if planets are wireframe
+        case 'W':
+        case 'w':
+            // Toggle wireframe display
+            isWireFrame = !isWireFrame;
+
+            glutPostRedisplay();
+            break;
         // Plus key zooms in
         case '+':
+            AnimateIncrement += 5;
+
+            glutPostRedisplay();
+            break;
+        case '-':
+            AnimateIncrement -= 5;
+
             glutPostRedisplay();
             break;
         // anything else redraws window
@@ -160,7 +195,8 @@ void DrawPlanet(Planet planet, bool drawRings)
     glMaterialfv( GL_FRONT_AND_BACK, GL_EMISSION, planetEmission );
     glColor3ub(planetColor.red, planetColor.green, planetColor.blue);
     glDisable(GL_COLOR_MATERIAL);
-    glutWireSphere(planet.getRadius(), 15, 15);
+
+    DrawSphere(planet);
 
     if (drawRings == true)
     {
@@ -198,10 +234,10 @@ void DrawSun(Planet planet)
     glColor3ub(sunColor.red, sunColor.green, sunColor.blue);
 
     // glDisable(GL_COLOR_MATERIAL);
-     // enable one light source
-     glDisable(GL_COLOR_MATERIAL);
+    // enable one light source
+    glDisable(GL_COLOR_MATERIAL);
 
-    glutWireSphere(planet.getRadius(), 15, 15);
+    DrawSphere(planet);
 }
 
 void DrawEarth(Planet planet)
@@ -218,7 +254,8 @@ void DrawEarth(Planet planet)
     glColor3ub( earthColor.red, earthColor.green, earthColor.blue );
     glDisable(GL_COLOR_MATERIAL);
 
-    glutWireSphere( planet.getRadius(), 10, 10 );
+    DrawSphere(planet);
+
     glPopMatrix();
 }
 
@@ -232,7 +269,20 @@ void DrawMoon(Planet planet)
     glColor3ub( moonColor.red, moonColor.green, moonColor.blue );
     glDisable(GL_COLOR_MATERIAL);
 
-    glutWireSphere( planet.getRadius(), 5, 5 );
+    DrawSphere(planet);
+}
+
+void DrawSphere(Planet planet)
+{
+    if (isWireFrame == true)
+    {
+        glutWireSphere(planet.getRadius(), 15, 15);
+    }
+    else
+    {
+        glutSolidSphere(planet.getRadius(), 15, 15);
+    }
+
 }
 
 vector<Planet> CollectPlanetData()
