@@ -30,6 +30,7 @@ class Planet
         void incrememtOrbitValues();
         double getHourOfDay();
         double getDayOfYear();
+		unsigned char* getTexture();
 
     private:
         double _Radius;
@@ -43,4 +44,5 @@ class Planet
         double _Day;
         double _HourOfDay;
         double _DayOfYear;
+		unsigned char* _Texture;
 };

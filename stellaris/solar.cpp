@@ -4,7 +4,7 @@ using namespace std;
 
 bool isWireFrame = true;
 bool isSmoothShading = false;
-bool isLighted = false;
+bool isLighted = true;
 
 int main(int argc, char **argv)
 {
@@ -42,6 +42,8 @@ void OpenGLInit()
     glClearColor( 0.0, 0.0, 0.0, 0.0 );
     glClearDepth( 1.0 );
     glEnable( GL_DEPTH_TEST );
+    glEnable( GL_LIGHTING );
+	glEnable( GL_LIGHT0 );
 }
 
 void ResizeWindow(int w, int h)
@@ -326,6 +328,7 @@ vector<Planet> CollectPlanetData()
             planet.setDay(day);
             planet.setTextureImagePath(imageFile);
             planet.setPlanetColor(planetColor);
+			cout << planet.getTexture() << endl;
 
             planets.push_back(planet);
         }

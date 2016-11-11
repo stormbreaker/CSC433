@@ -16,6 +16,7 @@ Planet::Planet(string name, double radius, string imagePath)
     _PlanetColor = tempColor;
     _HourOfDay = 0;
     _DayOfYear = 0;
+	_Texture = nullptr;
 }
 
 Planet::Planet()
@@ -104,4 +105,8 @@ double Planet::getYear()
 double Planet::getDay()
 {
     return _Day;
+}
+unsigned char* Planet::getTexture()
+{
+	return _Texture;
 }
