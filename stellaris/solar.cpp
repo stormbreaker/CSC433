@@ -204,7 +204,7 @@ void DrawPlanet(Planet planet, bool drawRings)
 
         glRotatef(90.0, 1.0, 0.0, 0.0);
 
-        gluCylinder(diskObject, planet.getRadius() + 10, 0, 0, 20, 20);
+        gluCylinder(diskObject, planet.getRadius() + 10, planet.getRadius() + 5, 0, 20, 20);
     }
 
     glPopMatrix();
