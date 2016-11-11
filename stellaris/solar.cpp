@@ -4,7 +4,7 @@ using namespace std;
 
 bool isWireFrame = true;
 bool isSmoothShading = false;
-bool isLighted = true;
+bool isLighted = false;
 
 int main(int argc, char **argv)
 {
