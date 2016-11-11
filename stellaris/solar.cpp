@@ -4,6 +4,7 @@ using namespace std;
 
 bool isWireFrame = true;
 bool isSmoothShading = false;
+bool isLighted = true;
 
 int main(int argc, char **argv)
 {
@@ -136,6 +137,19 @@ void keyboard(unsigned char key, int x, int y)
 
             glutPostRedisplay();
             break;
+		case 'L':
+		case 'l':
+			isLighted = !isLighted;
+			if (isLighted == true)
+			{
+    		    glEnable( GL_LIGHTING );
+    			glEnable( GL_LIGHT0 );
+			}
+            else
+            {
+                glDisable(GL_LIGHTING);
+                glDisable(GL_LIGHT0);
+            }
         // anything else redraws window
         default:
             break;
@@ -219,10 +233,6 @@ void DrawSun(Planet planet)
     float light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };       // diffuse light
     float light_specular[] = { 1.0, 1.0, 1.0, 1.0 };      // highlights
 
-    // glEnd();
-    glEnable( GL_LIGHTING );
-    glEnable( GL_LIGHT0 );
-
     glEnable(GL_COLOR_MATERIAL);
     float sunEmisison[] = { 1.0, 1.0, 0.0, 1.0 };
     // glColorMaterial(GL_FRONT_AND_BACK, GL_EMISSION);
@@ -280,7 +290,9 @@ void DrawSphere(Planet planet)
     }
     else
     {
-        glutSolidSphere(planet.getRadius(), 15, 15);
+	   GLUquadric* ball = gluNewQuadric();
+	   gluSphere(ball, planet.getRadius(), 15, 15); 
+       //glutSolidSphere(planet.getRadius(), 15, 15);
     }
 
 }
