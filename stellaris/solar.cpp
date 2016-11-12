@@ -5,23 +5,25 @@ using namespace std;
 bool isWireFrame = true;
 bool isSmoothShading = false;
 bool isLighted = true;
+int yRotation = 0;
+int xRotation = 15;
 
 int main(int argc, char **argv)
 {
-    CollectPlanetData();
     // Need to double buffer for animation
-    glutInit( &argc, argv );
-    glutInitDisplayMode( GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH );
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 
     // Create and position the graphics window
-    glutInitWindowPosition( 0, 0 );
-    glutInitWindowSize( 720, 480 );
-    glutCreateWindow( "Solar System Demo" );
+    glutInitWindowPosition(0, 0);
+    glutInitWindowSize(720, 480);
+    glutCreateWindow("Solar System Demo");
 
     // Initialize OpenGL.
     OpenGLInit();
 
     glutKeyboardFunc(keyboard);
+    glutSpecialFunc(specialInput);
 
     // Callback for graphics image redrawing
     glutDisplayFunc(Animate);
@@ -73,11 +75,12 @@ void Animate()
     glLoadIdentity();
 
     // Back off eight units to be able to view from the origin.
-    glTranslatef ( 0.0, 0.0, -100.0 );
+    glTranslatef(0.0, 0.0, -100.0);
 
     // Rotate the plane of the elliptic
     // (rotate the model's plane about the x axis by fifteen degrees)
-    glRotatef( 15.0, 1.0, 0.0, 0.0 );
+    glRotatef(yRotation, 0.0, 1.0, 0.0);
+    glRotatef(xRotation, 1.0, 0.0, 0.0);
 
     DrawPlanets();
 
@@ -156,6 +159,42 @@ void keyboard(unsigned char key, int x, int y)
         default:
             break;
     }
+}
+
+/*
+	Name: specialInput
+	Author: Benjamin Kaiser and Taylor Doell
+	Description: This function handles the special keys for the keyboard. It is
+    used for catching the arrow keys for panning the solar system.
+*/
+void specialInput(int key, int x, int y)
+{
+    // Find key used
+	switch(key)
+	{
+        // Pan up the solar system
+		case GLUT_KEY_UP:
+            xRotation += 3;
+			glutPostRedisplay();
+			break;
+        // Pan down the solar system
+		case GLUT_KEY_DOWN:
+            xRotation -= 3;
+		    glutPostRedisplay();
+			break;
+        // Pan the solar system to the right
+		case GLUT_KEY_RIGHT:
+            yRotation += 3;
+            glutPostRedisplay();
+			break;
+        // Pan the solar system to the left
+		case GLUT_KEY_LEFT:
+            yRotation -= 3;
+            glutPostRedisplay();
+			break;
+		default:
+			break;
+	}
 }
 
 void DrawPlanets()
@@ -259,7 +298,7 @@ void DrawEarth(Planet planet)
     glRotatef( 360.0 * planet.getDayOfYear() / planet.getYear(), 0.0, 1.0, 0.0 );
     glTranslatef( planet.getDistance(), 0.0, 0.0 );
     glPushMatrix();
-    // Second, rotate the earth on its axis. Use HourOfDay to determine its rotation.
+    // Second, rotate the earth on its axis. Use HourOfDay to determine its yRotation.
     glRotatef( 360.0 * planet.getHourOfDay() / planet.getDay(), 0.0, 1.0, 0.0 );
     // Third, draw the earth as a wireframe sphere.
     glEnable(GL_COLOR_MATERIAL);
@@ -293,7 +332,7 @@ void DrawSphere(Planet planet)
     else
     {
 	   GLUquadric* ball = gluNewQuadric();
-	   gluSphere(ball, planet.getRadius(), 15, 15); 
+	   gluSphere(ball, planet.getRadius(), 15, 15);
        //glutSolidSphere(planet.getRadius(), 15, 15);
     }
 
@@ -328,7 +367,6 @@ vector<Planet> CollectPlanetData()
             planet.setDay(day);
             planet.setTextureImagePath(imageFile);
             planet.setPlanetColor(planetColor);
-			cout << planet.getTexture() << endl;
 
             planets.push_back(planet);
         }
