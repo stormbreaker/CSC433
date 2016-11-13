@@ -158,11 +158,11 @@ void keyboard(unsigned char key, int x, int y)
 			isTextured = !isTextured;
 			if (isLighted == true)
 			{
-				
+
 			}
 			else
 			{
-				
+
 			}
 			break;
         // anything else redraws window
@@ -262,7 +262,7 @@ void DrawSun(Planet planet)
     // enable one light source
     glDisable(GL_COLOR_MATERIAL);
 
-    
+
 
     DrawSphere(planet);
 }
@@ -310,7 +310,7 @@ void DrawSphere(Planet planet)
     	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
     	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
     	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
-	    glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE );
+	    glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
 		gluQuadricNormals(ball, GLU_SMOOTH);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, planet.getTexture().width, planet.getTexture().height, 0, GL_RGB, GL_UNSIGNED_BYTE, planet.getTexture().imageDataArray);
 		gluQuadricTexture(ball, GL_TRUE);
@@ -326,7 +326,7 @@ void DrawSphere(Planet planet)
     }
     else
     {
-	   gluSphere(ball, planet.getRadius(), 15, 15); 
+	   gluSphere(ball, planet.getRadius(), 15, 15);
        //glutSolidSphere(planet.getRadius(), 15, 15);
     }
 }
@@ -367,7 +367,7 @@ vector<Planet> CollectPlanetData()
             planet.setYear(year);
             planet.setDay(day);
 
-            planet.setPlanetColor(planetColor);			
+            planet.setPlanetColor(planetColor);
 
             LoadBmpFile(imageFile.c_str(), rows, cols, data);
 

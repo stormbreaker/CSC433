@@ -22,14 +22,13 @@ Planet::Planet(string name, double radius, string imagePath)
 Planet::Planet()
 {
     Color tempColor;
-    tempColor.red = 0;
-    tempColor.green = 0;
-    tempColor.blue = 0;
+    _PlanetColor.red = 1;
+    _PlanetColor.green = 1;
+    _PlanetColor.blue = 1;
     _Radius = 1;
     _Name = "";
     _Texture.path = "";
 	_Texture.imageDataArray = nullptr;
-    _PlanetColor = {1, 1, 1};
     _HourOfDay = 0;
     _DayOfYear = 0;
 }
