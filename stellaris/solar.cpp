@@ -152,6 +152,7 @@ void keyboard(unsigned char key, int x, int y)
                 glDisable(GL_LIGHTING);
                 glDisable(GL_LIGHT0);
             }
+			break;
 		case 'T':
 		case 't':
 			isTextured = !isTextured;
@@ -163,6 +164,7 @@ void keyboard(unsigned char key, int x, int y)
 			{
 				
 			}
+			break;
         // anything else redraws window
         default:
             break;
