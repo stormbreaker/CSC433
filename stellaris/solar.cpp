@@ -300,7 +300,7 @@ void DrawMoon(Planet planet)
 void DrawSphere(Planet planet)
 {
     GLUquadric* ball = gluNewQuadric();
-	cout << isTextured << endl;
+	//cout << isTextured << endl;
 	if (isTextured == true)
 	{
 		glEnable(GL_TEXTURE_2D);
@@ -313,6 +313,10 @@ void DrawSphere(Planet planet)
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, planet.getTexture().width, planet.getTexture().height, 0, GL_RGB, GL_UNSIGNED_BYTE, planet.getTexture().imageDataArray);
 		gluQuadricTexture(ball, GL_TRUE);
 		//glDisable(GL_TEXTURE_2D);
+	}
+	else
+	{
+		glDisable(GL_TEXTURE_2D);
 	}
     if (isWireFrame == true)
     {
