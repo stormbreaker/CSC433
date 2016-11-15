@@ -13,9 +13,6 @@
 #include <iostream>
 #include <sstream>
 
-static GLenum spinMode = GL_TRUE;
-static GLenum singleStep = GL_FALSE;
-
 static vector<Planet> AllPlanets;
 
 vector<Planet> CollectPlanetData();

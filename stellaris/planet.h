@@ -30,6 +30,7 @@ class Planet
 		Texture getTexture();
 
         void incrememtOrbitValues();
+        void decrementOrbitValues();
         double getHourOfDay();
         double getDayOfYear();
 
