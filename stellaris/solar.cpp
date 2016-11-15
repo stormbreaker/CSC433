@@ -7,6 +7,7 @@ bool isSmoothShading = false;
 bool isLighted = true;
 int yRotation = 0;
 int xRotation = 15;
+int zoom = -100;
 bool isTextured = false;
 
 int main(int argc, char **argv)
