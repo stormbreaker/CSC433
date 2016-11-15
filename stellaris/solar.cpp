@@ -107,7 +107,6 @@ void mouse(int button, int state, int x, int y)
     }
     else if (button == 4)
     {
-        cout << "OUT" << endl;
         zoom -= 10;
     }
 }
