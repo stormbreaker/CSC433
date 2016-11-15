@@ -50,7 +50,7 @@ void makeMenu()
     glutAddMenuEntry("W - Toggle Wireframe", 1);
     glutAddMenuEntry("L  - Toggle Lighting", 2);
     glutAddMenuEntry("S  - Toggle Smooth Shading", 3);
-    glutAddMenuEntry("A  - Toggle Animation", 4);
+    glutAddMenuEntry("A  - Toggle Animation Type", 4);
     glutAddMenuEntry("+  - Increase Animation Step", 5);
     glutAddMenuEntry("-   - Decrease Animation Step", 6);
     glutAddMenuEntry("Rotate Right (Right Arrow)", 7);
