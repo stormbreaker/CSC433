@@ -33,12 +33,78 @@ int main(int argc, char **argv)
     glutDisplayFunc(Animate);
     glutReshapeFunc(ResizeWindow);
 
+    makeMenu();
+
     AllPlanets = CollectPlanetData();
 
     // Start the main loop.  glutMainLoop never returns.
     glutMainLoop();
 
     return 0;
+}
+
+void makeMenu()
+{
+    glutCreateMenu(menuSelection);
+    glutAddMenuEntry("Zoom In (Mouse Wheel up)", 0);
+    glutAddMenuEntry("Zoom Out (Mouse Wheel down)", 1);
+    glutAddMenuEntry("Toggle Texture T", 2);
+    glutAddMenuEntry("Toggle Wireframe W", 3);
+    glutAddMenuEntry("Toggle Lighting  L", 4);
+    glutAddMenuEntry("Toggle Smooth Shading S", 5);
+    glutAddMenuEntry("Rotate Right (Right Arrow)", 6);
+    glutAddMenuEntry("Rotate Left (Left Arrow)", 7);
+    glutAddMenuEntry("Rotate Up (Up Arrow)", 8);
+    glutAddMenuEntry("Rotate Down (Down Arrow)", 9);
+    glutAddMenuEntry("Toggle Animation A", 10);
+    glutAddMenuEntry("Increase Animation Step +", 11);
+    glutAddMenuEntry("Decrease Animation Step -", 12);
+    glutAttachMenu(GLUT_RIGHT_BUTTON);
+}
+
+void menuSelection(int value)
+{
+    switch (value)
+    {
+        case 0:
+            mouse(3, GLUT_DOWN, 0, 0);
+            break;
+        case 1:
+            mouse(4, GLUT_UP, 0, 0);
+            break;
+        case 2:
+            keyboard('t', 0, 0);
+            break;
+        case 4:
+            keyboard('l', 0, 0);
+            break;
+        case 5:
+            keyboard('s', 0, 0);
+            break;
+        case 6:
+            specialInput(GLUT_KEY_RIGHT, 0, 0);
+            break;
+        case 7:
+            specialInput(GLUT_KEY_LEFT, 0, 0);
+            break;
+        case 8:
+            specialInput(GLUT_KEY_UP, 0, 0);
+            break;
+        case 9:
+            specialInput(GLUT_KEY_DOWN, 0, 0);
+            break;
+        case 10:
+            keyboard('a', 0, 0);
+            break;
+        case 11:
+            keyboard('+', 0, 0);
+            break;
+        case 12:
+            keyboard('-', 0, 0);
+            break;
+        default:
+            break;
+    }
 }
 
 // Initialize OpenGL's rendering modes
@@ -100,7 +166,7 @@ void Animate()
 
 void mouse(int button, int state, int x, int y)
 {
-    cout << button << endl;
+    cout << state << endl;
     if (button == 3)
     {
         zoom += 10;
