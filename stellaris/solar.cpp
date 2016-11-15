@@ -75,6 +75,9 @@ void menuSelection(int value)
         case 2:
             keyboard('t', 0, 0);
             break;
+        case 3:
+            keyboard('w', 0, 0);
+            break;
         case 4:
             keyboard('l', 0, 0);
             break;
