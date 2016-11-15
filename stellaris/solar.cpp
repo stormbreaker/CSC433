@@ -378,12 +378,12 @@ void SetColor(int red, int green, int blue)
 
 void DrawOrbitRing(Planet planet)
 {
+    float planetEmission[] = {0, 0, 0, 0};
     GLUquadric* diskObject = gluNewQuadric();
 
     glRotatef(90.0, 1.0, 0.0, 0.0);
 
     glEnable(GL_COLOR_MATERIAL);
-    float planetEmission[] = {0, 0, 0, 0};
     glMaterialfv( GL_FRONT_AND_BACK, GL_EMISSION, planetEmission );
     glColor3ub(255, 255, 255);
     glDisable(GL_COLOR_MATERIAL);
