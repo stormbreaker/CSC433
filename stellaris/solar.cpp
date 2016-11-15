@@ -9,6 +9,7 @@ int yRotation = 0;
 int xRotation = 15;
 int zoom = -100;
 bool isTextured = false;
+bool isSingleStep = false;
 
 int main(int argc, char **argv)
 {
@@ -90,12 +91,10 @@ void Animate()
     glFlush();
     glutSwapBuffers();
 
-    if (singleStep)
+    if (isSingleStep == false)
     {
-        spinMode = GL_FALSE;
+        glutPostRedisplay();		// Request a re-draw for animation purposes
     }
-
-    glutPostRedisplay();		// Request a re-draw for animation purposes
 }
 
 void keyboard(unsigned char key, int x, int y)
@@ -107,6 +106,9 @@ void keyboard(unsigned char key, int x, int y)
         case ESC_KEY:
             exit(0);
             break;
+        case 'A':
+        case 'a':
+            isSingleStep = !isSingleStep;
         // Change the shading model
         case 'S':
         case 's':
@@ -135,12 +137,32 @@ void keyboard(unsigned char key, int x, int y)
             break;
         // Plus key zooms in
         case '+':
-            AnimateIncrement += 5;
+            if (isSingleStep == false)
+            {
+                AnimateIncrement += 5;
+            }
+            else
+            {
+                for (Planet &planet : AllPlanets)
+                {
+                    planet.incrememtOrbitValues();
+                }
+            }
 
             glutPostRedisplay();
             break;
         case '-':
-            AnimateIncrement -= 5;
+            if (isSingleStep == false)
+            {
+                AnimateIncrement -= 5;
+            }
+            else
+            {
+                for (Planet &planet : AllPlanets)
+                {
+                    planet.decrementOrbitValues();
+                }
+            }
 
             glutPostRedisplay();
             break;
@@ -222,7 +244,7 @@ void DrawPlanets()
         }
         else
         {
-            if (spinMode)
+            if (isSingleStep == false)
             {
                 planet.incrememtOrbitValues();
             }

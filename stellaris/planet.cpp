@@ -52,6 +52,15 @@ void Planet::incrememtOrbitValues()
     _DayOfYear = _DayOfYear - ((int)(_DayOfYear / _Year)) * _Year;
 }
 
+void Planet::decrementOrbitValues()
+{
+    _HourOfDay -= AnimateIncrement;
+    _DayOfYear -= AnimateIncrement / 24.0;
+
+    _HourOfDay = _HourOfDay - ((int)(_HourOfDay / _Day)) * _Day;
+    _DayOfYear = _DayOfYear - ((int)(_DayOfYear / _Year)) * _Year;
+}
+
 double Planet::getHourOfDay()
 {
     return _HourOfDay;
