@@ -109,6 +109,12 @@ void keyboard(unsigned char key, int x, int y)
         case 'A':
         case 'a':
             isSingleStep = !isSingleStep;
+
+            if (isSingleStep == false)
+            {
+                glutPostRedisplay();
+            }
+            break;
         // Change the shading model
         case 'S':
         case 's':
