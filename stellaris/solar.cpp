@@ -276,8 +276,6 @@ void DrawPlanet(Planet planet, bool drawRings)
     {
         diskObject = gluNewQuadric();
 
-        glRotatef(90.0, 1.0, 0.0, 0.0);
-
         gluCylinder(diskObject, planet.getRadius() + 10, planet.getRadius() + 2, 0, 20, 20);
     }
 
@@ -340,6 +338,9 @@ void DrawMoon(Planet planet)
 void DrawSphere(Planet planet)
 {
     GLUquadric* ball = gluNewQuadric();
+
+    glRotatef(90, 1.0, 0.0, 0.0);
+
 
 	if (isTextured == true)
 	{
