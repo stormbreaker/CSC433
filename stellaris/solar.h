@@ -29,6 +29,7 @@ void specialInput(int key, int x, int y);
 void SetColor(int red, int green, int blue);
 void DrawPlanet(Planet planet, bool drawRings);
 void DrawSphere(Planet planet);
+void DrawOrbitRing(Planet planet);
 
 void DrawPlanets();
 void DrawSun(Planet planet);

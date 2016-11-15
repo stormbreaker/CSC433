@@ -213,8 +213,6 @@ void specialInput(int key, int x, int y)
 
 void DrawPlanets()
 {
-    GLUquadric* diskObject = gluNewQuadric();
-
     for (Planet &planet : AllPlanets)
     {
         if (planet.getName() == "Sun")
@@ -230,6 +228,8 @@ void DrawPlanets()
 
             if (planet.getName() == "Earth")
             {
+                DrawOrbitRing(planet);
+
                 glPushMatrix();
                 DrawEarth(planet);
             }
@@ -241,24 +241,16 @@ void DrawPlanets()
             else if (planet.getName() == "Saturn")
             {
                 DrawPlanet(planet, true);
+
+                DrawOrbitRing(planet);
             }
             else
             {
                 DrawPlanet(planet, false);
+
+                DrawOrbitRing(planet);
             }
         }
-
-        glRotatef(90.0, 1.0, 0.0, 0.0);
-
-        glEnable(GL_COLOR_MATERIAL);
-        float planetEmission[] = {0, 0, 0, 0};
-        glMaterialfv( GL_FRONT_AND_BACK, GL_EMISSION, planetEmission );
-        glColor3ub(255, 255, 255);
-        glDisable(GL_COLOR_MATERIAL);
-
-        gluCylinder(diskObject, planet.getDistance(), planet.getDistance() + 0.25, 0, 50, 50);
-
-        glRotatef(-90.0, 1.0, 0.0, 0.0);
     }
 }
 
@@ -311,8 +303,6 @@ void DrawSun(Planet planet)
     glLightfv( GL_LIGHT0, GL_SPECULAR, light_specular );
     glColor3ub(sunColor.red, sunColor.green, sunColor.blue);
     glDisable(GL_COLOR_MATERIAL);
-
-
 
     DrawSphere(planet);
 }
@@ -384,6 +374,23 @@ void SetColor(int red, int green, int blue)
     glColor3ub(red, green, blue);
 
     glDisable(GL_COLOR_MATERIAL);
+}
+
+void DrawOrbitRing(Planet planet)
+{
+    GLUquadric* diskObject = gluNewQuadric();
+
+    glRotatef(90.0, 1.0, 0.0, 0.0);
+
+    glEnable(GL_COLOR_MATERIAL);
+    float planetEmission[] = {0, 0, 0, 0};
+    glMaterialfv( GL_FRONT_AND_BACK, GL_EMISSION, planetEmission );
+    glColor3ub(255, 255, 255);
+    glDisable(GL_COLOR_MATERIAL);
+
+    gluCylinder(diskObject, planet.getDistance(), planet.getDistance() + 0.25, 0, 50, 50);
+
+    glRotatef(-90.0, 1.0, 0.0, 0.0);
 }
 
 vector<Planet> CollectPlanetData()
