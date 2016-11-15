@@ -22,6 +22,7 @@ void ResizeWindow(int w, int h);
 void Animate();
 void keyboard(unsigned char key, int x, int y);
 void specialInput(int key, int x, int y);
+void mouse(int button, int state, int x, int y);
 
 void SetColor(int red, int green, int blue);
 void DrawPlanet(Planet planet, bool drawRings);

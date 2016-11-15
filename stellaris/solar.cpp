@@ -27,6 +27,7 @@ int main(int argc, char **argv)
 
     glutKeyboardFunc(keyboard);
     glutSpecialFunc(specialInput);
+    glutMouseFunc(mouse);
 
     // Callback for graphics image redrawing
     glutDisplayFunc(Animate);
@@ -94,6 +95,20 @@ void Animate()
     if (isSingleStep == false)
     {
         glutPostRedisplay();		// Request a re-draw for animation purposes
+    }
+}
+
+void mouse(int button, int state, int x, int y)
+{
+    cout << button << endl;
+    if (button == 3)
+    {
+        zoom += 10;
+    }
+    else if (button == 4)
+    {
+        cout << "OUT" << endl;
+        zoom -= 10;
     }
 }
 
