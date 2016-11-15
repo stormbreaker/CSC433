@@ -13,29 +13,31 @@ class Planet
 
         void setRadius(double radius);
         void setName(string name);
-        void setTextureImagePath(string filepath);
         void setPlanetColor(Color planetColor);
         void setDistance(double distance);
         void setYear(double year);
         void setDay(double day);
 
+		void setTexture(Texture texture);
+
         double getRadius();
         string getName();
-        string getTextureImagePath();
         Color getPlanetColor();
         double getDistance();
         double getYear();
         double getDay();
 
+		Texture getTexture();
+
         void incrememtOrbitValues();
         double getHourOfDay();
         double getDayOfYear();
-		unsigned char* getTexture();
+
 
     private:
         double _Radius;
         string _Name;
-        string _TextureImagePath;
+		Texture _Texture;
         Color _PlanetColor;
         int _longitudeSliceCount;
         int _latitudeSliceCount;
@@ -44,5 +46,4 @@ class Planet
         double _Day;
         double _HourOfDay;
         double _DayOfYear;
-		unsigned char* _Texture;
 };

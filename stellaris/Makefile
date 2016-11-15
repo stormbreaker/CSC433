@@ -15,7 +15,7 @@ LINK = g++
 # Turn on optimization and warnings (add -g for debugging with gdb):
 # CPPFLAGS = 		# preprocessor flags
 CFLAGS = -O #-Wall -Wextra
-CXXFLAGS = -O -std=c++11 #-Wall -Wextra
+CXXFLAGS = -O -std=c++11 -g#-Wall -Wextra
 NVCCFLAGS = -O -std=c++11 #-Wall -Wextra
 
 # OpenGL/Mesa libraries for Linux:
@@ -37,7 +37,7 @@ GL_LIBS = -lglut -lGLU -lGL -lm
 all:    solar
 
 # specific targets
-solar:	planet.o solar.o common.o
+solar:	planet.o solar.o common.o imagemanip.o
 	$(LINK) -o $@ $^ $(GL_LIBS)
 
 # generic C and C++ targets for OpenGL programs consisting of only one file

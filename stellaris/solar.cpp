@@ -7,6 +7,7 @@ bool isSmoothShading = false;
 bool isLighted = true;
 int yRotation = 0;
 int xRotation = 15;
+bool isTextured = false;
 
 int main(int argc, char **argv)
 {
@@ -155,6 +156,19 @@ void keyboard(unsigned char key, int x, int y)
                 glDisable(GL_LIGHTING);
                 glDisable(GL_LIGHT0);
             }
+			break;
+		case 'T':
+		case 't':
+			isTextured = !isTextured;
+			if (isLighted == true)
+			{
+
+			}
+			else
+			{
+
+			}
+			break;
         // anything else redraws window
         default:
             break;
@@ -298,6 +312,8 @@ void DrawSun(Planet planet)
     glColor3ub(sunColor.red, sunColor.green, sunColor.blue);
     glDisable(GL_COLOR_MATERIAL);
 
+
+
     DrawSphere(planet);
 }
 
@@ -333,15 +349,31 @@ void DrawMoon(Planet planet)
 
 void DrawSphere(Planet planet)
 {
+    GLUquadric* ball = gluNewQuadric();
+
+	if (isTextured == true)
+	{
+		glEnable(GL_TEXTURE_2D);
+    	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+    	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+    	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
+    	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
+	    glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+		gluQuadricNormals(ball, GLU_SMOOTH);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, planet.getTexture().width, planet.getTexture().height, 0, GL_RGB, GL_UNSIGNED_BYTE, planet.getTexture().imageDataArray);
+		gluQuadricTexture(ball, GL_TRUE);
+	}
+	else
+	{
+		glDisable(GL_TEXTURE_2D);
+	}
     if (isWireFrame == true)
     {
         glutWireSphere(planet.getRadius(), 15, 15);
     }
     else
     {
-	   GLUquadric* ball = gluNewQuadric();
 	   gluSphere(ball, planet.getRadius(), 15, 15);
-       //glutSolidSphere(planet.getRadius(), 15, 15);
     }
 }
 
@@ -375,14 +407,30 @@ vector<Planet> CollectPlanetData()
         while (fin >> name >> radius >> distance >> year >> day >> imageFile >> planetColor.red >> planetColor.green >> planetColor.blue)
         {
             Planet planet;
+			Texture texture;
+
+            int rows;
+            int cols;
+			unsigned char* data;
+
+			imageFile = "texture/" + imageFile;
 
             planet.setName(name);
+
             planet.setRadius(radius);
             planet.setDistance(distance);
             planet.setYear(year);
             planet.setDay(day);
-            planet.setTextureImagePath(imageFile);
+
             planet.setPlanetColor(planetColor);
+            LoadBmpFile(imageFile.c_str(), rows, cols, data);
+
+			texture.path = imageFile;
+			texture.height = rows;
+			texture.width = cols;
+			texture.imageDataArray = data;
+
+			planet.setTexture(texture);
 
             planets.push_back(planet);
         }

@@ -12,16 +12,35 @@ Planet::Planet(string name, double radius, string imagePath)
     tempColor.blue = 0;
     _Radius = radius;
     _Name = name;
-    _TextureImagePath = imagePath;
+    _Texture.path = imagePath;
+	_Texture.imageDataArray = nullptr;
     _PlanetColor = tempColor;
     _HourOfDay = 0;
     _DayOfYear = 0;
-	_Texture = nullptr;
 }
 
 Planet::Planet()
 {
+    Color tempColor;
+    _PlanetColor.red = 1;
+    _PlanetColor.green = 1;
+    _PlanetColor.blue = 1;
+    _Radius = 1;
+    _Name = "";
+    _Texture.path = "";
+	_Texture.imageDataArray = nullptr;
+    _HourOfDay = 0;
+    _DayOfYear = 0;
+}
 
+Texture Planet::getTexture()
+{
+	return _Texture;
+}
+
+void Planet::setTexture(Texture texture)
+{
+	_Texture = texture;
 }
 
 void Planet::incrememtOrbitValues()
@@ -53,10 +72,7 @@ void Planet::setName(string name)
     _Name = name;
 }
 
-void Planet::setTextureImagePath(string filepath)
-{
-    _TextureImagePath = filepath;
-}
+
 
 void Planet::setPlanetColor(Color planetColor)
 {
@@ -85,10 +101,6 @@ string Planet::getName()
     return _Name;
 }
 
-string Planet::getTextureImagePath()
-{
-    return _TextureImagePath;
-}
 
 Color Planet::getPlanetColor()
 {
@@ -105,8 +117,4 @@ double Planet::getYear()
 double Planet::getDay()
 {
     return _Day;
-}
-unsigned char* Planet::getTexture()
-{
-	return _Texture;
 }

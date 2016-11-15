@@ -8,6 +8,7 @@
 #include "planet.h"
 #include <vector>
 #include "FileHandler.cpp"
+#include "imagemanip.h"
 #include <string>
 #include <iostream>
 #include <sstream>
