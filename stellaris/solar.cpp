@@ -199,6 +199,8 @@ void specialInput(int key, int x, int y)
 
 void DrawPlanets()
 {
+    GLUquadric* diskObject = gluNewQuadric();
+
     for (Planet &planet : AllPlanets)
     {
         if (planet.getName() == "Sun")
@@ -231,31 +233,42 @@ void DrawPlanets()
                 DrawPlanet(planet, false);
             }
         }
+
+        glRotatef(90.0, 1.0, 0.0, 0.0);
+
+        glEnable(GL_COLOR_MATERIAL);
+        float planetEmission[] = {0, 0, 0, 0};
+        glMaterialfv( GL_FRONT_AND_BACK, GL_EMISSION, planetEmission );
+        glColor3ub(255, 255, 255);
+        glDisable(GL_COLOR_MATERIAL);
+
+        gluCylinder(diskObject, planet.getDistance(), planet.getDistance() + 0.25, 0, 50, 50);
+
+        glRotatef(-90.0, 1.0, 0.0, 0.0);
     }
 }
 
 void DrawPlanet(Planet planet, bool drawRings)
 {
+    GLUquadric* diskObject = gluNewQuadric();
+
     Color planetColor = planet.getPlanetColor();
 
     glPushMatrix();
+
+    SetColor(planetColor.red, planetColor.green, planetColor.blue);
 
     glRotatef(360.0 * planet.getDayOfYear() / planet.getYear(), 0.0, 1.0, 0.0);
 
     glTranslatef(planet.getDistance(), 0.0, 0.0);
 
     glRotatef(360.0 * planet.getHourOfDay() / planet.getDay(), 0.0, 1.0, 0.0);
-    glEnable(GL_COLOR_MATERIAL);
-    float planetEmission[] = {0, 0, 0, 0};
-    glMaterialfv( GL_FRONT_AND_BACK, GL_EMISSION, planetEmission );
-    glColor3ub(planetColor.red, planetColor.green, planetColor.blue);
-    glDisable(GL_COLOR_MATERIAL);
 
     DrawSphere(planet);
 
     if (drawRings == true)
     {
-        GLUquadric* diskObject = gluNewQuadric();
+        diskObject = gluNewQuadric();
 
         glRotatef(90.0, 1.0, 0.0, 0.0);
 
@@ -283,9 +296,6 @@ void DrawSun(Planet planet)
     glLightfv( GL_LIGHT0, GL_DIFFUSE, light_diffuse );
     glLightfv( GL_LIGHT0, GL_SPECULAR, light_specular );
     glColor3ub(sunColor.red, sunColor.green, sunColor.blue);
-
-    // glDisable(GL_COLOR_MATERIAL);
-    // enable one light source
     glDisable(GL_COLOR_MATERIAL);
 
     DrawSphere(planet);
@@ -301,9 +311,8 @@ void DrawEarth(Planet planet)
     // Second, rotate the earth on its axis. Use HourOfDay to determine its yRotation.
     glRotatef( 360.0 * planet.getHourOfDay() / planet.getDay(), 0.0, 1.0, 0.0 );
     // Third, draw the earth as a wireframe sphere.
-    glEnable(GL_COLOR_MATERIAL);
-    glColor3ub( earthColor.red, earthColor.green, earthColor.blue );
-    glDisable(GL_COLOR_MATERIAL);
+
+    SetColor(earthColor.red, earthColor.green, earthColor.blue);
 
     DrawSphere(planet);
 
@@ -316,9 +325,8 @@ void DrawMoon(Planet planet)
 
     glRotatef( 360.0 * 12.0 * planet.getDayOfYear() / planet.getYear(), 0.0, 1.0, 0.0 );
     glTranslatef( planet.getDistance(), 0.0, 0.0 );
-    glEnable(GL_COLOR_MATERIAL);
-    glColor3ub( moonColor.red, moonColor.green, moonColor.blue );
-    glDisable(GL_COLOR_MATERIAL);
+
+    SetColor(moonColor.red, moonColor.green, moonColor.blue);
 
     DrawSphere(planet);
 }
@@ -335,7 +343,15 @@ void DrawSphere(Planet planet)
 	   gluSphere(ball, planet.getRadius(), 15, 15);
        //glutSolidSphere(planet.getRadius(), 15, 15);
     }
+}
 
+void SetColor(int red, int green, int blue)
+{
+    glEnable(GL_COLOR_MATERIAL);
+
+    glColor3ub(red, green, blue);
+
+    glDisable(GL_COLOR_MATERIAL);
 }
 
 vector<Planet> CollectPlanetData()
