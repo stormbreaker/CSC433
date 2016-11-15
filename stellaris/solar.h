@@ -37,4 +37,6 @@ void DrawSun(Planet planet);
 void DrawEarth(Planet planet);
 void DrawMoon(Planet planet);
 
+void DrawStrokeString(string textToPrint, float x, float y, int fontSize);
+
 #endif

@@ -363,6 +363,8 @@ void DrawPlanets()
                 DrawOrbitRing(planet);
             }
         }
+
+        DrawStrokeString(planet.getName(), planet.getDistance(), -15, 2);
     }
 }
 
@@ -563,4 +565,43 @@ vector<Planet> CollectPlanetData()
 
     fin.close();
     return planets;
+}
+
+void DrawStrokeString(string textToPrint, float x, float y, int fontSize)
+{
+    // Set font size scaling to change the size
+    double fontScaling = fontSize / 100.0;
+    glColor3ub(255, 255, 255); // Set text color to white
+
+    // Setup gl for drawing the text
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glTranslatef( x, y, 0 ); // Set x y position to start text
+    glScalef(fontScaling, fontScaling, fontScaling);
+
+    // Loop through characters to print them out
+    // Had to do this loop because we are using Glut and not FreeGlut
+    for (char character : textToPrint)
+    {
+        // Not new line character for glut so need to simulate it
+        if (character == '\n')
+        {
+            // Decrement y for the new line
+            y -= 25;
+
+            // Need to pop and push a new matrix for
+            glPopMatrix();
+            glPushMatrix();
+            glTranslatef( x, y, 0 ); // Set new position to write
+            glScalef(fontScaling, fontScaling, fontScaling); // Scale for font size
+        }
+        else
+        {
+            // Draw character to string
+            glutStrokeCharacter(GLUT_STROKE_ROMAN, character);
+        }
+    }
+
+    // Pop last matrix for drawing text
+    glPopMatrix();
 }
