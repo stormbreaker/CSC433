@@ -427,19 +427,21 @@ void DrawPlanet(Planet planet, bool drawRings)
 		if (isTextured == true)
 		{
 			glEnable(GL_TEXTURE_2D);
-    		glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
-    		glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+    		glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    		glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     		glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
     		glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
 		    glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-			gluQuadricNormals(diskObject, GLU_SMOOTH);
+			//gluQuadricOrientation(diskObject, GLU_INSIDE);
+			//gluQuadricNormals(diskObject, GLU_SMOOTH);
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, ringTexture.width, ringTexture.height, 0, GL_RGB, GL_UNSIGNED_BYTE, ringTexture.imageDataArray);
 			gluQuadricTexture(diskObject, GL_TRUE);
 		}
-	else
-	{
-		glDisable(GL_TEXTURE_2D);
-	}
+		else
+		{
+			glDisable(GL_TEXTURE_2D);
+		}
+		//gluDisk(diskObject, planet.getRadius() + 2, planet.getRadius() + 10, 20, 20);
 
         gluCylinder(diskObject, planet.getRadius() + 10, planet.getRadius() + 2, 0, 20, 20);
     }
@@ -617,8 +619,8 @@ vector<Planet> CollectPlanetData()
     }
     fin.close();
 
-	LoadBmpFile("texture/saturnrings.bmp", rows, cols, data);
-	ringTexture.path = "texture/saturnrings.bmp";
+	LoadBmpFile("texture/saturnringssideways.bmp", rows, cols, data);
+	ringTexture.path = "texture/saturnringssideways.bmp";
 	ringTexture.height = rows;
 	ringTexture.width = cols;
 	ringTexture.imageDataArray = data;
