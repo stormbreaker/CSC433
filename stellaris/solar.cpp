@@ -13,6 +13,7 @@ double yPan = 0;
 double zoom = -100;
 bool isTextured = false;
 bool isSingleStep = false;
+Texture ringTexture;
 
 int main(int argc, char **argv)
 {
@@ -423,6 +424,22 @@ void DrawPlanet(Planet planet, bool drawRings)
     if (drawRings == true)
     {
         diskObject = gluNewQuadric();
+		if (isTextured == true)
+		{
+			glEnable(GL_TEXTURE_2D);
+    		glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+    		glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+    		glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
+    		glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
+		    glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+			gluQuadricNormals(diskObject, GLU_SMOOTH);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, ringTexture.width, ringTexture.height, 0, GL_RGB, GL_UNSIGNED_BYTE, ringTexture.imageDataArray);
+			gluQuadricTexture(diskObject, GL_TRUE);
+		}
+	else
+	{
+		glDisable(GL_TEXTURE_2D);
+	}
 
         gluCylinder(diskObject, planet.getRadius() + 10, planet.getRadius() + 2, 0, 20, 20);
     }
@@ -554,6 +571,11 @@ vector<Planet> CollectPlanetData()
     string imageFile;
     Color planetColor;
 
+	int rows;
+    int cols;
+
+	unsigned char* data;
+
     vector<Planet> planets;
 
     ifstream fin("planetdata.info");
@@ -565,9 +587,6 @@ vector<Planet> CollectPlanetData()
             Planet planet;
 			Texture texture;
 
-            int rows;
-            int cols;
-			unsigned char* data;
 
 			imageFile = "texture/" + imageFile;
 
@@ -596,8 +615,14 @@ vector<Planet> CollectPlanetData()
         cout << "Unable to open planetary information.  Exiting." << endl;
         exit(1);
     }
-
     fin.close();
+
+	LoadBmpFile("texture/saturnrings.bmp", rows, cols, data);
+	ringTexture.path = "texture/saturnrings.bmp";
+	ringTexture.height = rows;
+	ringTexture.width = cols;
+	ringTexture.imageDataArray = data;
+
     return planets;
 }
 
