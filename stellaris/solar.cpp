@@ -7,6 +7,9 @@ bool isSmoothShading = false;
 bool isLighted = true;
 int yRotation = 0;
 int xRotation = 15;
+int oldX, oldY;
+int xPan = 0;
+int yPan = 0;
 int zoom = -100;
 bool isTextured = false;
 bool isSingleStep = false;
@@ -28,6 +31,7 @@ int main(int argc, char **argv)
     glutKeyboardFunc(keyboard);
     glutSpecialFunc(specialInput);
     glutMouseFunc(mouse);
+    glutMotionFunc(mouseMotion);
 
     // Callback for graphics image redrawing
     glutDisplayFunc(Animate);
@@ -148,7 +152,7 @@ void Animate()
     glLoadIdentity();
 
     // Back off eight units to be able to view from the origin.
-    glTranslatef(0.0, 0.0, zoom);
+    glTranslatef(xPan, yPan, zoom);
 
     // Rotate the plane of the elliptic
     // (rotate the model's plane about the x axis by fifteen degrees)
@@ -169,7 +173,6 @@ void Animate()
 
 void mouse(int button, int state, int x, int y)
 {
-    cout << state << endl;
     if (button == 3)
     {
         zoom += 10;
@@ -178,6 +181,37 @@ void mouse(int button, int state, int x, int y)
     {
         zoom -= 10;
     }
+}
+
+void mouseMotion(int x, int y)
+{
+    if (x < oldX)
+    {
+        xPan -= 5;
+    }
+    else if (x > oldX)
+    {
+        xPan += 5;
+    }
+    else
+    {
+        xPan = xPan;
+    }
+    oldX = x;
+
+    if (y < oldY)
+    {
+        yPan += 5;
+    }
+    else if (y > oldY)
+    {
+        yPan -= 5;
+    }
+    else
+    {
+        yPan = yPan;
+    }
+    oldY = y;
 }
 
 void keyboard(unsigned char key, int x, int y)
