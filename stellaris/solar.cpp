@@ -5,12 +5,12 @@ using namespace std;
 bool isWireFrame = true;
 bool isSmoothShading = false;
 bool isLighted = true;
-int yRotation = 0;
-int xRotation = 15;
-int oldX, oldY;
-int xPan = 0;
-int yPan = 0;
-int zoom = -100;
+double yRotation = 0;
+double xRotation = 15;
+double oldX, oldY;
+double xPan = 0;
+double yPan = 0;
+double zoom = -100;
 bool isTextured = false;
 bool isSingleStep = false;
 
@@ -187,11 +187,11 @@ void mouseMotion(int x, int y)
 {
     if (x < oldX)
     {
-        xPan -= 5;
+        xPan -= 1;
     }
     else if (x > oldX)
     {
-        xPan += 5;
+        xPan += 1;
     }
     else
     {
@@ -201,11 +201,11 @@ void mouseMotion(int x, int y)
 
     if (y < oldY)
     {
-        yPan += 5;
+        yPan += 1;
     }
     else if (y > oldY)
     {
-        yPan -= 5;
+        yPan -= 1;
     }
     else
     {
