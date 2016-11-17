@@ -152,7 +152,7 @@ void Animate()
     // Clear the current matrix (Modelview)
     glLoadIdentity();
 
-    // Back off eight units to be able to view from the origin.
+    // Back off -100 units to be able to view from the origin.
     glTranslatef(xPan, yPan, zoom);
 
     // Rotate the plane of the elliptic
@@ -174,7 +174,12 @@ void Animate()
 
 void mouse(int button, int state, int x, int y)
 {
-    if (button == 3)
+    if (button == GLUT_LEFT_BUTTON)
+    {
+        oldX = x;
+        oldY = y;
+    }
+    else if (button == 3)
     {
         zoom += 10;
     }
@@ -186,32 +191,13 @@ void mouse(int button, int state, int x, int y)
 
 void mouseMotion(int x, int y)
 {
-    if (x < oldX)
-    {
-        xPan -= 1;
-    }
-    else if (x > oldX)
-    {
-        xPan += 1;
-    }
-    else
-    {
-        xPan = xPan;
-    }
-    oldX = x;
+    double xDiff = (x - oldX) / 4;
+    double yDiff = (y - oldY) / 4;
 
-    if (y < oldY)
-    {
-        yPan += 1;
-    }
-    else if (y > oldY)
-    {
-        yPan -= 1;
-    }
-    else
-    {
-        yPan = yPan;
-    }
+    xPan += xDiff;
+    yPan -= yDiff;
+
+    oldX = x;
     oldY = y;
 }
 
@@ -360,6 +346,8 @@ void specialInput(int key, int x, int y)
 
 void DrawPlanets()
 {
+    int direction = -1;
+
     for (Planet &planet : AllPlanets)
     {
         if (planet.getName() == "Sun")
@@ -373,10 +361,16 @@ void DrawPlanets()
                 planet.incrememtOrbitValues();
             }
 
-            if (planet.getName() == "Earth")
+            if (planet.getName() != "Moon")
             {
                 DrawOrbitRing(planet);
+                DrawStrokeString(planet.getName(), planet.getDistance(), direction * 2, 2);
+                direction *= -1;
+                glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'i');
+            }
 
+            if (planet.getName() == "Earth")
+            {
                 glPushMatrix();
                 DrawEarth(planet);
             }
@@ -388,18 +382,12 @@ void DrawPlanets()
             else if (planet.getName() == "Saturn")
             {
                 DrawPlanet(planet, true);
-
-                DrawOrbitRing(planet);
             }
             else
             {
                 DrawPlanet(planet, false);
-
-                DrawOrbitRing(planet);
             }
         }
-
-        DrawStrokeString(planet.getName(), planet.getDistance(), -15, 2);
     }
 }
 
@@ -508,7 +496,6 @@ void DrawSphere(Planet planet)
 
     glRotatef(90, 1.0, 0.0, 0.0);
 
-
 	if (isTextured == true)
 	{
 		glEnable(GL_TEXTURE_2D);
@@ -535,15 +522,6 @@ void DrawSphere(Planet planet)
     }
 }
 
-void SetColor(int red, int green, int blue)
-{
-    glEnable(GL_COLOR_MATERIAL);
-
-    glColor3ub(red, green, blue);
-
-    glDisable(GL_COLOR_MATERIAL);
-}
-
 void DrawOrbitRing(Planet planet)
 {
     float planetEmission[] = {0, 0, 0, 0};
@@ -556,9 +534,18 @@ void DrawOrbitRing(Planet planet)
     glColor3ub(255, 255, 255);
     glDisable(GL_COLOR_MATERIAL);
 
-    gluCylinder(diskObject, planet.getDistance(), planet.getDistance() + 0.25, 0, 50, 50);
+    gluCylinder(diskObject, planet.getDistance(), planet.getDistance() + 0.25, 0, 100, 10);
 
     glRotatef(-90.0, 1.0, 0.0, 0.0);
+}
+
+void SetColor(int red, int green, int blue)
+{
+    glEnable(GL_COLOR_MATERIAL);
+
+    glColor3ub(red, green, blue);
+
+    glDisable(GL_COLOR_MATERIAL);
 }
 
 vector<Planet> CollectPlanetData()
@@ -632,7 +619,9 @@ void DrawStrokeString(string textToPrint, float x, float y, int fontSize)
 {
     // Set font size scaling to change the size
     double fontScaling = fontSize / 100.0;
-    glColor3ub(255, 255, 255); // Set text color to white
+    SetColor(255, 255, 255);
+
+    //glColor3ub(255, 255, 255); // Set text color to white
 
     // Setup gl for drawing the text
     glMatrixMode(GL_MODELVIEW);
