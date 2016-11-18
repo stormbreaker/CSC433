@@ -2,6 +2,7 @@
 #define TDBK_COMMON_H
 #include <string>
 
+// Struct to hold the color values
 struct Color
 {
     int red;
@@ -9,6 +10,7 @@ struct Color
     int blue;
 };
 
+// Struct to hold texture information and the texture itself
 struct Texture
 {
 	int height = 0;
