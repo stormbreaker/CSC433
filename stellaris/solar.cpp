@@ -1,8 +1,30 @@
+/*
+    CSC 433 - Computer Graphics
+    Dr. John Weiss
+    Programming Assignment #3 - Solar System
+    Benjamin Kaiser and Taylor Doell
+    Due 11-18-16
+
+    Description:
+    The purpose of this program is to simulate the solar system. Functionality
+    that was implemented was the ability to change animation speeds, zoom in and
+    out, single step animation, change between wireframe and sphere drawings,
+    switch between showing the texture for each planet or not, pan around the
+    solar system, rotate the view around around the y and x axis and finally
+    turn smooth lighting on and off. The planets drawn are the sun, moon, earth,
+    mars, venus, uranus, neptune, saturn, mercury and jupiter.
+*/
 #include "solar.h"
 
 using namespace std;
 
-
+/*
+    Name: main
+    Author: Benjamin Kaiser and Taylor Doell
+    Description:  This function is just the main function that the C++ language
+    requires to compile and run.  It calls glutMainLoop which is really our main
+    function/loop.
+*/
 int main(int argc, char **argv)
 {
     // Need to double buffer for animation
@@ -36,6 +58,14 @@ int main(int argc, char **argv)
     return 0;
 }
 
+/*
+    Name: makeMenu
+    Author: Benjamin Kaiser
+    Description:  This function creates the menu that is displayed when a user
+    right clicks on the screen. The menu displays the functionality of the
+    programs and how to accomplish a certain task. It also performs the operation
+    for the particulation menu item that is selected.
+*/
 void makeMenu()
 {
     glutCreateMenu(menuSelection);
@@ -55,6 +85,12 @@ void makeMenu()
     glutAttachMenu(GLUT_RIGHT_BUTTON);
 }
 
+/*
+    Name: menuSelection
+    Author: Benjamin Kaiser
+    Description:  This function handles the menu item seleted and calls the
+    appropriate function in order to accomplish the specific task.
+*/
 void menuSelection(int value)
 {
     switch (value)
@@ -103,7 +139,12 @@ void menuSelection(int value)
     }
 }
 
-// Initialize OpenGL's rendering modes
+/*
+    Name: OpenGLInit
+    Author: Benjamin Kaiser
+    Description:  This function initializes some of the OpenGL values such as color
+    and the clear color. Also sets the shade model to flat to start.
+*/
 void OpenGLInit()
 {
     glShadeModel( GL_FLAT );
@@ -114,6 +155,12 @@ void OpenGLInit()
     glEnable( GL_LIGHT0 );
 }
 
+/*
+    Name: ResizeWindow
+    Author: Code provided on the website
+    Description:  This function keeps the aspect ratio of the program if the user
+    happens to resize the window.
+*/
 void ResizeWindow(int w, int h)
 {
     float aspectRatio;
@@ -131,13 +178,21 @@ void ResizeWindow(int w, int h)
     glMatrixMode( GL_MODELVIEW );
 }
 
-// Animate() handles the animation and the redrawing of the graphics window contents.
+/*
+    Name: Animate
+    Author: Taylor Doell
+    Description:  This function handles the animation and the redrawing of the
+    graphics window contents. It performs a rotation to start the solar system
+    at a slight angle and also sets where our view is shown by using the 'zoom'
+    factor in the glTranslatef method call. That glTranslatef method call also
+    specifies the x and y pan values for where the user is currently positioned.
+*/
 void Animate()
 {
-    // Clear the rendering window
+    // Clear the window
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
-    // Clear the current matrix (Modelview)
+    // Load new matrix identity
     glLoadIdentity();
 
     // Back off -100 units to be able to view from the origin.
@@ -160,27 +215,31 @@ void Animate()
     }
 }
 
+/*
+    Name: CollectPlanetData
+    Author: Benjamin Kaiser
+    Description:  This function collects all the planet data from the planetdata.info
+    file. It reads in the info and then stores each planets information in an
+    instance of the planet class. All that information is read in at startup and
+    stored for the remainder of the program.
+*/
 vector<Planet> CollectPlanetData()
 {
-    string planetLine;
-
-    string name;
+    int rows;
+    int cols;
     double radius;
     double distance;
     double year;
     double day;
+    string name;
     string imageFile;
     Color planetColor;
-
-    int rows;
-    int cols;
-
     unsigned char* data;
-
     vector<Planet> planets;
 
     ifstream fin("planetdata.info");
 
+    // Only read in file if the file was opened correctly
     if (fin)
     {
         while (fin >> name >> radius >> distance >> year >> day >> imageFile >> planetColor.red >> planetColor.green >> planetColor.blue)
@@ -190,16 +249,18 @@ vector<Planet> CollectPlanetData()
 
             imageFile = "texture/" + imageFile;
 
+            // Set all properties to their appropriate value from the file
             planet.setName(name);
-
             planet.setRadius(radius);
             planet.setDistance(distance);
             planet.setYear(year);
             planet.setDay(day);
 
+            // Set the color of the planet
             planet.setPlanetColor(planetColor);
-            LoadBmpFile(imageFile.c_str(), rows, cols, data);
 
+            // Load the texture and store it in the instance of planet
+            LoadBmpFile(imageFile.c_str(), rows, cols, data);
             texture.path = imageFile;
             texture.height = rows;
             texture.width = cols;
@@ -207,17 +268,20 @@ vector<Planet> CollectPlanetData()
 
             planet.setTexture(texture);
 
+            // Add planet to vector of already read in planets
             planets.push_back(planet);
         }
     }
     else
     {
+        // Output error and exit if the file did not open properly
         cout << "Unable to open planetary information.  Exiting." << endl;
         exit(1);
     }
 
     fin.close();
 
+    // Load and store the texture for solars rings
     LoadBmpFile("texture/saturnringssideways.bmp", rows, cols, data);
     ringTexture.path = "texture/saturnringssideways.bmp";
     ringTexture.height = rows;
