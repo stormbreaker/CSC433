@@ -293,14 +293,6 @@ void keyboard(unsigned char key, int x, int y)
 		case 'T':
 		case 't':
 			isTextured = !isTextured;
-			if (isLighted == true)
-			{
-
-			}
-			else
-			{
-
-			}
 			break;
         // anything else redraws window
         default:
@@ -425,8 +417,6 @@ void DrawPlanet(Planet planet, bool drawRings)
     		glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
     		glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
 		    glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-			//gluQuadricOrientation(diskObject, GLU_INSIDE);
-			//gluQuadricNormals(diskObject, GLU_SMOOTH);
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, ringTexture.width, ringTexture.height, 0, GL_RGB, GL_UNSIGNED_BYTE, ringTexture.imageDataArray);
 			gluQuadricTexture(diskObject, GL_TRUE);
 		}
