@@ -14,7 +14,4 @@ void DrawOrbitRing(Planet planet);
 void SetColor(int red, int green, int blue);
 void DrawStrokeString(string textToPrint, float x, float y, int fontSize);
 
-
-
-
 #endif
