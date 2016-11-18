@@ -1,3 +1,6 @@
+#ifndef TDBK_SOLARPLANET_H
+#define TDBK_SOLARPLANET_H
+
 /*
     This file contains all the get and set method declarations for the variables
     for the class and also the private variable declarations along with a few other
@@ -65,3 +68,5 @@ class Planet
         double _HourOfDay;
         double _DayOfYear;
 };
+
+#endif

@@ -1,29 +1,16 @@
 #ifndef TDBK_SOLAR_H
 #define TDBK_SOLAR_H
 
-#include "glutdefine.h"
 #include "common.h"
-#include <iostream>
-#include <cstdlib>
-#include "planet.h"
-#include <vector>
-#include "FileHandler.cpp"
 #include "imagemanip.h"
-#include <string>
-#include <iostream>
-#include <sstream>
-
-static vector<Planet> AllPlanets;
+#include "events.h"
+#include "planet.h"
 
 vector<Planet> CollectPlanetData();
 
 void OpenGLInit();
 void ResizeWindow(int w, int h);
 void Animate();
-void keyboard(unsigned char key, int x, int y);
-void specialInput(int key, int x, int y);
-void mouse(int button, int state, int x, int y);
-void mouseMotion(int x, int y);
 
 void makeMenu();
 void menuSelection(int value);
@@ -39,5 +26,7 @@ void DrawEarth(Planet planet);
 void DrawMoon(Planet planet);
 
 void DrawStrokeString(string textToPrint, float x, float y, int fontSize);
+
+
 
 #endif
