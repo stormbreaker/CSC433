@@ -1,0 +1,10 @@
+Mercury .382 15.8 88 1416 mercury.bmp 180 180 180
+Venus .949 20.8 225 5832 venus.bmp 255 160 0
+Earth 1 25.0 365 24 earth.bmp 0 40 100
+Moon .272 1.0384 27.3 27.3 moon.bmp 128 128 128
+Mars .532 32.8 687 24.6 mars.bmp 190 85 20
+Jupiter 11.194 87.9 4332 9.8 jupiter.bmp 220 155 120
+Saturn 9.449 152.4 10761 10.2 saturn.bmp 220 185 120
+Uranus 4.005 296.7 30682 15.5 uranus.bmp 197 220 227
+Neptune 3.881 459.2 60195 15.8 neptune.bmp 65 120 240
+Sun 10 0 0 25 sun.bmp 255 255 0
