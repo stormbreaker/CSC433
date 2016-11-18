@@ -9,6 +9,12 @@
 #include <fstream>
 #include <sstream>
 
+/*
+    This file contains all of the global variables necessary for the running
+    of our program including flags and such.  It also contains two structures
+    that we use to nicely package some of our data stuff together. 
+*/
+
 // Struct to hold the color values
 struct Color
 {

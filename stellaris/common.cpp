@@ -11,6 +11,7 @@ double xPan = 0;
 double yPan = 0;
 double zoom = -100;
 
+//flags for states
 bool isWireFrame = true;
 bool isSmoothShading = false;
 bool isLighted = true;
