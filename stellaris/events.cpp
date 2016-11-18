@@ -148,6 +148,28 @@ void keyboard(unsigned char key, int x, int y)
                 glDisable(GL_LIGHT0);
             }
             break;
+        case 'R':
+        case 'r':
+            wireframeSlices += 5;
+            
+            if (wireframeSlices > 255)
+            {
+                wireframeSlices = 255;
+            }
+            
+            glutPostRedisplay();
+            break;
+        case 'D':
+        case 'd':
+            wireframeSlices -= 5;
+            
+            if (wireframeSlices < 5)
+            {
+                wireframeSlices = 5;
+            }
+            
+            glutPostRedisplay();
+            break;
         case 'T':
         case 't':
             isTextured = !isTextured;

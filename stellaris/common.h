@@ -43,6 +43,8 @@ extern double xPan;
 extern double yPan;
 extern double zoom;
 
+extern int wireframeSlices;
+
 extern bool isWireFrame;
 extern bool isSmoothShading;
 extern bool isLighted;

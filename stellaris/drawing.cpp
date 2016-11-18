@@ -242,11 +242,11 @@ void DrawSphere(Planet planet)
 	}
     if (isWireFrame == true)
     {
-        glutWireSphere(planet.getRadius(), 15, 15);
+        glutWireSphere(planet.getRadius(), wireframeSlices, wireframeSlices);
     }
     else
     {
-	   gluSphere(ball, planet.getRadius(), 15, 15);
+	   gluSphere(ball, planet.getRadius(), wireframeSlices, wireframeSlices);
     }
 }
 
