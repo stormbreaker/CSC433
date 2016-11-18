@@ -111,7 +111,7 @@ void OpenGLInit()
     glClearDepth( 1.0 );
     glEnable( GL_DEPTH_TEST );
     glEnable( GL_LIGHTING );
-	glEnable( GL_LIGHT0 );
+    glEnable( GL_LIGHT0 );
 }
 
 void ResizeWindow(int w, int h)
@@ -172,10 +172,10 @@ vector<Planet> CollectPlanetData()
     string imageFile;
     Color planetColor;
 
-	int rows;
+    int rows;
     int cols;
 
-	unsigned char* data;
+    unsigned char* data;
 
     vector<Planet> planets;
 
@@ -186,10 +186,9 @@ vector<Planet> CollectPlanetData()
         while (fin >> name >> radius >> distance >> year >> day >> imageFile >> planetColor.red >> planetColor.green >> planetColor.blue)
         {
             Planet planet;
-			Texture texture;
+            Texture texture;
 
-
-			imageFile = "texture/" + imageFile;
+            imageFile = "texture/" + imageFile;
 
             planet.setName(name);
 
@@ -201,12 +200,12 @@ vector<Planet> CollectPlanetData()
             planet.setPlanetColor(planetColor);
             LoadBmpFile(imageFile.c_str(), rows, cols, data);
 
-			texture.path = imageFile;
-			texture.height = rows;
-			texture.width = cols;
-			texture.imageDataArray = data;
+            texture.path = imageFile;
+            texture.height = rows;
+            texture.width = cols;
+            texture.imageDataArray = data;
 
-			planet.setTexture(texture);
+            planet.setTexture(texture);
 
             planets.push_back(planet);
         }
@@ -216,13 +215,14 @@ vector<Planet> CollectPlanetData()
         cout << "Unable to open planetary information.  Exiting." << endl;
         exit(1);
     }
+
     fin.close();
 
-	LoadBmpFile("texture/saturnringssideways.bmp", rows, cols, data);
-	ringTexture.path = "texture/saturnringssideways.bmp";
-	ringTexture.height = rows;
-	ringTexture.width = cols;
-	ringTexture.imageDataArray = data;
+    LoadBmpFile("texture/saturnringssideways.bmp", rows, cols, data);
+    ringTexture.path = "texture/saturnringssideways.bmp";
+    ringTexture.height = rows;
+    ringTexture.width = cols;
+    ringTexture.imageDataArray = data;
 
     return planets;
 }
