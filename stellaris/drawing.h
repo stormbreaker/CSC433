@@ -4,6 +4,13 @@
 #include "common.h"
 #include "planet.h"
 
+/*
+    This file simply contains all of the function prototypes for each of the functions
+    that are used to draw.  Each function is described in greater detail in the
+    drawing.cpp file.  But essentially these are the glut commands that operate
+    our program.  
+*/
+
 void DrawPlanets();
 void DrawPlanet(Planet planet, bool drawRings);
 void DrawSun(Planet planet);
