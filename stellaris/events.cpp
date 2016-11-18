@@ -13,6 +13,7 @@ void mouse(int button, int state, int x, int y)
 {
     if (button == GLUT_LEFT_BUTTON)
     {
+        // Record x and y values to help with panning
         oldX = x;
         oldY = y;
     }
@@ -37,9 +38,11 @@ void mouse(int button, int state, int x, int y)
 */
 void mouseMotion(int x, int y)
 {
+    // Compute x and y difference with a scale to slow down panning slightly
     double xDiff = (x - oldX) / 4;
     double yDiff = (y - oldY) / 4;
 
+    // Modify x and y pan values and record new x and y positions
     xPan += xDiff;
     yPan -= yDiff;
 
@@ -103,7 +106,7 @@ void keyboard(unsigned char key, int x, int y)
 
             glutPostRedisplay();
             break;
-        // Plus key zooms in
+        // Plus key increments the animation speed
         case '+':
             if (isSingleStep == false)
             {
@@ -111,6 +114,7 @@ void keyboard(unsigned char key, int x, int y)
             }
             else
             {
+                // Loop through all planets and update increment speeds
                 for (Planet &planet : AllPlanets)
                 {
                     planet.incrememtOrbitValues();
@@ -126,6 +130,7 @@ void keyboard(unsigned char key, int x, int y)
             }
             else
             {
+                // Loop through all planets and update decrement speeds
                 for (Planet &planet : AllPlanets)
                 {
                     planet.decrementOrbitValues();
@@ -134,20 +139,25 @@ void keyboard(unsigned char key, int x, int y)
 
             glutPostRedisplay();
             break;
+            // Enable or disable lighting
             case 'L':
             case 'l':
-            isLighted = !isLighted;
-            if (isLighted == true)
-            {
-                glEnable( GL_LIGHTING );
-                glEnable( GL_LIGHT0 );
-            }
-            else
-            {
-                glDisable(GL_LIGHTING);
-                glDisable(GL_LIGHT0);
-            }
+                isLighted = !isLighted;
+                
+                if (isLighted == true)
+                {
+                    glEnable( GL_LIGHTING );
+                    glEnable( GL_LIGHT0 );
+                }
+                else
+                {
+                    glDisable(GL_LIGHTING);
+                    glDisable(GL_LIGHT0);
+                }
+
+                glutPostRedisplay();
             break;
+        // Increment the wireframeSlice to change resolution
         case 'R':
         case 'r':
             wireframeSlices += 5;
@@ -159,6 +169,7 @@ void keyboard(unsigned char key, int x, int y)
             
             glutPostRedisplay();
             break;
+        // Decrement the wireframeSlice to change resolution
         case 'D':
         case 'd':
             wireframeSlices -= 5;
@@ -173,6 +184,8 @@ void keyboard(unsigned char key, int x, int y)
         case 'T':
         case 't':
             isTextured = !isTextured;
+            
+            glutPostRedisplay();
             break;
         // anything else redraws window
         default:
