@@ -1,24 +1,22 @@
 #include "planet.h"
 
+/*
+    This file contains all the method implementations that are declared in the
+    class header file. This provides a nice way for each planet to be separate
+    and store the information when loaded from the planetdata.info file. It holds
+    the color of the planet, the texture of the planet, ways to access those
+    properties and the ability to incrememt or decrement the orbit values to allow
+    single step increment.
+*/
 
 using namespace std;
 
-
-Planet::Planet(string name, double radius, string imagePath)
-{
-    Color tempColor;
-    tempColor.red = 0;
-    tempColor.green = 0;
-    tempColor.blue = 0;
-    _Radius = radius;
-    _Name = name;
-    _Texture.path = imagePath;
-	_Texture.imageDataArray = nullptr;
-    _PlanetColor = tempColor;
-    _HourOfDay = 0;
-    _DayOfYear = 0;
-}
-
+/*
+    Name: Planet Constructor
+    Author: Ben Kaiser
+    Description:  This is the constructor for the planet class. It's main purpose
+    is to initialize the class properties to their default values.
+*/
 Planet::Planet()
 {
     Color tempColor;
@@ -28,102 +26,202 @@ Planet::Planet()
     _Radius = 1;
     _Name = "";
     _Texture.path = "";
-	_Texture.imageDataArray = nullptr;
+    _Texture.imageDataArray = nullptr;
     _HourOfDay = 0;
     _DayOfYear = 0;
 }
 
-Texture Planet::getTexture()
-{
-	return _Texture;
-}
-
-void Planet::setTexture(Texture texture)
-{
-	_Texture = texture;
-}
-
+/*
+    Name: incrememtOrbitValues
+    Author: Ben Kaiser
+    Description:  Increments orbit values to allow the planet to orbit around
+    the sun.
+*/
 void Planet::incrememtOrbitValues()
 {
+    // Increment hour of day and day of year for orbit animation computed by
+    // the scale of earth days for day of year
     _HourOfDay += AnimateIncrement;
     _DayOfYear += AnimateIncrement / 24.0;
 
+    // Calculate new hour of day and day of year values for orbit animation
     _HourOfDay = _HourOfDay - ((int)(_HourOfDay / _Day)) * _Day;
     _DayOfYear = _DayOfYear - ((int)(_DayOfYear / _Year)) * _Year;
 }
 
+/*
+    Name: decrementOrbitValues
+    Author: Ben Kaiser
+    Description:  Decrements orbit values to allow for single step ability.
+*/
 void Planet::decrementOrbitValues()
 {
+    // Decrement hour of day and day of year for orbit animation computed by
+    // the scale of earth days for day of year
     _HourOfDay -= AnimateIncrement;
     _DayOfYear -= AnimateIncrement / 24.0;
 
+    // Calculate new hour of day and day of year values for orbit animation
     _HourOfDay = _HourOfDay - ((int)(_HourOfDay / _Day)) * _Day;
     _DayOfYear = _DayOfYear - ((int)(_DayOfYear / _Year)) * _Year;
 }
 
+/*
+    Name: getHourOfDay
+    Author: Ben Kaiser
+    Description:  Accessor method for the hour of day value
+*/
 double Planet::getHourOfDay()
 {
     return _HourOfDay;
 }
 
+/*
+    Name: getDayOfYear
+    Author: Ben Kaiser
+    Description:  Accessor method for the day of year value
+*/
 double Planet::getDayOfYear()
 {
     return _DayOfYear;
 }
 
-void Planet::setRadius(double radius)
+/*
+    Name: getTexture
+    Author: Ben Kaiser
+    Description:  Accessor method for the texture
+*/
+Texture Planet::getTexture()
 {
-    _Radius = radius;
+    return _Texture;
 }
 
-void Planet::setName(string name)
+/*
+    Name: setTexture
+    Author: Ben Kaiser
+    Description:  Setter method for the texture
+*/
+void Planet::setTexture(Texture texture)
 {
-    _Name = name;
+    _Texture = texture;
 }
 
-
-
-void Planet::setPlanetColor(Color planetColor)
-{
-    _PlanetColor = planetColor;
-}
-void Planet::setDistance(double distance)
-{
-    _Distance = distance;
-}
-void Planet::setYear(double year)
-{
-    _Year = year;
-}
-void Planet::setDay(double day)
-{
-    _Day = day;
-}
-
+/*
+    Name: getRadius
+    Author: Ben Kaiser
+    Description:  Accessor method for the radius of the planet
+*/
 double Planet::getRadius()
 {
     return _Radius;
 }
 
+/*
+    Name: setRadius
+    Author: Ben Kaiser
+    Description:  Setter method for the radius of the planet
+*/
+void Planet::setRadius(double radius)
+{
+    _Radius = radius;
+}
+
+/*
+    Name: getName
+    Author: Ben Kaiser
+    Description:  Accessor method for the name of the planet
+*/
 string Planet::getName()
 {
     return _Name;
 }
 
+/*
+    Name: setName
+    Author: Ben Kaiser
+    Description:  Setter method for the name of the planet
+*/
+void Planet::setName(string name)
+{
+    _Name = name;
+}
 
+/*
+    Name: getPlanetColor
+    Author: Ben Kaiser
+    Description:  Accessor method for the planet color
+*/
 Color Planet::getPlanetColor()
 {
     return _PlanetColor;
 }
+
+/*
+    Name: setPlanetColor
+    Author: Ben Kaiser
+    Description:  Setter method for the planet color
+*/
+void Planet::setPlanetColor(Color planetColor)
+{
+    _PlanetColor = planetColor;
+}
+
+/*
+    Name: getDistance
+    Author: Ben Kaiser
+    Description:  Accessor method for the distance from the sun
+*/
 double Planet::getDistance()
 {
     return _Distance;
 }
+
+/*
+    Name: setDistance
+    Author: Ben Kaiser
+    Description:  Setter method for the distance from the sun
+*/
+void Planet::setDistance(double distance)
+{
+    _Distance = distance;
+}
+
+/*
+    Name: getYear
+    Author: Ben Kaiser
+    Description:  Accessor method for the year value
+*/
 double Planet::getYear()
 {
     return _Year;
 }
+
+/*
+    Name: setYear
+    Author: Ben Kaiser
+    Description:  Setter method for the year value
+*/
+void Planet::setYear(double year)
+{
+    _Year = year;
+}
+
+/*
+    Name: getDay
+    Author: Ben Kaiser
+    Description:  Accessor method for the day value
+*/
 double Planet::getDay()
 {
     return _Day;
+}
+
+/*
+    Name: setDay
+    Author: Ben Kaiser
+    Description:  Setter method for the day value
+*/
+void Planet::setDay(double day)
+{
+    _Day = day;
 }
