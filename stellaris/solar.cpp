@@ -398,8 +398,13 @@ void DrawPlanet(Planet planet, bool drawRings)
     Color planetColor = planet.getPlanetColor();
 
     glPushMatrix();
-
+    glEnable(GL_COLOR_MATERIAL);
+    float planetEmission[] = {0, 0, 0, 0};
+    glMaterialfv( GL_FRONT_AND_BACK, GL_EMISSION, planetEmission );
     SetColor(planetColor.red, planetColor.green, planetColor.blue);
+    // glColor3ub(255, 255, 255);
+    glDisable(GL_COLOR_MATERIAL);
+
 
     glRotatef(360.0 * planet.getDayOfYear() / planet.getYear(), 0.0, 1.0, 0.0);
 
@@ -471,7 +476,11 @@ void DrawEarth(Planet planet)
     glRotatef( 360.0 * planet.getHourOfDay() / planet.getDay(), 0.0, 1.0, 0.0 );
     // Third, draw the earth as a wireframe sphere.
 
+    glEnable(GL_COLOR_MATERIAL);
+    float planetEmission[] = {0, 0, 0, 0};
+    glMaterialfv( GL_FRONT_AND_BACK, GL_EMISSION, planetEmission );
     SetColor(earthColor.red, earthColor.green, earthColor.blue);
+    glDisable(GL_COLOR_MATERIAL);
 
     DrawSphere(planet);
 
@@ -485,7 +494,11 @@ void DrawMoon(Planet planet)
     glRotatef( 360.0 * 12.0 * planet.getDayOfYear() / planet.getYear(), 0.0, 1.0, 0.0 );
     glTranslatef( planet.getDistance(), 0.0, 0.0 );
 
+    glEnable(GL_COLOR_MATERIAL);
+    float planetEmission[] = {0, 0, 0, 0};
+    glMaterialfv( GL_FRONT_AND_BACK, GL_EMISSION, planetEmission );
     SetColor(moonColor.red, moonColor.green, moonColor.blue);
+    glDisable(GL_COLOR_MATERIAL);
 
     DrawSphere(planet);
 }
@@ -524,13 +537,13 @@ void DrawSphere(Planet planet)
 
 void DrawOrbitRing(Planet planet)
 {
-    float planetEmission[] = {0, 0, 0, 0};
     GLUquadric* diskObject = gluNewQuadric();
 
     glRotatef(90.0, 1.0, 0.0, 0.0);
 
     glEnable(GL_COLOR_MATERIAL);
-    glMaterialfv( GL_FRONT_AND_BACK, GL_EMISSION, planetEmission );
+    float ringEmission[] = {1, 1, 1, 0};
+    glMaterialfv( GL_FRONT_AND_BACK, GL_EMISSION, ringEmission );
     glColor3ub(255, 255, 255);
     glDisable(GL_COLOR_MATERIAL);
 
@@ -622,6 +635,11 @@ void DrawStrokeString(string textToPrint, float x, float y, int fontSize)
     SetColor(255, 255, 255);
 
     //glColor3ub(255, 255, 255); // Set text color to white
+    glEnable(GL_COLOR_MATERIAL);
+    float ringEmission[] = {1, 1, 1, 0};
+    glMaterialfv( GL_FRONT_AND_BACK, GL_EMISSION, ringEmission );
+    glColor3ub(255, 255, 255);
+    glDisable(GL_COLOR_MATERIAL);
 
     // Setup gl for drawing the text
     glMatrixMode(GL_MODELVIEW);
