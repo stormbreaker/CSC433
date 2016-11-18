@@ -13,6 +13,7 @@
 */
 void DrawPlanets()
 {
+    // Specifies either to put the text above or below the planet to avoid overlap
     int direction = -1;
 
     for (Planet &planet : AllPlanets)
@@ -295,7 +296,7 @@ void SetColor(int red, int green, int blue)
     Description:  This function draws text for the planetary orbital labels.
     It is pretty well inline commented but there are some material properties
     that need to be set here as well so that the lighting model does not affect
-    them similar to the orbital ring patterns.  
+    them similar to the orbital ring patterns.
 */
 void DrawStrokeString(string textToPrint, float x, float y, int fontSize)
 {
