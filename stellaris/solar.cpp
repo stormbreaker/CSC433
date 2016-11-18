@@ -60,7 +60,7 @@ int main(int argc, char **argv)
 
 /*
     Name: makeMenu
-    Author: Benjamin Kaiser
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  This function creates the menu that is displayed when a user
     right clicks on the screen. The menu displays the functionality of the
     programs and how to accomplish a certain task. It also performs the operation
@@ -87,7 +87,7 @@ void makeMenu()
 
 /*
     Name: menuSelection
-    Author: Benjamin Kaiser
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  This function handles the menu item seleted and calls the
     appropriate function in order to accomplish the specific task.
 */
@@ -141,7 +141,7 @@ void menuSelection(int value)
 
 /*
     Name: OpenGLInit
-    Author: Benjamin Kaiser
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  This function initializes some of the OpenGL values such as color
     and the clear color. Also sets the shade model to flat to start.
 */
@@ -180,7 +180,7 @@ void ResizeWindow(int w, int h)
 
 /*
     Name: Animate
-    Author: Taylor Doell
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  This function handles the animation and the redrawing of the
     graphics window contents. It performs a rotation to start the solar system
     at a slight angle and also sets where our view is shown by using the 'zoom'
@@ -217,7 +217,7 @@ void Animate()
 
 /*
     Name: CollectPlanetData
-    Author: Benjamin Kaiser
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  This function collects all the planet data from the planetdata.info
     file. It reads in the info and then stores each planets information in an
     instance of the planet class. All that information is read in at startup and

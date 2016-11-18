@@ -13,7 +13,7 @@ using namespace std;
 
 /*
     Name: Planet Constructor
-    Author: Ben Kaiser
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  This is the constructor for the planet class. It's main purpose
     is to initialize the class properties to their default values.
 */
@@ -33,7 +33,7 @@ Planet::Planet()
 
 /*
     Name: incrememtOrbitValues
-    Author: Ben Kaiser
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  Increments orbit values to allow the planet to orbit around
     the sun.
 */
@@ -51,7 +51,7 @@ void Planet::incrememtOrbitValues()
 
 /*
     Name: decrementOrbitValues
-    Author: Ben Kaiser
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  Decrements orbit values to allow for single step ability.
 */
 void Planet::decrementOrbitValues()
@@ -68,7 +68,7 @@ void Planet::decrementOrbitValues()
 
 /*
     Name: getHourOfDay
-    Author: Ben Kaiser
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  Accessor method for the hour of day value
 */
 double Planet::getHourOfDay()
@@ -78,7 +78,7 @@ double Planet::getHourOfDay()
 
 /*
     Name: getDayOfYear
-    Author: Ben Kaiser
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  Accessor method for the day of year value
 */
 double Planet::getDayOfYear()
@@ -88,7 +88,7 @@ double Planet::getDayOfYear()
 
 /*
     Name: getTexture
-    Author: Ben Kaiser
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  Accessor method for the texture
 */
 Texture Planet::getTexture()
@@ -98,7 +98,7 @@ Texture Planet::getTexture()
 
 /*
     Name: setTexture
-    Author: Ben Kaiser
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  Setter method for the texture
 */
 void Planet::setTexture(Texture texture)
@@ -108,7 +108,7 @@ void Planet::setTexture(Texture texture)
 
 /*
     Name: getRadius
-    Author: Ben Kaiser
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  Accessor method for the radius of the planet
 */
 double Planet::getRadius()
@@ -118,7 +118,7 @@ double Planet::getRadius()
 
 /*
     Name: setRadius
-    Author: Ben Kaiser
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  Setter method for the radius of the planet
 */
 void Planet::setRadius(double radius)
@@ -128,7 +128,7 @@ void Planet::setRadius(double radius)
 
 /*
     Name: getName
-    Author: Ben Kaiser
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  Accessor method for the name of the planet
 */
 string Planet::getName()
@@ -138,7 +138,7 @@ string Planet::getName()
 
 /*
     Name: setName
-    Author: Ben Kaiser
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  Setter method for the name of the planet
 */
 void Planet::setName(string name)
@@ -148,7 +148,7 @@ void Planet::setName(string name)
 
 /*
     Name: getPlanetColor
-    Author: Ben Kaiser
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  Accessor method for the planet color
 */
 Color Planet::getPlanetColor()
@@ -158,7 +158,7 @@ Color Planet::getPlanetColor()
 
 /*
     Name: setPlanetColor
-    Author: Ben Kaiser
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  Setter method for the planet color
 */
 void Planet::setPlanetColor(Color planetColor)
@@ -168,7 +168,7 @@ void Planet::setPlanetColor(Color planetColor)
 
 /*
     Name: getDistance
-    Author: Ben Kaiser
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  Accessor method for the distance from the sun
 */
 double Planet::getDistance()
@@ -178,7 +178,7 @@ double Planet::getDistance()
 
 /*
     Name: setDistance
-    Author: Ben Kaiser
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  Setter method for the distance from the sun
 */
 void Planet::setDistance(double distance)
@@ -188,7 +188,7 @@ void Planet::setDistance(double distance)
 
 /*
     Name: getYear
-    Author: Ben Kaiser
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  Accessor method for the year value
 */
 double Planet::getYear()
@@ -198,7 +198,7 @@ double Planet::getYear()
 
 /*
     Name: setYear
-    Author: Ben Kaiser
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  Setter method for the year value
 */
 void Planet::setYear(double year)
@@ -208,7 +208,7 @@ void Planet::setYear(double year)
 
 /*
     Name: getDay
-    Author: Ben Kaiser
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  Accessor method for the day value
 */
 double Planet::getDay()
@@ -218,7 +218,7 @@ double Planet::getDay()
 
 /*
     Name: setDay
-    Author: Ben Kaiser
+    Author: Benjamin Kaiser and Taylor Doell
     Description:  Setter method for the day value
 */
 void Planet::setDay(double day)
