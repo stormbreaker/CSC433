@@ -76,12 +76,14 @@ void makeMenu()
     glutAddMenuEntry("A  - Toggle Animation Type", 4);
     glutAddMenuEntry("+  - Increase Animation Step", 5);
     glutAddMenuEntry("-   - Decrease Animation Step", 6);
-    glutAddMenuEntry("Rotate Right (Right Arrow)", 7);
-    glutAddMenuEntry("Rotate Left (Left Arrow)", 8);
-    glutAddMenuEntry("Rotate Up (Up Arrow)", 9);
-    glutAddMenuEntry("Rotate Down (Down Arrow)", 10);
-    glutAddMenuEntry("Zoom In (Mouse Wheel up)", 11);
-    glutAddMenuEntry("Zoom Out (Mouse Wheel down)", 12);
+	glutAddMenuEntry("R	 - Increase Wireframe Resolution", 7);
+	glutAddMenuEntry("D  - Decrease Wireframe Resolution", 8);
+    glutAddMenuEntry("Rotate Right (Right Arrow)", 9);
+    glutAddMenuEntry("Rotate Left (Left Arrow)", 10);
+    glutAddMenuEntry("Rotate Up (Up Arrow)", 11);
+    glutAddMenuEntry("Rotate Down (Down Arrow)", 12);
+    glutAddMenuEntry("Zoom In (Mouse Wheel up)", 13);
+    glutAddMenuEntry("Zoom Out (Mouse Wheel down)", 14);
     glutAttachMenu(GLUT_RIGHT_BUTTON);
 }
 
@@ -116,22 +118,28 @@ void menuSelection(int value)
         case 6:
             keyboard('-', 0, 0);
             break;
-        case 7:
+		case 7:
+			keyboard('R', 0, 0);
+			break;
+		case 8:
+			keyboard('D', 0, 0);
+			break;
+        case 9:
             specialInput(GLUT_KEY_RIGHT, 0, 0);
             break;
-        case 8:
+        case 10:
             specialInput(GLUT_KEY_LEFT, 0, 0);
             break;
-        case 9:
+        case 11:
             specialInput(GLUT_KEY_UP, 0, 0);
             break;
-        case 10:
+        case 12:
             specialInput(GLUT_KEY_DOWN, 0, 0);
             break;
-        case 11:
+        case 13:
             mouse(3, GLUT_DOWN, 0, 0);
             break;
-        case 12:
+        case 14:
             mouse(4, GLUT_UP, 0, 0);
             break;
         default:
