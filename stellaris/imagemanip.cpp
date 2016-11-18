@@ -90,7 +90,11 @@ static inline int GetNumBytesPerRow( int NumCols )
 }
 
 
-// read a 16-bit integer from the input file
+/*
+    Name: readShort
+    Author: Sam Buss December 2001.
+    Description: read a 16-bit integer from the input file
+*/
 short readShort( FILE* infile )
 {
     unsigned char lowByte, hiByte;
@@ -104,7 +108,10 @@ short readShort( FILE* infile )
     return ret;
 }
 
-// read a 32-bit integer from the input file
+/*  Name: readLong
+    Author: Sam Buss December 2001.
+    Description: Read a 32-bit integer from the input file
+*/
 int readLong( FILE* infile )
 {
     unsigned char byte0, byte1, byte2, byte3;
@@ -124,7 +131,10 @@ int readLong( FILE* infile )
     return ret;
 }
 
-// skip over given number of bytes in input file
+/*  Name: readLong
+    Author: Sam Buss December 2001.
+    Description: skip over given number of bytes in input file
+*/
 void skipChars( FILE* infile, int numChars )
 {
     for ( int i = 0; i < numChars; i++ )
