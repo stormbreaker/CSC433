@@ -1,3 +1,6 @@
+#ifndef TDBK_SOLARPLANET_H
+#define TDBK_SOLARPLANET_H
+
 #include "glutdefine.h"
 #include "common.h"
 #include <string>
@@ -48,3 +51,5 @@ class Planet
         double _HourOfDay;
         double _DayOfYear;
 };
+
+#endif
